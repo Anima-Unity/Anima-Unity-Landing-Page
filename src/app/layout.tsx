@@ -17,11 +17,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="bg-white text-gray-800">
-        <div className="overflow-x-hidden relative w-full">
+     <body className="bg-white text-gray-800">
+  <div className="overflow-x-hidden relative w-full">
     <Navbar />
     <AOSInitializer />
-    {children}
+    <main className="pt-8"> {/* Tambah spacing di atas konten */}
+      {children}
+    </main>
     <Footer />
   </div>
 </body>

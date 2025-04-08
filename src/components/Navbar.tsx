@@ -1,15 +1,21 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 
 const Navbar = () => {
+  const pathname = usePathname()
   const [activeSection, setActiveSection] = useState('home')
   const [isOpen, setIsOpen] = useState(false)
 
-  // Auto highlight active section based on scroll
+  // HIDDEN ROUTES
+  const hiddenRoutes = ['/privacy-policy', '/terms', '/some-other-static-page']
+  if (hiddenRoutes.includes(pathname)) return null
+
+  // Auto highlight section based on scroll
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['home', 'features', 'about', 'pricing', 'testimonials']
@@ -37,13 +43,13 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center space-x-2">
             <Image
-    src="/img/logo.png"
-    alt="Anima Unity Logo"
-    width={32}
-    height={32}
-  />
+              src="/img/logo.png"
+              alt="Anima Unity Logo"
+              width={32}
+              height={32}
+            />
             <span className="text-xl font-bold text-gray-800">Anima Unity</span>
-</div>
+          </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8 items-center">
