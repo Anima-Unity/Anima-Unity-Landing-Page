@@ -1,0 +1,100 @@
+'use client';
+
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
+  FaPaw,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaEnvelope,
+} from 'react-icons/fa';
+
+export default function Footer() {
+  return (
+    <footer className="bg-gray-900 text-white py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid md:grid-cols-4 gap-12">
+          {/* Brand & Social */}
+          <div>
+            <div className="flex items-center mb-6">
+              <FaPaw className="text-3xl text-orange-400 mr-2" />
+              <span className="text-xl font-bold">Anima Unity</span>
+            </div>
+            <p className="text-gray-400 mb-6">
+              Uniting pet care through technology for a better future.
+            </p>
+            <div className="flex space-x-4">
+              <a href="#" className="text-gray-400 hover:text-white">
+                <FaFacebookF />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white">
+                <FaTwitter />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white">
+                <FaInstagram />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white">
+                <FaLinkedinIn />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-lg font-bold mb-6">Quick Links</h3>
+            <ul className="space-y-3">
+              <li><a href="#home" className="text-gray-400 hover:text-white">Home</a></li>
+              <li><a href="#features" className="text-gray-400 hover:text-white">Features</a></li>
+              <li><a href="#about" className="text-gray-400 hover:text-white">About</a></li>
+              <li><a href="#pricing" className="text-gray-400 hover:text-white">Pricing</a></li>
+              <li><a href="#testimonials" className="text-gray-400 hover:text-white">Testimonials</a></li>
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h3 className="text-lg font-bold mb-6">Resources</h3>
+            <ul className="space-y-3">
+              <li><a href="#" className="text-gray-400 hover:text-white">Blog</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-white">Help Center</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-white">Pet Care Guides</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-white">Vet Directory</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-white">Shelter Network</a></li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="text-lg font-bold mb-6">Contact Us</h3>
+            <ul className="space-y-3 text-gray-400">
+              <li className="flex items-start">
+                <FaMapMarkerAlt className="text-orange-400 mt-1 mr-3" />
+                <span>123 Pet Avenue, San Francisco, CA 94107</span>
+              </li>
+              <li className="flex items-center">
+                <FaPhoneAlt className="text-orange-400 mr-3" />
+                <span>(415) 555-1234</span>
+              </li>
+              <li className="flex items-center">
+                <FaEnvelope className="text-orange-400 mr-3" />
+                <span>hello@animaunity.com</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Footer Bottom */}
+        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-400 mb-4 md:mb-0">© 2023 Anima Unity. All rights reserved.</p>
+          <div className="flex space-x-6">
+            <a href="#" className="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
+            <a href="#" className="text-gray-400 hover:text-white text-sm">Terms of Service</a>
+            <a href="#" className="text-gray-400 hover:text-white text-sm">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
