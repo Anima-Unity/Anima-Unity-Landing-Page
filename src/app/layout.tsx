@@ -3,7 +3,6 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import AOSInitializer from '@/lib/AOSInitializer';
-import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Anima Unity | Unified Pet Care Platform',
