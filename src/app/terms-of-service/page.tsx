@@ -4,7 +4,7 @@ export default function TermsOfServicePage() {
       <h1 className="text-3xl font-bold mb-6">Terms of Service</h1>
       
       <p className="mb-4">
-        Welcome to Anima Unity. These Terms of Service ("Terms") govern your access to and use of our website, products, and services.
+        Welcome to Anima Unity. These Terms of Service govern your access to and use of our website, products, and services.
         By using our platform, you agree to be bound by these Terms. Please read them carefully.
       </p>
 
