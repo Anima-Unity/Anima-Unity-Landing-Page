@@ -10,6 +10,7 @@ import {
   FaPhoneAlt,
   FaEnvelope,
 } from 'react-icons/fa';
+import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -87,13 +88,20 @@ export default function Footer() {
 
         {/* Footer Bottom */}
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 mb-4 md:mb-0">© 2023 Anima Unity. All rights reserved.</p>
-          <div className="flex space-x-6">
-            <a href="#" className="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm">Terms of Service</a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm">Cookie Policy</a>
-          </div>
-        </div>
+  <p className="text-gray-400 mb-4 md:mb-0">© 2023 Anima Unity. All rights reserved.</p>
+  <div className="flex space-x-6">
+    <Link href="/privacy-policy" className="text-gray-400 hover:text-white text-sm">
+      Privacy Policy
+    </Link>
+    <Link href="/terms-of-service" className="text-gray-400 hover:text-white text-sm">
+      Terms of Service
+    </Link>
+    <Link href="/cookie-policy" className="text-gray-400 hover:text-white text-sm">
+      Cookie Policy
+    </Link>
+  </div>
+</div>
+
       </div>
     </footer>
   );

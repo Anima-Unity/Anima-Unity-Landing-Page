@@ -21,7 +21,7 @@ export default function RootLayout({
   <div className="overflow-x-hidden relative w-full">
     <Navbar />
     <AOSInitializer />
-    <main className="pt-8"> {/* Tambah spacing di atas konten */}
+    <main className="pt-4"> {/* Tambah spacing di atas konten */}
       {children}
     </main>
     <Footer />
