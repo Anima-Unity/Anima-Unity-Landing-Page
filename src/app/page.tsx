@@ -6,6 +6,7 @@ import Pricing from '@/sections/Pricing'
 import Testimonials from '@/sections/Testimonials'
 import HowItWorks from '@/sections/HowItWorks'
 import CTASection from '@/sections/CTASection'
+import PartnersSection from '@/sections/PartnersSection'
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Pricing />
       <Testimonials />
       <HowItWorks />
+      <PartnersSection />
       <CTASection />
     </>
   )

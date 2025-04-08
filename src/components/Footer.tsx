@@ -13,6 +13,15 @@ import {
 import Link from 'next/link';
 
 export default function Footer() {
+  
+  const quickLinks = [
+  { href: "/#home", label: "Home" },
+  { href: "/#features", label: "Features" },
+  { href: "/#about", label: "About" },
+  { href: "/#pricing", label: "Pricing" },
+  { href: "/#testimonials", label: "Testimonials" },
+];
+
   return (
     <footer className="bg-gray-900 text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,16 +52,19 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
+
           <div>
-            <h3 className="text-lg font-bold mb-6">Quick Links</h3>
-            <ul className="space-y-3">
-              <li><a href="#home" className="text-gray-400 hover:text-white">Home</a></li>
-              <li><a href="#features" className="text-gray-400 hover:text-white">Features</a></li>
-              <li><a href="#about" className="text-gray-400 hover:text-white">About</a></li>
-              <li><a href="#pricing" className="text-gray-400 hover:text-white">Pricing</a></li>
-              <li><a href="#testimonials" className="text-gray-400 hover:text-white">Testimonials</a></li>
-            </ul>
-          </div>
+  <h3 className="text-lg font-bold mb-6">Quick Links</h3>
+  <ul className="space-y-3">
+    {quickLinks.map((link) => (
+      <li key={link.href}>
+        <Link href={link.href} className="text-gray-400 hover:text-white">
+          {link.label}
+        </Link>
+      </li>
+    ))}
+  </ul>
+</div>
 
           {/* Resources */}
           <div>

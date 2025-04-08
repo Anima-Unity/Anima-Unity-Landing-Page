@@ -13,7 +13,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState('home')
   const [isOpen, setIsOpen] = useState(false)
 
-  const isMinimal = ['/privacy-policy', '/terms'].includes(pathname)
+  const isMinimal = ['/privacy-policy', '/terms-of-service'].includes(pathname)
 
   useEffect(() => {
     if (isMinimal) return // Skip scroll tracking di halaman minimal
