@@ -21,6 +21,13 @@ export default function Footer() {
   { href: "/#pricing", label: "Pricing" },
   { href: "/#testimonials", label: "Testimonials" },
 ];
+  const resources = [
+  { href: '/blog', label: 'Blog' },
+  { href: '#', label: 'Help Center' },
+  { href: '#', label: 'Pet Care Guides' },
+  { href: '#', label: 'Vet Directory' },
+  { href: '#', label: 'Shelter Network' },
+]
 
   return (
     <footer className="bg-gray-900 text-white py-16">
@@ -68,15 +75,20 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <h3 className="text-lg font-bold mb-6">Resources</h3>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-white">Blog</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">Help Center</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">Pet Care Guides</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">Vet Directory</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">Shelter Network</a></li>
-            </ul>
-          </div>
+      <h3 className="text-lg font-bold mb-6">Resources</h3>
+      <ul className="space-y-3">
+        {resources.map((item) => (
+          <li key={item.label}>
+            <Link
+              href={item.href}
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              {item.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
 
           {/* Contact */}
           <div>
