@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     url: 'https://animaunity.netlify.app/', // Sesuaikan dengan URL kamu
     images: [
       {
-        url: '/img/og-image.png', // Sesuaikan gambar Open Graph
+        url: 'https://animaunity.netlify.app/img/og-image.png', // Sesuaikan gambar Open Graph
         width: 1200,
         height: 630,
         alt: 'Anima Unity Open Graph Image'
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image', // Jenis Twitter Card
     title: 'Anima Unity | Unified Pet Care Platform',
     description: 'Anima Unity connects shelters, vets, and pet lovers through a seamless digital experience.',
-    images: ['/img/og-image.png'], // Sesuaikan gambar Twitter Card
+    images: ['https://animaunity.netlify.app/img/og-image.png'], // Sesuaikan gambar Twitter Card
     creator: '@feelemptyz', // Ganti dengan handle Twitter kamu
   },
   icons: {
