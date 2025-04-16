@@ -20,13 +20,13 @@ export const metadata: Metadata = {
         alt: 'Anima Unity Open Graph Image'
       },
     ],
-    site_name: 'Anima Unity',
+    siteName: 'Anima Unity',
   },
   twitter: {
     card: 'summary_large_image', // Jenis Twitter Card
     title: 'Anima Unity | Unified Pet Care Platform',
     description: 'Anima Unity connects shelters, vets, and pet lovers through a seamless digital experience.',
-    image: '/img/og-image.png', // Sesuaikan gambar Twitter Card
+    images: ['/img/og-image.png'], // Sesuaikan gambar Twitter Card
     creator: '@feelemptyz', // Ganti dengan handle Twitter kamu
   },
 };
