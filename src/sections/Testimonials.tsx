@@ -30,7 +30,7 @@ export default function Testimonials() {
               </div>
             </div>
             <p className="text-gray-600 mb-4">
-              "Anima Unity has transformed how I manage my practice. The telemedicine features allow me to consult with pet owners remotely, and the centralized health records save me so much time."
+              &quot;Anima Unity has transformed how I manage my practice. The telemedicine features allow me to consult with pet owners remotely, and the centralized health records save me so much time.&quot;
             </p>
             <div className="flex text-yellow-400">
               <i className="fas fa-star" />
@@ -55,7 +55,7 @@ export default function Testimonials() {
               </div>
             </div>
             <p className="text-gray-600 mb-4">
-              "Since joining Anima Unity, our adoption rates have increased by 40%. The platform makes it so easy for potential adopters to find and connect with our animals."
+              &quot;Since joining Anima Unity, our adoption rates have increased by 40%. The platform makes it so easy for potential adopters to find and connect with our animals.&quot;
             </p>
             <div className="flex text-yellow-400">
               <i className="fas fa-star" />
@@ -80,7 +80,7 @@ export default function Testimonials() {
               </div>
             </div>
             <p className="text-gray-600 mb-4">
-              "The AniTrack GPS gave me peace of mind when my cat got out. I located him within minutes! The vet appointment reminders are also a lifesaver for busy pet parents."
+              &quot;The AniTrack GPS gave me peace of mind when my cat got out. I located him within minutes! The vet appointment reminders are also a lifesaver for busy pet parents.&quot;
             </p>
             <div className="flex text-yellow-400">
               <i className="fas fa-star" />
