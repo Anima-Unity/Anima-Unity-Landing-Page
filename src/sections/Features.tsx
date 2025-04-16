@@ -45,7 +45,7 @@ export default function Features() {
             </div>
             <h3 className="text-xl font-bold mb-3 text-gray-800">AniTrack GPS</h3>
             <p className="text-gray-600 text-sm">
-              IoT-powered GPS tracking for your pet's safety with real-time location updates.
+              IoT-powered GPS tracking for your pet&apos;s safety with real-time location updates.
             </p>
           </div>
 
