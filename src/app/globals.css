@@ -90,3 +90,14 @@ body {
 .pricing-card.popular {
   border: 2px solid #FF6B95;
 }
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

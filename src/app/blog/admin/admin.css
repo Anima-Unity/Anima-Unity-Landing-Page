@@ -1,0 +1,81 @@
+/* src/app/blog/admin/admin.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional admin-specific overrides */
+body {
+	padding: 2rem;
+	font-family: -apple-system, BlinkMacSystemFont, "Arial", sans-serif;
+	font-family: 'Poppins', sans-serif;
+  background-color: #f8fafc;
+}
+
+h1 {
+	font-size: 16px;
+	margin-top: 0;
+}
+
+p {
+	color: rgb(107, 114, 128);
+	font-size: 15px;
+	margin-bottom: 10px;
+	margin-top: 5px;
+}
+
+.card {
+	max-width: 620px;
+	margin: 0 auto;
+	padding: 16px;
+	border: 1px solid lightgray;
+	border-radius: 16px;
+}
+
+.card p:last-child {
+	margin-bottom: 0;
+}
+        
+.sidebar-item.active {
+            background-color: #fef2f2;
+            border-left: 4px solid #f97316;
+            color: #f97316;
+        }
+        
+.sidebar-item:hover:not(.active) {
+            background-color: #f1f5f9;
+        }
+        
+.card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        
+.chart-container {
+            position: relative;
+            height: 300px;
+        }
+        
+@media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 10;
+                display: none;
+            }
+            
+            .overlay.open {
+                display: block;
+            }
+        }
