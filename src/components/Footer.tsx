@@ -43,12 +43,12 @@ export default function Footer() {
               Uniting pet care through technology for a better future.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white">
+              <Link href="https://www.facebook.com/share/18gonJgN8b/" prefetch={true} className="text-gray-400 hover:text-white">
                 <FaFacebookF />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white">
+              </Link>
+              <Link href="https://x.com/animaunity?t=XhOboKYyqxiAUNHKupDPrg&s=09" prefetch={true} className="text-gray-400 hover:text-white">
                 <FaTwitter />
-              </a>
+              </Link>
               <a href="#" className="text-gray-400 hover:text-white">
                 <FaInstagram />
               </a>
