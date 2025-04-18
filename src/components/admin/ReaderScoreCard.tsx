@@ -9,7 +9,6 @@ export function ReaderScoreCard({ score }: ReaderScoreCardProps): React.ReactEle
   const displayScore = score > 100 ? Math.min(100, Math.round(score / 10)) : score;
   
   // Calculate angle for the arc (0 to 2π)
-  const angle = (displayScore / 100) * 360;
   
   return (
     <div className="bg-white p-4 md:p-5 rounded-xl shadow-sm lg:col-span-1">

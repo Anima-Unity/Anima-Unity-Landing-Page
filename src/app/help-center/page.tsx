@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
 
 interface Question {
@@ -38,21 +37,21 @@ export default function HelpCenter(): React.ReactElement {
       ]
     },
     {
-      title: "Pet Healthcare",
+      title: " Healthcare",
       icon: "🏥",
       questions: [
         { id: 4, question: "How do I schedule a vet appointment?", link: "/help/schedule-appointment" },
         { id: 5, question: "How do vaccination reminders work?", link: "/help/vaccination-reminders" },
-        { id: 6, question: "Can I upload my pet's medical records?", link: "/help/upload-records" },
+        { id: 6, question: "Can I upload my pet&apos;s medical records?", link: "/help/upload-records" },
       ]
     },
     {
-      title: "Pet Tracking",
+      title: " Tracking",
       icon: "📍",
       questions: [
         { id: 7, question: "How does AniTrack GPS work?", link: "/help/anitrack-info" },
-        { id: 8, question: "Is my pet's location data secure?", link: "/help/location-security" },
-        { id: 9, question: "Can I set safe zones for my pet?", link: "/help/safe-zones" },
+        { id: 8, question: "Is my pet&apos;s location data secure?", link: "/help/location-security" },
+        { id: 9, question: "Can I set safe zones for my ?", link: "/help/safe-zones" },
       ]
     },
     {
@@ -82,7 +81,7 @@ export default function HelpCenter(): React.ReactElement {
     },
     {
       title: "Community Forum",
-      description: "Connect with other pet owners to share tips and advice.",
+      description: "Connect with other  owners to share tips and advice.",
       icon: "💬",
       link: "/forum",
       buttonText: "Join Discussion"
@@ -194,14 +193,14 @@ export default function HelpCenter(): React.ReactElement {
           </div>
         </section>
 
-        {/* Pet Care Tips Section */}
+        {/*  Care Tips Section */}
         <section className="py-12 bg-white">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-between">
               <div className="md:w-1/2 mb-8 md:mb-0">
-                <h2 className="text-3xl font-bold mb-6 text-gray-800">Pet Care Resources</h2>
+                <h2 className="text-3xl font-bold mb-6 text-gray-800"> Care Resources</h2>
                 <p className="text-gray-600 mb-6">
-                  Explore our library of pet care resources and expert advice to keep your furry friends happy and healthy.
+                  Explore our library of  care resources and expert advice to keep your furry friends happy and healthy.
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-start">
@@ -212,7 +211,7 @@ export default function HelpCenter(): React.ReactElement {
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg text-gray-800">Educational Articles</h3>
-                      <p className="text-gray-600">In-depth guides on pet nutrition, training, and healthcare.</p>
+                      <p className="text-gray-600">In-depth guides on  nutrition, training, and healthcare.</p>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -223,7 +222,7 @@ export default function HelpCenter(): React.ReactElement {
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg text-gray-800">Video Library</h3>
-                      <p className="text-gray-600">Watch tutorials on pet care, training techniques, and more.</p>
+                      <p className="text-gray-600">Watch tutorials on  care, training techniques, and more.</p>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -234,7 +233,7 @@ export default function HelpCenter(): React.ReactElement {
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg text-gray-800">Downloadable Resources</h3>
-                      <p className="text-gray-600">Checklists, guides, and templates for pet parents.</p>
+                      <p className="text-gray-600">Checklists, guides, and templates for  parents.</p>
                     </div>
                   </div>
                 </div>
@@ -256,7 +255,7 @@ export default function HelpCenter(): React.ReactElement {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                         </svg>
                       </div>
-                      <h4 className="font-semibold">Pet Nutrition Guide</h4>
+                      <h4 className="font-semibold"> Nutrition Guide</h4>
                     </div>
                     <div className="h-2 bg-slate-100 rounded-full mb-2"></div>
                     <div className="h-2 bg-slate-100 rounded-full mb-2 w-3/4"></div>
@@ -296,15 +295,15 @@ export default function HelpCenter(): React.ReactElement {
               <div className="bg-white rounded-xl p-6 shadow-sm">
                 <h3 className="text-lg font-semibold mb-3 text-gray-800">How do I get started with Anima Unity?</h3>
                 <p className="text-gray-600">
-                  Getting started is easy! Simply sign up for an account, complete your profile and add your pet's information. 
-                  Once set up, you'll have access to all our features including healthcare tracking, shelter connections, and more.
+                  Getting started is easy! Simply sign up for an account, complete your profile and add your pet&apos;s information. 
+                  Once set up, you&apos;ll have access to all our features including healthcare tracking, shelter connections, and more.
                 </p>
               </div>
               
               <div className="bg-white rounded-xl p-6 shadow-sm">
                 <h3 className="text-lg font-semibold mb-3 text-gray-800">Is my personal information secure?</h3>
                 <p className="text-gray-600">
-                  Yes, we take data security seriously. All your personal and pet information is encrypted and stored securely. 
+                  Yes, we take data security seriously. All your personal and  information is encrypted and stored securely. 
                   We never share your information with third parties without your explicit consent.
                 </p>
               </div>
@@ -312,8 +311,8 @@ export default function HelpCenter(): React.ReactElement {
               <div className="bg-white rounded-xl p-6 shadow-sm">
                 <h3 className="text-lg font-semibold mb-3 text-gray-800">How does the AniTrack GPS feature work?</h3>
                 <p className="text-gray-600">
-                  AniTrack GPS uses IoT technology to provide real-time location tracking for your pets. The small, 
-                  lightweight device attaches to your pet's collar and connects to our app, allowing you to monitor their 
+                  AniTrack GPS uses IoT technology to provide real-time location tracking for your pet&apos;s. The small, 
+                  lightweight device attaches to your pet&apos;s collar and connects to our app, allowing you to monitor their 
                   location and set up safe zones.
                 </p>
               </div>
