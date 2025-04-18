@@ -15,7 +15,7 @@ export default function Navbar() {
   const [prevScrollPos, setPrevScrollPos] = useState(0)
   const [isVisible, setIsVisible] = useState(true)
 
-  const isMinimal = ['/privacy-policy', '/terms-of-service', '/cookie-policy', '/blog', '/blog/admin'].includes(pathname)
+  const isMinimal = ['/privacy-policy', '/terms-of-service', '/cookie-policy', '/blog', '/blog/admin', '/help-center'].includes(pathname)
 
   useEffect(() => {
     if (isMinimal) return
