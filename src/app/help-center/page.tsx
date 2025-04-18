@@ -69,7 +69,7 @@ export default function HelpCenter(): React.ReactElement {
       title: "Contact Support",
       description: "Our team is available 24/7 to help with any questions or issues.",
       icon: "📞",
-      link: "/contact",
+      link: "/help-center/contact-support",
       buttonText: "Get Help"
     },
     {
@@ -83,7 +83,7 @@ export default function HelpCenter(): React.ReactElement {
       title: "Community Forum",
       description: "Connect with other  owners to share tips and advice.",
       icon: "💬",
-      link: "/forum",
+      link: "https://t.me/animaunityhub",
       buttonText: "Join Discussion"
     }
   ];
