@@ -23,7 +23,7 @@ export default function Footer() {
 ];
   const resources = [
   { href: '/blog', label: 'Blog' },
-  { href: '#', label: 'Help Center' },
+  { href: '/help-center', label: 'Help Center' },
   { href: '#', label: 'Pet Care Guides' },
   { href: '#', label: 'Vet Directory' },
   { href: '#', label: 'Shelter Network' },
