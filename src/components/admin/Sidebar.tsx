@@ -1,41 +1,79 @@
-// components/Sidebar.tsx
-"use client";
-import { usePathname } from "next/navigation";
-import { FaChartPie, FaUsers, FaPaw, FaFlag, FaCog, FaCheckCircle } from "react-icons/fa";
+import React from 'react';
+import { Home, FileText, Users, MessageSquare, BarChart, Settings } from 'lucide-react';
+import { SidebarItem } from './SidebarItem';
 
-const navItems = [
-  { label: "Dashboard", href: "/dashboard", icon: <FaChartPie /> },
-  { label: "Users", href: "/users", icon: <FaUsers /> },
-  { label: "Pet Listings", href: "/pets", icon: <FaPaw /> },
-  { label: "Reports", href: "/reports", icon: <FaFlag /> },
-  { label: "Verifications", href: "/verifications", icon: <FaCheckCircle /> },
-  { label: "Settings", href: "/settings", icon: <FaCog /> },
-];
+interface SidebarProps {
+  activeMenu: string;
+  setActiveMenu: (menu: string) => void;
+  setSidebarOpen: (open: boolean) => void;
+}
 
-export default function Sidebar() {
-  const path = usePathname();
-
+export function Sidebar({ activeMenu, setActiveMenu, setSidebarOpen }: SidebarProps): React.ReactElement {
   return (
-    <aside className="w-64 bg-white shadow-md hidden md:block">
-      <div className="p-4 border-b">
-        <h2 className="text-xl font-semibold text-orange-500">Anima Unity</h2>
+    <div className="p-4 flex flex-col h-full">
+      <div className="flex items-center gap-2 mb-8">
+        <div className="w-8 h-8 rounded-md bg-indigo-600 flex items-center justify-center">
+          <span className="text-white font-bold">AU</span>
+        </div>
+        <h1 className="font-semibold text-gray-800">Blog Dashboard</h1>
       </div>
-      <nav className="p-4 space-y-2">
-        {navItems.map(({ label, href, icon }) => (
-          <a
-            key={label}
-            href={href}
-            className={`flex items-center gap-3 px-4 py-2 rounded-lg ${
-              path === href
-                ? "bg-secondary text-primary border-l-4 border-primary"
-                : "hover:bg-gray-100 text-gray-700"
-            }`}
-          >
-            {icon}
-            <span>{label}</span>
-          </a>
-        ))}
+      
+      <nav className="flex-1">
+        <SidebarItem 
+          icon={<Home size={18} />}
+          title="Dashboard"
+          active={activeMenu === 'Dashboard'}
+          onClick={() => {
+            setActiveMenu('Dashboard');
+            setSidebarOpen(false);
+          }}
+        />
+        <SidebarItem 
+          icon={<FileText size={18} />}
+          title="Posts"
+          active={activeMenu === 'Posts'}
+          onClick={() => {
+            setActiveMenu('Posts');
+            setSidebarOpen(false);
+          }}
+        />
+        <SidebarItem 
+          icon={<Users size={18} />}
+          title="Readers"
+          active={activeMenu === 'Readers'}
+          onClick={() => {
+            setActiveMenu('Readers');
+            setSidebarOpen(false);
+          }}
+        />
+        <SidebarItem 
+          icon={<MessageSquare size={18} />}
+          title="Comments"
+          active={activeMenu === 'Comments'}
+          onClick={() => {
+            setActiveMenu('Comments');
+            setSidebarOpen(false);
+          }}
+        />
+        <SidebarItem 
+          icon={<BarChart size={18} />}
+          title="Analytics"
+          active={activeMenu === 'Analytics'}
+          onClick={() => {
+            setActiveMenu('Analytics');
+            setSidebarOpen(false);
+          }}
+        />
+        <SidebarItem 
+          icon={<Settings size={18} />}
+          title="Settings"
+          active={activeMenu === 'Settings'}
+          onClick={() => {
+            setActiveMenu('Settings');
+            setSidebarOpen(false);
+          }}
+        />
       </nav>
-    </aside>
+    </div>
   );
 }
