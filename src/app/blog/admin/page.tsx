@@ -78,6 +78,7 @@ export default function BlogDashboard(): React.ReactElement {
 
           {/* Leads Summary */}
           <LeadsSection leadsSummary={leadsSummary} />
+        
         </main>
       </div>
     </div>
