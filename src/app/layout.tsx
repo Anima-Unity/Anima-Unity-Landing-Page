@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import AOSInitializer from '@/lib/AOSInitializer';
 
+
 export const metadata: Metadata = {
   title: 'Anima Unity | Unified Pet Care Platform',
   description: 'Anima Unity connects shelters, vets, and pet lovers through a seamless digital experience.',
