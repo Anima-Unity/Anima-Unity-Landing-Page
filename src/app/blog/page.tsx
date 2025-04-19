@@ -9,7 +9,7 @@ const samplePosts = [
     excerpt: 'Kucing lo sering tiba-tiba hilang? Ternyata ada alasan ilmiahnya. Simak selengkapnya...',
     date: '2025-04-10',
     tags: ['Behavior', 'Kucing'],
-    cover: 'https://source.unsplash.com/featured/?cat,missing',
+    cover: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=1143&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   {
     slug: 'cara-rawat-kucing-sakit',
@@ -17,7 +17,7 @@ const samplePosts = [
     excerpt: 'Merawat kucing yang lagi sakit tuh tricky banget. Nih beberapa hal penting yang harus lo tahu...',
     date: '2025-04-05',
     tags: ['Kesehatan', 'Tips'],
-    cover: 'https://source.unsplash.com/featured/?sick-cat',
+    cover: 'https://plus.unsplash.com/premium_photo-1661429226672-f558de31fe82?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   {
     slug: 'cara-adopsi-anak-kucing',
@@ -25,7 +25,7 @@ const samplePosts = [
     excerpt: 'Jangan asal comot! Ini dia cara adopsi anak kucing yang benar dan bertanggung jawab.',
     date: '2025-04-01',
     tags: ['Adopsi', 'Guide'],
-    cover: 'https://source.unsplash.com/featured/?kitten,adoption',
+    cover: 'https://plus.unsplash.com/premium_photo-1707353402061-c31b6ba8562e?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
 ]
 
@@ -60,14 +60,16 @@ export default function BlogPage() {
         {samplePosts.map((post) => (
           <Link href={`/blog/${post.slug}`} key={post.slug} className="group">
             <div className="rounded-xl overflow-hidden shadow hover:shadow-lg transition">
-              <Image
-                src={post.cover}
-                alt={post.title}
-                width={400}
-                height={240}
-                className="w-full h-48 object-cover"
-                unoptimized
-              />
+              <div className="w-full h-48 relative">
+                <Image
+                  src={post.cover}
+                  alt={post.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover"
+                  unoptimized
+                />
+              </div>
               <div className="p-4 bg-white dark:bg-zinc-900">
                 <h2 className="text-lg font-semibold group-hover:text-orange-500 transition">
                   {post.title}
