@@ -4,10 +4,17 @@ import React, { useState } from 'react';
 import { StatsData, LeadsSummary } from '@/types/dashboard';
 import { Sidebar } from '@/components/admin/Sidebar';
 import { Header } from '@/components/admin/Header';
-import { StatsSection } from '@/components/admin/StatsSection';
-import { ReaderScoreCard } from '@/components/admin/ReaderScoreCard';
-import { TrafficOverviewCard } from '@/components/admin/TrafficOverviewCard';
-import { LeadsSection } from '@/components/admin/LeadsSection';
+import { StatsSection } from '@/components/admin/main/dashboard/StatsSection';
+import { ReaderScoreCard } from '@/components/admin/main/dashboard/ReaderScoreCard';
+import { TrafficOverviewCard } from '@/components/admin/main/dashboard/TrafficOverviewCard';
+import { LeadsSection } from '@/components/admin/main/dashboard/LeadsSection';
+
+// Import komponen untuk halaman lain
+import { PostsContent } from '@/components/admin/main/post/PostContent';
+import { ReadersContent } from '@/components/admin/main/readers/ReadersContent';
+import { CommentsContent } from '@/components/admin/main/comment/CommentContent';
+import { AnalyticsContent } from '@/components/admin/main/analytics/AnalyticsContent';
+import { SettingsContent } from '@/components/admin/main/settings/SettingsContent';
 
 export default function BlogDashboard(): React.ReactElement {
   const [activeMenu, setActiveMenu] = useState<string>('Dashboard');
@@ -22,7 +29,7 @@ export default function BlogDashboard(): React.ReactElement {
     engagementScore: 100,
     comments: 230,
     shares: 157,
-    avgTime: '3m 45s'
+    avgTime: '4:32'
   };
 
   // Mock data for leads summary
@@ -33,6 +40,55 @@ export default function BlogDashboard(): React.ReactElement {
   };
 
   const toggleSidebar = () => setSidebarOpen(prev => !prev);
+
+  // Render konten berdasarkan menu yang aktif
+  const renderContent = () => {
+    switch(activeMenu) {
+      case 'Dashboard':
+        return (
+          <>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold text-gray-800">
+                Analytics Overview
+              </h2>
+              <div className="text-sm text-gray-500 flex items-center">
+                Last 30 Days <span className="ml-1">↓</span>
+              </div>
+            </div>
+
+            {/* Stats Cards */}
+            <StatsSection stats={stats} />
+
+            {/* Reader Score + Traffic Overview */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <ReaderScoreCard score={stats.engagementScore} />
+              <div className="lg:col-span-2">
+                <TrafficOverviewCard
+                  comments={stats.comments}
+                  shares={stats.shares}
+                  avgTime={stats.avgTime}
+                />
+              </div>
+            </div>
+
+            {/* Leads Summary */}
+            <LeadsSection leadsSummary={leadsSummary} />
+          </>
+        );
+      case 'Posts':
+        return <PostsContent />;
+      case 'Readers':
+        return <ReadersContent />;
+      case 'Comments':
+        return <CommentsContent />;
+      case 'Analytics':
+        return <AnalyticsContent />;
+      case 'Settings':
+        return <SettingsContent />;
+      default:
+        return <div>Halaman tidak ditemukan</div>;
+    }
+  };
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -52,33 +108,7 @@ export default function BlogDashboard(): React.ReactElement {
 
         {/* Content */}
         <main className="p-4 sm:p-6 md:p-8 max-w-screen-2xl mx-auto w-full space-y-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-gray-800">
-              Analytics Overview
-            </h2>
-            <div className="text-sm text-gray-500 flex items-center">
-              Last 30 Days <span className="ml-1">↓</span>
-            </div>
-          </div>
-
-          {/* Stats Cards */}
-          <StatsSection stats={stats} />
-
-          {/* Reader Score + Traffic Overview */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <ReaderScoreCard score={stats.engagementScore} />
-            <div className="lg:col-span-2">
-              <TrafficOverviewCard
-                comments={stats.comments}
-                shares={stats.shares}
-                avgTime={stats.avgTime}
-              />
-            </div>
-          </div>
-
-          {/* Leads Summary */}
-          <LeadsSection leadsSummary={leadsSummary} />
-        
+          {renderContent()}
         </main>
       </div>
     </div>
