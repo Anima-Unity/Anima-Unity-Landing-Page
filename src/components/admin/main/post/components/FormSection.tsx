@@ -1,54 +1,95 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent, ChangeEvent } from 'react';
 
-export function FormSection() {
-  const [showCreateForm, setShowCreateForm] = useState(false);
-  const [title, setTitle] = useState('');
-  const [slug, setSlug] = useState('');
-  const [content, setContent] = useState('');
-  const [publishedAt, setPublishedAt] = useState('09/25/2023, 01:48:11 PM');
+export function FormSection(): JSX.Element {
+  const [showCreateForm, setShowCreateForm] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>('');
+  const [slug, setSlug] = useState<string>('');
+  const [content, setContent] = useState<string>('');
+  const [publishedAt, setPublishedAt] = useState<string>(new Date().toISOString().split('T')[0]); // Format: YYYY-MM-DD
+  const [category, setCategory] = useState<string>('');
+  const [tags, setTags] = useState<string[]>([]);
+  const [author, setAuthor] = useState<string>('');
   
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  // Categories based on the image (Behavior/Kucing)
+  const categories: string[] = ['Behavior', 'Kucing', 'Kesehatan', 'Perawatan', 'Makanan'];
+  
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log({ title, slug, content, publishedAt });
+    console.log({ 
+      title, 
+      slug, 
+      content, 
+      publishedAt,
+      category,
+      tags,
+      author
+    });
     // Reset form and close
     resetForm();
   };
   
-  const resetForm = () => {
+  const resetForm = (): void => {
     setTitle('');
     setSlug('');
     setContent('');
-    setPublishedAt('09/25/2023, 01:48:11 PM');
+    setPublishedAt(new Date().toISOString().split('T')[0]);
+    setCategory('');
+    setTags([]);
+    setAuthor('');
     setShowCreateForm(false);
+  };
+
+  // Auto-generate slug from title
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const newTitle = e.target.value;
+    setTitle(newTitle);
+    
+    // Convert title to slug format
+    const newSlug = newTitle
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '') // Remove special chars
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .trim();
+    
+    setSlug(newSlug);
+  };
+
+  const handleTagChange = (tag: string): void => {
+    if (tags.includes(tag)) {
+      setTags(tags.filter(t => t !== tag));
+    } else {
+      setTags([...tags, tag]);
+    }
   };
 
   return (
     <>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold text-gray-800">Kelola Posts</h2>
+        <h2 className="text-xl font-semibold text-gray-800">Kelola Artikel Blog</h2>
         <button 
-          className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition"
+          className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition"
           onClick={() => setShowCreateForm(true)}
         >
-          Tambah Post Baru
+          Tambah Artikel Baru
         </button>
       </div>
 
       {showCreateForm && (
         <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <h2 className="text-xl font-semibold mb-4">Create Post</h2>
+          <h2 className="text-xl font-semibold mb-4">Buat Artikel Baru</h2>
           
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="md:col-span-2">
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Title<span className="text-red-500">*</span></label>
+                  <label className="block text-sm font-medium mb-1">Judul<span className="text-red-500">*</span></label>
                   <input 
                     type="text" 
                     className="w-full border border-gray-300 rounded p-2"
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={handleTitleChange}
+                    placeholder="Kenapa Kucing Suka Ngilang? Ini 5 Alasannya"
                     required
                   />
                 </div>
@@ -59,20 +100,21 @@ export function FormSection() {
                     type="text" 
                     className="w-full border border-gray-300 rounded p-2"
                     value={slug}
-                    onChange={(e) => setSlug(e.target.value)}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setSlug(e.target.value)}
+                    placeholder="kenapa-kucing-suka-ngilang-ini-5-alasannya"
                     required
                   />
                 </div>
                 
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Content<span className="text-red-500">*</span></label>
+                  <label className="block text-sm font-medium mb-1">Konten<span className="text-red-500">*</span></label>
                   <div className="border border-gray-300 rounded">
                     <div className="flex flex-wrap border-b p-2">
                       <button type="button" className="p-1 mr-1 hover:bg-gray-100 rounded">
                         <span className="font-bold">B</span>
                       </button>
                       <button type="button" className="p-1 mr-1 hover:bg-gray-100 rounded">
-                        <span className="italic">/</span>
+                        <span className="italic">I</span>
                       </button>
                       <button type="button" className="p-1 mr-1 hover:bg-gray-100 rounded">
                         <span className="underline">U</span>
@@ -124,17 +166,12 @@ export function FormSection() {
                           <path fillRule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z"/>
                         </svg>
                       </button>
-                      <button type="button" className="p-1 mr-1 hover:bg-gray-100 rounded">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                          <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                        </svg>
-                      </button>
                     </div>
                     <textarea 
                       className="w-full p-2 h-32 outline-none"
-                      placeholder="Write your content here..."
+                      placeholder="Kucing lo suka tiba-tiba ngilang, terus balik lagi beberapa hari kemudian? Jangan khawatir, ini perilaku normal mereka! Mari kita bahas mengapa kucing suka hilang dari rumah..."
                       value={content}
-                      onChange={(e) => setContent(e.target.value)}
+                      onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
                       required
                     ></textarea>
                   </div>
@@ -143,54 +180,90 @@ export function FormSection() {
               
               <div>
                 <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                  <h3 className="font-medium mb-2">Featured Image</h3>
+                  <h3 className="font-medium mb-2">Gambar Utama</h3>
                   <div className="border border-gray-300 border-dashed rounded-lg p-4 flex items-center justify-center text-center h-24">
                     <div>
-                      <p className="text-sm text-gray-500 mb-1">Drag & Drop your files or</p>
-                      <button type="button" className="text-blue-600 hover:underline text-sm">Browse</button>
+                      <p className="text-sm text-gray-500 mb-1">Drag & Drop gambar atau</p>
+                      <button type="button" className="text-red-500 hover:underline text-sm">Pilih File</button>
                     </div>
                   </div>
                 </div>
                 
                 <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                  <h3 className="font-medium mb-2">Author</h3>
-                  <select className="w-full border border-gray-300 rounded p-2">
-                    <option>Select an option</option>
-                    <option value="1">Author 1</option>
-                    <option value="2">Author 2</option>
+                  <h3 className="font-medium mb-2">Kategori</h3>
+                  <select 
+                    className="w-full border border-gray-300 rounded p-2"
+                    value={category}
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setCategory(e.target.value)}
+                    required
+                  >
+                    <option value="">Pilih kategori</option>
+                    {categories.map((cat, index) => (
+                      <option key={index} value={cat}>{cat}</option>
+                    ))}
+                  </select>
+                </div>
+                
+                <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                  <h3 className="font-medium mb-2">Tags</h3>
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {['Kucing', 'Behavior', 'Perilaku', 'Hilang', 'Tips'].map((tag, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        className={`px-2 py-1 rounded-full text-xs ${
+                          tags.includes(tag) 
+                            ? 'bg-red-500 text-white' 
+                            : 'bg-gray-200 text-gray-700'
+                        }`}
+                        onClick={() => handleTagChange(tag)}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                  <h3 className="font-medium mb-2">Penulis</h3>
+                  <select 
+                    className="w-full border border-gray-300 rounded p-2"
+                    value={author}
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setAuthor(e.target.value)}
+                    required
+                  >
+                    <option value="">Pilih penulis</option>
+                    <option value="Dian Sastro">Dian Sastro</option>
+                    <option value="Admin">Admin</option>
                   </select>
                 </div>
                 
                 <div className="bg-gray-50 rounded-lg p-4">
-                  <h3 className="font-medium mb-2">Published at</h3>
+                  <h3 className="font-medium mb-2">Tanggal Publikasi</h3>
                   <div className="flex">
                     <input 
-                      type="text" 
-                      className="w-full border border-gray-300 rounded-l p-2"
+                      type="date" 
+                      className="w-full border border-gray-300 rounded p-2"
                       value={publishedAt}
-                      readOnly
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => setPublishedAt(e.target.value)}
+                      required
                     />
-                    <button type="button" className="bg-gray-100 border border-gray-300 border-l-0 rounded-r p-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5z"/>
-                      </svg>
-                    </button>
                   </div>
                 </div>
                 
                 <div className="mt-6 flex space-x-2">
                   <button 
                     type="submit" 
-                    className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition w-full"
+                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition w-full"
                   >
-                    Submit
+                    Publikasikan
                   </button>
                   <button 
                     type="button"
                     className="border border-gray-300 px-4 py-2 rounded hover:bg-gray-50 transition"
                     onClick={() => resetForm()}
                   >
-                    Cancel
+                    Batal
                   </button>
                 </div>
               </div>
