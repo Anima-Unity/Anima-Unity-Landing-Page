@@ -59,6 +59,7 @@ export default function ShelterNetwork(): JSX.Element {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const mapContainerRef = useRef<HTMLDivElement>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const [mapHeight, setMapHeight] = useState<number>(600);
 
   // Control loading state for FontAwesome icons
@@ -101,6 +102,20 @@ export default function ShelterNetwork(): JSX.Element {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Handle clicks outside the sidebar to close it on mobile
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMobile && sidebarOpen && sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        setSidebarOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMobile, sidebarOpen]);
 
   // Mock shelter data - in a real app, this would come from an API
   const shelters: Shelter[] = [
@@ -151,10 +166,10 @@ export default function ShelterNetwork(): JSX.Element {
   ];
 
   // Filter shelters based on search query
-  const filteredShelters = shelters.filter(shelter => 
+/*  const filteredShelters = shelters.filter(shelter => 
     shelter.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
     shelter.address.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  );*/
 
   const handleMapMarkerClick = (shelter: Shelter): void => {
     setSelectedShelter(shelter);
@@ -176,121 +191,147 @@ export default function ShelterNetwork(): JSX.Element {
   return (
     <div className="min-h-screen w-full bg-gray-50">
       <Head>
-        <title>Shelter Network</title>
+        <title>Anima Unity</title>
         <meta name="description" content="Find animal shelters near you" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       
       <main className="w-full h-screen overflow-hidden">
-        <div className={`flex relative w-full h-screen transition-all duration-300 ease-in-out ${!sidebarOpen ? 'sidebar-closed' : ''}`}>
-
+        <div className="flex relative w-full h-screen">
           {/* Left Sidebar Navigation */}  
-          <div className={`${sidebarOpen ? 'w-64' : 'w-0'} h-screen bg-white shadow-md p-6 overflow-y-auto transition-all duration-300 ease-in-out z-30 md:block ${!sidebarOpen ? 'transform -translate-x-full md:translate-x-0 md:w-0' : ''}`}>  
-            <div className="flex items-center mb-8">  
-              <FontAwesomeIcon icon={faPaw} className="text-3xl text-blue-500 mr-3" fixedWidth />  
-              <span className="text-xl font-semibold text-gray-800">  
-                Shelter Network
-              </span>  
-            </div>  
+          <div 
+            ref={sidebarRef}
+            className={`fixed md:static h-full bg-white shadow-md overflow-y-auto z-30 transition-all duration-300 ease-in-out ${
+              sidebarOpen ? 'w-64 left-0' : 'w-0 -left-64 md:w-0 md:left-0'
+            }`}
+          >  
+            <div className="p-6">
+              {/* Close button for mobile */}
+              {isMobile && (
+                <button 
+                  className="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors"
+                  onClick={() => setSidebarOpen(false)}
+                >
+                  <FontAwesomeIcon icon={faTimes} className="text-lg" fixedWidth />
+                </button>
+              )}
               
-            <nav className="flex flex-col space-y-6">  
-              <div>  
-                <h3 className="text-xs uppercase tracking-wide text-gray-500 mb-3 px-2">Main</h3>  
-                <ul className="space-y-1">  
-                  <li 
-                    className={`flex items-center px-2 py-3 rounded-lg cursor-pointer transition-colors ${activeTab === 'map' ? 'bg-blue-100 text-blue-500' : 'hover:bg-blue-50'}`} 
-                    onClick={() => {
-                      setActiveTab('map');
-                      if (isMobile) setSidebarOpen(false);
-                    }}
-                  >  
-                    <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-3 w-6" fixedWidth />  
-                    <span>Map</span>  
-                  </li>  
-                  <li 
-                    className={`flex items-center px-2 py-3 rounded-lg cursor-pointer transition-colors ${activeTab === 'list' ? 'bg-blue-100 text-blue-500' : 'hover:bg-blue-50'}`} 
-                    onClick={() => {
-                      setActiveTab('list');
-                      if (isMobile) setSidebarOpen(false);
-                    }}
-                  >  
-                    <FontAwesomeIcon icon={faList} className="mr-3 w-6" fixedWidth />  
-                    <span>List</span>  
-                  </li>  
-                  <li 
-                    className={`flex items-center px-2 py-3 rounded-lg cursor-pointer transition-colors ${activeTab === 'saved' ? 'bg-blue-100 text-blue-500' : 'hover:bg-blue-50'}`} 
-                    onClick={() => {
-                      setActiveTab('saved');
-                      if (isMobile) setSidebarOpen(false);
-                    }}
-                  >  
-                    <FontAwesomeIcon icon={faHeart} className="mr-3 w-6" fixedWidth />  
-                    <span>Saved</span>  
-                  </li>  
-                  <li 
-                    className={`flex items-center px-2 py-3 rounded-lg cursor-pointer transition-colors ${activeTab === 'stats' ? 'bg-blue-100 text-blue-500' : 'hover:bg-blue-50'}`} 
-                    onClick={() => {
-                      setActiveTab('stats');
-                      if (isMobile) setSidebarOpen(false);
-                    }}
-                  >  
-                    <FontAwesomeIcon icon={faChartBar} className="mr-3 w-6" fixedWidth />  
-                    <span>Stats</span>  
-                  </li>  
-                </ul>  
+              <div className="flex items-center mb-8">  
+                <FontAwesomeIcon icon={faPaw} className="text-3xl text-blue-500 mr-3" fixedWidth />  
+                <span className="text-xl font-semibold text-gray-800">  
+                  Anima Unity
+                </span>  
               </div>  
                 
-              <div>  
-                <h3 className="text-xs uppercase tracking-wide text-gray-500 mb-3 px-2">Explore</h3>  
-                <ul className="space-y-1">  
-                  <li className="flex items-center px-2 py-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">  
-                    <FontAwesomeIcon icon={faDog} className="mr-3 w-6" fixedWidth />  
-                    <span>Dogs</span>  
-                  </li>  
-                  <li className="flex items-center px-2 py-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">  
-                    <FontAwesomeIcon icon={faCat} className="mr-3 w-6" fixedWidth />  
-                    <span>Cats</span>  
-                  </li>  
-                  <li className="flex items-center px-2 py-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">  
-                    <FontAwesomeIcon icon={faKiwiBird} className="mr-3 w-6" fixedWidth />  
-                    <span>Small Animals</span>  
-                  </li>  
-                  <li className="flex items-center px-2 py-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">  
-                    <FontAwesomeIcon icon={faFish} className="mr-3 w-6" fixedWidth />  
-                    <span>Exotic Pets</span>  
-                  </li>  
-                </ul>  
-              </div>  
-                
-              <div>  
-                <h3 className="text-xs uppercase tracking-wide text-gray-500 mb-3 px-2">Settings</h3>  
-                <ul className="space-y-1">  
-                  <li className="flex items-center px-2 py-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">  
-                    <FontAwesomeIcon icon={faCog} className="mr-3 w-6" fixedWidth />  
-                    <span>Settings</span>  
-                  </li>  
-                  <li className="flex items-center px-2 py-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">  
-                    <FontAwesomeIcon icon={faQuestionCircle} className="mr-3 w-6" fixedWidth />  
-                    <span>Help</span>  
-                  </li>  
-                </ul>  
-              </div>  
-            </nav>  
+              <nav className="flex flex-col space-y-6">  
+                <div>  
+                  <h3 className="text-xs uppercase tracking-wide text-gray-500 mb-3 px-2">Main</h3>  
+                  <ul className="space-y-1">  
+                    <li 
+                      className={`flex items-center px-2 py-3 rounded-lg cursor-pointer transition-colors ${activeTab === 'map' ? 'bg-blue-100 text-blue-500' : 'hover:bg-blue-50'}`} 
+                      onClick={() => {
+                        setActiveTab('map');
+                        if (isMobile) setSidebarOpen(false);
+                      }}
+                    >  
+                      <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-3 w-6" fixedWidth />  
+                      <span>Map</span>  
+                    </li>  
+                    <li 
+                      className={`flex items-center px-2 py-3 rounded-lg cursor-pointer transition-colors ${activeTab === 'list' ? 'bg-blue-100 text-blue-500' : 'hover:bg-blue-50'}`} 
+                      onClick={() => {
+                        setActiveTab('list');
+                        if (isMobile) setSidebarOpen(false);
+                      }}
+                    >  
+                      <FontAwesomeIcon icon={faList} className="mr-3 w-6" fixedWidth />  
+                      <span>List</span>  
+                    </li>  
+                    <li 
+                      className={`flex items-center px-2 py-3 rounded-lg cursor-pointer transition-colors ${activeTab === 'saved' ? 'bg-blue-100 text-blue-500' : 'hover:bg-blue-50'}`} 
+                      onClick={() => {
+                        setActiveTab('saved');
+                        if (isMobile) setSidebarOpen(false);
+                      }}
+                    >  
+                      <FontAwesomeIcon icon={faHeart} className="mr-3 w-6" fixedWidth />  
+                      <span>Saved</span>  
+                    </li>  
+                    <li 
+                      className={`flex items-center px-2 py-3 rounded-lg cursor-pointer transition-colors ${activeTab === 'stats' ? 'bg-blue-100 text-blue-500' : 'hover:bg-blue-50'}`} 
+                      onClick={() => {
+                        setActiveTab('stats');
+                        if (isMobile) setSidebarOpen(false);
+                      }}
+                    >  
+                      <FontAwesomeIcon icon={faChartBar} className="mr-3 w-6" fixedWidth />  
+                      <span>Stats</span>  
+                    </li>  
+                  </ul>  
+                </div>  
+                  
+                <div>  
+                  <h3 className="text-xs uppercase tracking-wide text-gray-500 mb-3 px-2">Explore</h3>  
+                  <ul className="space-y-1">  
+                    <li className="flex items-center px-2 py-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">  
+                      <FontAwesomeIcon icon={faDog} className="mr-3 w-6" fixedWidth />  
+                      <span>Dogs</span>  
+                    </li>  
+                    <li className="flex items-center px-2 py-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">  
+                      <FontAwesomeIcon icon={faCat} className="mr-3 w-6" fixedWidth />  
+                      <span>Cats</span>  
+                    </li>  
+                    <li className="flex items-center px-2 py-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">  
+                      <FontAwesomeIcon icon={faKiwiBird} className="mr-3 w-6" fixedWidth />  
+                      <span>Small Animals</span>  
+                    </li>  
+                    <li className="flex items-center px-2 py-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">  
+                      <FontAwesomeIcon icon={faFish} className="mr-3 w-6" fixedWidth />  
+                      <span>Exotic Pets</span>  
+                    </li>  
+                  </ul>  
+                </div>  
+                  
+                <div>  
+                  <h3 className="text-xs uppercase tracking-wide text-gray-500 mb-3 px-2">Settings</h3>  
+                  <ul className="space-y-1">  
+                    <li className="flex items-center px-2 py-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">  
+                      <FontAwesomeIcon icon={faCog} className="mr-3 w-6" fixedWidth />  
+                      <span>Settings</span>  
+                    </li>  
+                    <li className="flex items-center px-2 py-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">  
+                      <FontAwesomeIcon icon={faQuestionCircle} className="mr-3 w-6" fixedWidth />  
+                      <span>Help</span>  
+                    </li>  
+                  </ul>  
+                </div>  
+              </nav>
+            </div>  
           </div>  
             
           {/* Main Content Area */}  
-          <div className="flex-1 min-w-0 h-screen flex flex-col bg-gray-50">  
+          <div 
+            className="flex-1 h-screen flex flex-col bg-gray-50"
+            onClick={() => {
+              if (isMobile && sidebarOpen) {
+                setSidebarOpen(false);
+              }
+            }}
+          >  
             {/* Header */}  
             <header className="h-16 flex items-center justify-between px-6 bg-white shadow-sm z-20">
               <div className="flex items-center">
                 <button 
-                  className="block md:hidden p-2 mr-4 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none" 
-                  onClick={toggleSidebar}
+                  className="p-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none" 
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent triggering the main content click
+                    toggleSidebar();
+                  }}
                 >
                   <FontAwesomeIcon icon={faBars} className="text-xl" fixedWidth />
                 </button>
               </div>
-              <div className="relative w-full max-w-xs md:max-w-md">  
+              <div className="relative w-full max-w-xs md:max-w-md mx-4">  
                 <input   
                   type="text"   
                   placeholder="Search for shelters..."   
@@ -340,7 +381,7 @@ export default function ShelterNetwork(): JSX.Element {
               
             {/* Map View with Pigeon Maps */}  
             {activeTab === 'map' && (  
-              <div className="relative flex-1" ref={mapContainerRef}>  
+              <div className="relative flex-1 w-full" ref={mapContainerRef}>  
                 <Map  
                   height={mapHeight}  
                   center={center}  
@@ -430,68 +471,15 @@ export default function ShelterNetwork(): JSX.Element {
               </div>  
             )}  
               
-            {/* List View */}  
+            {/* List View - Keep but not showing in screenshot */}  
             {activeTab === 'list' && (  
               <div className="flex-1 p-6 overflow-y-auto">  
-                <h2 className="text-2xl font-bold mb-6">All Shelters</h2>  
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">  
-                  {filteredShelters.length > 0 ? filteredShelters.map((shelter) => (  
-                    <div key={shelter.id} className="bg-white rounded-lg shadow-md overflow-hidden flex border border-gray-200">  
-                      <div className="w-3" style={{ backgroundColor: shelter.color }}></div>  
-                      <div className="p-4 flex-1">  
-                        <h3 className="font-semibold text-lg mb-2">{shelter.name}</h3>  
-                        <p className="flex items-center text-sm mb-2">
-                          <FontAwesomeIcon icon={faMapMarkerAlt} className="text-gray-500 mr-2 w-4" fixedWidth /> 
-                          <span className="text-gray-600">{shelter.address}</span>
-                        </p>  
-                        <p className="flex items-center text-sm mb-2">
-                          <FontAwesomeIcon icon={faPhone} className="text-gray-500 mr-2 w-4" fixedWidth /> 
-                          <span className="text-gray-600">{shelter.phone}</span>
-                        </p>  
-                        <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-100">  
-                          <span className="flex items-center text-sm text-gray-500">
-                            <FontAwesomeIcon icon={faRoad} className="mr-2" fixedWidth /> 
-                            <span>{shelter.distance}</span>
-                          </span>
-                          <button className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">  
-                            <FontAwesomeIcon icon={faDirections} className="text-sm" fixedWidth />  
-                          </button>  
-                        </div>  
-                      </div>  
-                    </div>  
-                  )) : (
-                    <div className="col-span-full text-center py-10">
-                      <p className="text-gray-500">No shelters match your search.</p>
-                    </div>
-                  )}  
-                </div>  
-              </div>  
-            )}  
-              
-            {/* Saved View */}  
-            {activeTab === 'saved' && (  
-              <div className="flex-1 p-6 flex flex-col items-center justify-center">  
-                <h2 className="text-2xl font-bold mb-4">Your Saved Shelters</h2>  
-                <p className="text-gray-500 mb-6">You haven&apos;t saved any shelters yet.</p>  
-                <button 
-                  className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-                  onClick={() => setActiveTab('map')}
-                >
-                  Explore Shelters
-                </button>  
-              </div>  
-            )}
-
-            {/* Stats View */}
-            {activeTab === 'stats' && (
-              <div className="flex-1 p-6 flex flex-col items-center justify-center">
-                <h2 className="text-2xl font-bold mb-4">Shelter Statistics</h2>
-                <p className="text-gray-500">Coming soon!</p>
+                <h2 className="text-2xl font-bold mb-6">Categories</h2>
               </div>
             )}
           </div>  
         </div>  
       </main>  
-    </div>
+    </div>  
   );
 }
