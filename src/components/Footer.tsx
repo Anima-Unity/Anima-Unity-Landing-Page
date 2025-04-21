@@ -25,7 +25,7 @@ export default function Footer() {
   { href: '/blog', label: 'Blog' },
   { href: '/help-center', label: 'Help Center' },
   { href: '/pet-care-guides', label: 'Pet Care Guides' },
-  { href: '#', label: 'Vet Directory' },
+  { href: '/vet-directory', label: 'Vet Directory' },
   { href: '/shelter-network', label: 'Shelter Network' },
 ]
 
