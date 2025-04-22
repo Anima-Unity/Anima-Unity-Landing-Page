@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
-import { QrCode, FileText, AlertCircle } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { QrCode, FileText, AlertCircle, Camera, Wifi, Upload, RefreshCw, Globe, Phone } from 'lucide-react';
+import { FaPaw } from 'react-icons/fa';
 
 interface PetFormData {
   name: string;
@@ -11,20 +12,31 @@ interface PetFormData {
   weight: string;
   ownerContact: string;
   emergencyContact: string;
+  chipId: string;
+  vaccinations: string;
+  allergies: string;
+  lastCheckup: string;
 }
 
 const DigitalPetIDCard: React.FC = () => {
+  const [petIdCode, setPetIdCode] = useState('bcm-placeholder-00');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [petImage, setPetImage] = useState<string | null>(null);
   const [petData, setPetData] = useState<PetFormData>({
     name: '',
-    species: 'Dog',
+    species: 'Cat',
     breed: '',
     age: '',
     weight: '',
     ownerContact: '', 
-    emergencyContact: ''
+    emergencyContact: '',
+    chipId: '',
+    vaccinations: 'Up to date',
+    allergies: 'None',
+    lastCheckup: '',
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setPetData({
       ...petData,
@@ -32,286 +44,426 @@ const DigitalPetIDCard: React.FC = () => {
     });
   };
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPetImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission logic here
     console.log('Pet data submitted:', petData);
+    alert('Pet ID Card Generated Successfully!');
   };
+
+  // Generate a random ID for the pet
+  useEffect(() => {
+    // Generate random ID hanya pada sisi klien
+    setPetIdCode(`bcm-${Math.random().toString(36).substring(2, 10)}-${Math.floor(Math.random() * 100)}`);
+  }, []);
 
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 py-16">
+      <div className="max-w-6xl mx-auto px-4 py-12">
         {/* Section Title */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-800 mb-6">Digital Pet ID Card</h1>
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">
+            Digital <span className="text-orange-500">Pet ID Card</span> <br />
+            Generator
+          </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Create a personalized digital ID card for your pet with all essential information, medical records, and QR code for emergency access.
+            Create a personalized digital ID card for your pet that includes all important information, 
+            accessible anytime and anywhere via QR code.
           </p>
         </div>
 
         {/* Card Creator Section */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-12">
-          <h2 className="text-2xl font-semibold mb-6">Create Your Pet&apos;s Digital ID</h2>
-          
-          <form onSubmit={handleSubmit}>
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Left Column - Pet Information Form */}
-              <div>
-                <div className="mb-6">
-                  <label htmlFor="name" className="block text-gray-700 mb-2 font-medium">Pet Name</label>
-                  <input 
-                    type="text" 
-                    id="name"
-                    name="name"
-                    value={petData.name}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500" 
-                    placeholder="Enter pet's name" 
-                  />
-                </div>
-                
-                <div className="mb-6">
-                  <label htmlFor="species" className="block text-gray-700 mb-2 font-medium">Species</label>
-                  <select 
-                    id="species"
-                    name="species"
-                    value={petData.species}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                  >
-                    <option value="Dog">Dog</option>
-                    <option value="Cat">Cat</option>
-                    <option value="Bird">Bird</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                
-                <div className="mb-6">
-                  <label htmlFor="breed" className="block text-gray-700 mb-2 font-medium">Breed</label>
-                  <input 
-                    type="text" 
-                    id="breed"
-                    name="breed"
-                    value={petData.breed}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500" 
-                    placeholder="Enter breed" 
-                  />
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className="grid md:grid-cols-5 gap-8">
+          {/* Left Column - Form */}
+          <div className="md:col-span-3 bg-white rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-semibold mb-6 border-b pb-3">Pet Information</h2>
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Basic Information */}
+                <div className="space-y-4">
                   <div>
-                    <label htmlFor="age" className="block text-gray-700 mb-2 font-medium">Age</label>
+                    <label htmlFor="name" className="block text-gray-700 mb-1.5 font-medium">Pet Name*</label>
                     <input 
                       type="text" 
-                      id="age"
-                      name="age"
-                      value={petData.age}
+                      id="name"
+                      name="name"
+                      value={petData.name}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500" 
-                      placeholder="Age" 
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors" 
+                      placeholder="Enter pet&apos;s name"
+                      required
                     />
                   </div>
+                  
                   <div>
-                    <label htmlFor="weight" className="block text-gray-700 mb-2 font-medium">Weight</label>
+                    <label htmlFor="species" className="block text-gray-700 mb-1.5 font-medium">Species*</label>
+                    <select 
+                      id="species"
+                      name="species"
+                      value={petData.species}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white transition-colors"
+                      required
+                    >
+                      <option value="Cat">Cat</option>
+                      <option value="Dog">Dog</option>
+                      <option value="Bird">Bird</option>
+                      <option value="Rabbit">Rabbit</option>
+                      <option value="Fish">Fish</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="breed" className="block text-gray-700 mb-1.5 font-medium">Breed</label>
                     <input 
                       type="text" 
-                      id="weight"
-                      name="weight"
-                      value={petData.weight}
+                      id="breed"
+                      name="breed"
+                      value={petData.breed}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500" 
-                      placeholder="Weight" 
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors" 
+                      placeholder="Enter breed" 
                     />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="age" className="block text-gray-700 mb-1.5 font-medium">Age</label>
+                      <input 
+                        type="text" 
+                        id="age"
+                        name="age"
+                        value={petData.age}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors" 
+                        placeholder="Age" 
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="weight" className="block text-gray-700 mb-1.5 font-medium">Weight</label>
+                      <input 
+                        type="text" 
+                        id="weight"
+                        name="weight"
+                        value={petData.weight}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors" 
+                        placeholder="Weight" 
+                      />
+                    </div>
                   </div>
                 </div>
                 
-                <div className="mb-6">
-                  <label htmlFor="ownerContact" className="block text-gray-700 mb-2 font-medium">Owner Contact</label>
-                  <input 
-                    type="text" 
-                    id="ownerContact"
-                    name="ownerContact"
-                    value={petData.ownerContact}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500" 
-                    placeholder="Phone number" 
-                  />
-                </div>
-                
-                <div className="mb-6">
-                  <label htmlFor="emergencyContact" className="block text-gray-700 mb-2 font-medium">Emergency Contact</label>
-                  <input 
-                    type="text" 
-                    id="emergencyContact"
-                    name="emergencyContact"
-                    value={petData.emergencyContact}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500" 
-                    placeholder="Emergency phone number" 
-                  />
+                {/* Contact Information */}
+                <div className="space-y-4">
+                  <div>
+                    <label htmlFor="ownerContact" className="block text-gray-700 mb-1.5 font-medium">Owner Contact*</label>
+                    <input 
+                      type="tel" 
+                      id="ownerContact"
+                      name="ownerContact"
+                      value={petData.ownerContact}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors" 
+                      placeholder="Phone number"
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="emergencyContact" className="block text-gray-700 mb-1.5 font-medium">Emergency Contact</label>
+                    <input 
+                      type="tel" 
+                      id="emergencyContact"
+                      name="emergencyContact"
+                      value={petData.emergencyContact}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors" 
+                      placeholder="Emergency phone number" 
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="chipId" className="block text-gray-700 mb-1.5 font-medium">Microchip ID</label>
+                    <input 
+                      type="text" 
+                      id="chipId"
+                      name="chipId"
+                      value={petData.chipId}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors" 
+                      placeholder="Microchip ID number" 
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="lastCheckup" className="block text-gray-700 mb-1.5 font-medium">Last Checkup</label>
+                    <input 
+                      type="date" 
+                      id="lastCheckup"
+                      name="lastCheckup"
+                      value={petData.lastCheckup}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors" 
+                    />
+                  </div>
                 </div>
               </div>
-              
-              {/* Right Column - Pet Photo Upload and Preview */}
-              <div className="flex flex-col items-center">
-                <div className="mb-6 w-full">
-                  <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center h-64">
-                    <div className="text-gray-500 mb-4">
-                      <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                      </svg>
-                    </div>
-                    <p className="text-gray-500 text-center mb-4">Upload your pet&apos;s photo</p>
+
+              {/* Medical Information */}
+              <div className="border-t pt-6">
+                <h3 className="text-xl font-medium mb-4">Medical Information</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="vaccinations" className="block text-gray-700 mb-1.5 font-medium">Vaccinations</label>
+                    <select
+                      id="vaccinations"
+                      name="vaccinations"
+                      value={petData.vaccinations}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white transition-colors"
+                    >
+                      <option value="Up to date">Up to date</option>
+                      <option value="Partially vaccinated">Partially vaccinated</option>
+                      <option value="Not vaccinated">Not vaccinated</option>
+                      <option value="Unknown">Unknown</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="allergies" className="block text-gray-700 mb-1.5 font-medium">Allergies</label>
+                    <input
+                      id="allergies"
+                      name="allergies"
+                      value={petData.allergies}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+                      placeholder="List any allergies"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Photo Upload */}
+              <div className="border-t pt-6">
+                <h3 className="text-xl font-medium mb-4">Pet Photo</h3>
+                <div className="flex items-center space-x-6">
+                  <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-gray-200">
+                    {petImage ? (
+                      <img 
+                        src={petImage} 
+                        alt="Pet preview" 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                        <Camera size={32} className="text-gray-400" />
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div>
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={handleImageUpload}
+                      accept="image/*"
+                      className="hidden"
+                    />
                     <button 
                       type="button"
-                      className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition"
+                      onClick={triggerFileInput}
+                      className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition flex items-center space-x-2"
                     >
-                      Upload Photo
+                      <Upload size={18} />
+                      <span>{petImage ? 'Change Photo' : 'Upload Photo'}</span>
                     </button>
+                    <p className="text-xs text-gray-500 mt-2">Square image recommended (JPG, PNG)</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <div className="border-t pt-6">
+                <button 
+                  type="submit" 
+                  className="px-6 py-3 bg-orange-500 text-white font-medium rounded-lg hover:bg-orange-600 transition flex items-center justify-center"
+                >
+                  <span>Generate Digital ID Card</span>
+                </button>
+              </div>
+            </form>
+          </div>
+          
+          {/* Right Column - ID Card Preview */}
+          <div className="md:col-span-2">
+            <div className="sticky top-6">
+              <h2 className="text-2xl font-semibold mb-6">ID Card Preview</h2>
+              
+              {/* ID Card Preview */}
+              <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+                {/* Header */}
+                <div className="bg-orange-500 p-4 text-white flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <div className="bg-white rounded-full w-10 h-10 flex items-center justify-center">
+                      <FaPaw className="w-6 h-6 text-orange-500" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-2xl tracking-tight">Anima Unity</h3>
+                      <p className="text-xs text-orange-100">PET ID CARD</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="bg-orange-400 rounded-full p-2">
+                      <Wifi size={18} className="text-white" />
+                    </div>
+                    <div className="bg-orange-400 rounded-full p-2">
+                      <span className="text-white font-semibold">2</span>
+                    </div>
                   </div>
                 </div>
                 
-                <div className="w-full bg-gray-50 border rounded-lg p-4">
-                  <h3 className="font-medium text-gray-700 mb-2">ID Card Preview</h3>
-                  <div className="border rounded-lg p-4 bg-white shadow">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-20 h-20 bg-gray-200 rounded-full"></div>
+                {/* Pet Info */}
+                <div className="p-6 bg-white bg-opacity-90" style={{backgroundImage: "radial-gradient(circle, #fef3e9 1px, transparent 1px)", backgroundSize: "20px 20px"}}>
+                  <div className="flex justify-between mb-6">
+                    <div>
+                      <h3 className="text-4xl font-bold text-gray-800 mb-1">
+                        {petData.name || 'Deteria'}
+                      </h3>
+                      <h4 className="text-2xl font-bold text-gray-700 mb-4">
+                        {petData.breed || 'Francescana'}
+                      </h4>
+                      <p className="text-gray-500">{petIdCode}</p>
+                    </div>
+                    <div className="w-24 h-24 rounded-lg overflow-hidden border-2 border-gray-200">
+                      {petImage ? (
+                        <img 
+                          src={petImage} 
+                          alt="Pet" 
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                          <img src="/api/placeholder/120/120" alt="Pet" className="w-full h-full object-cover" />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Medical Information */}
+                  <div className="bg-blue-50 rounded-lg p-4 mb-6">
+                    <h4 className="text-blue-800 font-semibold mb-4">MEDICAL INFORMATION</h4>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <p className="font-bold">{petData.name || 'Pet Name'}</p>
-                        <p className="text-sm text-gray-500">
-                          {petData.breed ? `${petData.breed} • ` : ''}
-                          {petData.age ? `${petData.age} • ` : ''}
-                          {petData.weight || ''}
-                        </p>
-                        <p className="text-sm text-gray-500 mt-1">
-                          Owner Contact: {petData.ownerContact || 'xxx-xxx-xxxx'}
-                        </p>
+                        <p className="text-gray-500 mb-1">Vaccinations</p>
+                        <p className="font-medium">{petData.vaccinations}</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-500 mb-1">Allergies</p>
+                        <p className="font-medium">{petData.allergies}</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-500 mb-1">Last Checkup</p>
+                        <p className="font-medium">{petData.lastCheckup || '15 Jun 2023'}</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-500 mb-1">Chip ID</p>
+                        <p className="font-medium">{petData.chipId || '985 11235813'}</p>
                       </div>
                     </div>
                   </div>
+                  
+                  {/* QR Code */}
+                  <div className="flex items-center justify-between">
+                    <div className="bg-orange-100 w-24 h-24 flex items-center justify-center rounded-lg">
+                      <QrCode size={64} className="text-orange-800" />
+                    </div>
+                    <div className="text-right">
+                      <p className="text-gray-500 mb-1">Create my 5th code</p>
+                      <p className="text-orange-600 font-semibold">Registered to Anima Unity PetCare</p>
+                    </div>
+                  </div>
+                  
+                  {/* Footer */}
+                  <div className="mt-6 pt-4 border-t border-gray-200 text-center text-gray-500 text-sm">
+                    <p>Scan QR code for complete pet profile</p>
+                    <div className="flex justify-center mt-2 space-x-6">
+                      <button className="p-2 text-orange-500">
+                        <Globe size={20} />
+                      </button>
+                      <button className="p-2 text-orange-500">
+                        <Phone size={20} />
+                      </button>
+                      <button className="p-2 text-orange-500">
+                        <RefreshCw size={20} />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            
-            <div className="mt-8">
-              <button 
-                type="submit" 
-                className="px-6 py-3 bg-orange-500 text-white font-medium rounded-md hover:bg-orange-600 transition"
-              >
-                Generate Digital ID Card
-              </button>
-            </div>
-          </form>
-        </div>
-        
-        {/* Features Section */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-semibold mb-8 text-center">ID Card Features</h2>
-          
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* QR Code Feature */}
-            <div className="bg-white p-6 rounded-lg shadow text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-orange-100 rounded-full mb-4">
-                <QrCode size={24} className="text-orange-500" />
-              </div>
-              <h3 className="text-lg font-medium mb-2">QR Code</h3>
-              <p className="text-gray-600">Scan for instant access to your pet&apos;s complete profile in emergencies</p>
-            </div>
-            
-            {/* Medical Records Feature */}
-            <div className="bg-white p-6 rounded-lg shadow text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-4">
-                <FileText size={24} className="text-blue-500" />
-              </div>
-              <h3 className="text-lg font-medium mb-2">Medical Records</h3>
-              <p className="text-gray-600">Store vaccination history, medications, and health conditions</p>
-            </div>
-            
-            {/* Emergency Info Feature */}
-            <div className="bg-white p-6 rounded-lg shadow text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-red-100 rounded-full mb-4">
-                <AlertCircle size={24} className="text-red-500" />
-              </div>
-              <h3 className="text-lg font-medium mb-2">Emergency Info</h3>
-              <p className="text-gray-600">Critical information available instantly to whoever finds your pet</p>
             </div>
           </div>
         </div>
         
-        {/* Sample ID Cards Section */}
-        <div>
-          <h2 className="text-2xl font-semibold mb-8 text-center">Sample ID Cards</h2>
+        {/* Features Section - Updated for Digital Pet ID content */}
+        <div className="mt-16">
+          <h2 className="text-2xl font-semibold mb-8 text-center">Digital Pet ID Features</h2>
+          <p className="text-center text-gray-600 mb-8">
+            Discover all the benefits of our digital pet identification system to keep your pet safe and information accessible.
+          </p>
           
           <div className="grid md:grid-cols-3 gap-6">
-            {/* Sample Card 1 */}
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="w-16 h-16 bg-orange-100 rounded-full overflow-hidden">
-                  <div className="w-full h-full bg-orange-200"></div>
-                </div>
-                <div>
-                  <h3 className="font-bold">Buddy</h3>
-                  <p className="text-sm text-gray-500">Golden Retriever • 3 years</p>
-                </div>
+            {/* Quick Identification Feature */}
+            <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+                <QrCode size={28} className="text-blue-600" />
               </div>
-              <div className="border-t pt-3">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Owner:</span>
-                  <span>John Smith</span>
-                </div>
-                <div className="flex justify-between text-sm mt-1">
-                  <span className="text-gray-500">ID:</span>
-                  <span>#ANI-12345</span>
-                </div>
-              </div>
+              <h3 className="text-xl font-semibold mb-2">Quick Identification</h3>
+              <p className="text-gray-600">
+                Scannable QR code allows anyone who finds your pet to immediately access their critical information and contact you.
+              </p>
             </div>
             
-            {/* Sample Card 2 */}
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="w-16 h-16 bg-blue-100 rounded-full overflow-hidden">
-                  <div className="w-full h-full bg-blue-200"></div>
-                </div>
-                <div>
-                  <h3 className="font-bold">Luna</h3>
-                  <p className="text-sm text-gray-500">Siamese Cat • 2 years</p>
-                </div>
+            {/* Medical Records Feature */}
+            <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                <FileText size={28} className="text-green-600" />
               </div>
-              <div className="border-t pt-3">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Owner:</span>
-                  <span>Emily Johnson</span>
-                </div>
-                <div className="flex justify-between text-sm mt-1">
-                  <span className="text-gray-500">ID:</span>
-                  <span>#ANI-67890</span>
-                </div>
-              </div>
+              <h3 className="text-xl font-semibold mb-2">Medical Information</h3>
+              <p className="text-gray-600">
+                Store important health information like vaccinations, allergies, and medication needs that can be critical in emergencies.
+              </p>
             </div>
             
-            {/* Sample Card 3 */}
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="w-16 h-16 bg-green-100 rounded-full overflow-hidden">
-                  <div className="w-full h-full bg-green-200"></div>
-                </div>
-                <div>
-                  <h3 className="font-bold">Max</h3>
-                  <p className="text-sm text-gray-500">Border Collie • 4 years</p>
-                </div>
+            {/* Smart Alerts Feature */}
+            <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-4">
+                <AlertCircle size={28} className="text-orange-600" />
               </div>
-              <div className="border-t pt-3">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Owner:</span>
-                  <span>Sarah Williams</span>
-                </div>
-                <div className="flex justify-between text-sm mt-1">
-                  <span className="text-gray-500">ID:</span>
-                  <span>#ANI-24680</span>
-                </div>
-              </div>
+              <h3 className="text-xl font-semibold mb-2">Smart Alerts</h3>
+              <p className="text-gray-600">
+                Receive instant notifications when your pet&apos;s ID is scanned, allowing for immediate action if they&apos;re found.
+              </p>
             </div>
           </div>
         </div>
