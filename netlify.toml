@@ -1,0 +1,7 @@
+[build]
+  command = "pnpm install && pnpm run build"
+  publish = ".next" # Untuk Next.js
+
+[build.environment]
+  NODE_ENV = "production"
+  PRISMA_GENERATE_IN_POSTINSTALL = "true"
