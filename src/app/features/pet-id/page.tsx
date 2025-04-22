@@ -320,106 +320,132 @@ const DigitalPetIDCard: React.FC = () => {
             <div className="sticky top-6">
               <h2 className="text-2xl font-semibold mb-6">ID Card Preview</h2>
               
-              {/* ID Card Preview */}
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-                {/* Header */}
-                <div className="bg-orange-500 p-4 text-white flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <div className="bg-white rounded-full w-10 h-10 flex items-center justify-center">
-                      <FaPaw className="w-6 h-6 text-orange-500" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-2xl tracking-tight">Anima Unity</h3>
-                      <p className="text-xs text-orange-100">PET ID CARD</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="bg-orange-400 rounded-full p-2">
-                      <Wifi size={18} className="text-white" />
-                    </div>
-                    <div className="bg-orange-400 rounded-full p-2">
-                      <span className="text-white font-semibold">2</span>
+              {/* ID Card Preview - Updated with hanging design and glassmorphism */}
+              <div className="relative">
+                {/* Lanyard/strap */}
+                <div className="w-full flex justify-center">
+                  <div className="w-8 h-16 bg-cyan-400 relative z-10 rounded-t-md">
+                    <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-3 w-6 h-6 rounded-full border-2 border-gray-300 bg-gray-100 flex items-center justify-center">
+                      <div className="w-3 h-3 rounded-full border border-gray-400"></div>
                     </div>
                   </div>
                 </div>
                 
-                {/* Pet Info */}
-                <div className="p-6 bg-white bg-opacity-90" style={{backgroundImage: "radial-gradient(circle, #fef3e9 1px, transparent 1px)", backgroundSize: "20px 20px"}}>
-                  <div className="flex justify-between mb-6">
-                    <div>
-                      <h3 className="text-4xl font-bold text-gray-800 mb-1">
-                        {petData.name || 'Deteria'}
-                      </h3>
-                      <h4 className="text-2xl font-bold text-gray-700 mb-4">
-                        {petData.breed || 'Francescana'}
-                      </h4>
-                      <p className="text-gray-500">{petIdCode}</p>
-                    </div>
-                    <div className="w-24 h-24 rounded-lg overflow-hidden border-2 border-gray-200">
-                      {petImage ? (
-                        <img 
-                          src={petImage} 
-                          alt="Pet" 
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                          <img src="/api/placeholder/120/120" alt="Pet" className="w-full h-full object-cover" />
+                {/* Card container with shadow and glass effect */}
+                <div className="relative -mt-2 transform transition-all duration-300 hover:rotate-1 hover:scale-105">
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-orange-400/30 rounded-xl blur-md"></div>
+                  <div className="relative bg-white rounded-xl shadow-lg overflow-hidden backdrop-blur-lg border border-white/50" 
+                    style={{
+                      background: "linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 100%)",
+                      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)"
+                    }}>
+                    {/* Header */}
+                    <div className="bg-gradient-to-r from-orange-500 to-orange-400 p-4 text-white flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <div className="bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-md">
+                          <FaPaw className="w-6 h-6 text-orange-500" />
                         </div>
-                      )}
-                    </div>
-                  </div>
-                  
-                  {/* Medical Information */}
-                  <div className="bg-blue-50 rounded-lg p-4 mb-6">
-                    <h4 className="text-blue-800 font-semibold mb-4">MEDICAL INFORMATION</h4>
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <p className="text-gray-500 mb-1">Vaccinations</p>
-                        <p className="font-medium">{petData.vaccinations}</p>
+                        <div>
+                          <h3 className="font-bold text-2xl tracking-tight">Anima Unity</h3>
+                          <p className="text-xs text-orange-100">PET ID CARD</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-gray-500 mb-1">Allergies</p>
-                        <p className="font-medium">{petData.allergies}</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-500 mb-1">Last Checkup</p>
-                        <p className="font-medium">{petData.lastCheckup || '15 Jun 2023'}</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-500 mb-1">Chip ID</p>
-                        <p className="font-medium">{petData.chipId || '985 11235813'}</p>
+                      <div className="flex items-center space-x-3">
+                        <div className="bg-orange-400/50 rounded-full p-2 backdrop-blur-sm border border-white/20">
+                          <Wifi size={18} className="text-white" />
+                        </div>
+                        <div className="bg-orange-400/50 rounded-full p-2 backdrop-blur-sm border border-white/20">
+                          <span className="text-white font-semibold">2</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  
-                  {/* QR Code */}
-                  <div className="flex items-center justify-between">
-                    <div className="bg-orange-100 w-24 h-24 flex items-center justify-center rounded-lg">
-                      <QrCode size={64} className="text-orange-800" />
-                    </div>
-                    <div className="text-right">
-                      <p className="text-gray-500 mb-1">Create my 5th code</p>
-                      <p className="text-orange-600 font-semibold">Registered to Anima Unity PetCare</p>
-                    </div>
-                  </div>
-                  
-                  {/* Footer */}
-                  <div className="mt-6 pt-4 border-t border-gray-200 text-center text-gray-500 text-sm">
-                    <p>Scan QR code for complete pet profile</p>
-                    <div className="flex justify-center mt-2 space-x-6">
-                      <button className="p-2 text-orange-500">
-                        <Globe size={20} />
-                      </button>
-                      <button className="p-2 text-orange-500">
-                        <Phone size={20} />
-                      </button>
-                      <button className="p-2 text-orange-500">
-                        <RefreshCw size={20} />
-                      </button>
+                    
+                    {/* Pet Info */}
+                    <div className="p-6 bg-white/70 backdrop-blur-md"
+                      style={{
+                        backgroundImage: "radial-gradient(circle at 20px 20px, rgba(251, 146, 60, 0.2) 4px, transparent 0), radial-gradient(circle at 40px 70px, rgba(14, 165, 233, 0.2) 6px, transparent 0), radial-gradient(circle at 90% 10%, rgba(14, 165, 233, 0.15) 20px, transparent 0)",
+                        backgroundSize: "100px 100px"
+                      }}>
+                      <div className="flex justify-between mb-6">
+                        <div>
+                          <h3 className="text-4xl font-bold text-gray-800 mb-1">
+                            {petData.name || 'Deteria'}
+                          </h3>
+                          <h4 className="text-2xl font-bold text-gray-700 mb-4">
+                            {petData.breed || 'Francescana'}
+                          </h4>
+                          <p className="text-gray-500">{petIdCode}</p>
+                        </div>
+                        <div className="w-24 h-24 rounded-lg overflow-hidden border-2 border-white shadow-lg">
+                          {petImage ? (
+                            <img 
+                              src={petImage} 
+                              alt="Pet" 
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                              <img src="/api/placeholder/120/120" alt="Pet" className="w-full h-full object-cover" />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {/* Medical Information */}
+                      <div className="bg-gradient-to-r from-blue-50 to-blue-100/70 rounded-lg p-4 mb-6 backdrop-blur-sm border border-blue-100">
+                        <h4 className="text-blue-800 font-semibold mb-4">MEDICAL INFORMATION</h4>
+                        <div className="grid grid-cols-2 gap-4 text-sm">
+                          <div>
+                            <p className="text-gray-500 mb-1">Vaccinations</p>
+                            <p className="font-medium">{petData.vaccinations}</p>
+                          </div>
+                          <div>
+                            <p className="text-gray-500 mb-1">Allergies</p>
+                            <p className="font-medium">{petData.allergies}</p>
+                          </div>
+                          <div>
+                            <p className="text-gray-500 mb-1">Last Checkup</p>
+                            <p className="font-medium">{petData.lastCheckup || '15 Jun 2023'}</p>
+                          </div>
+                          <div>
+                            <p className="text-gray-500 mb-1">Chip ID</p>
+                            <p className="font-medium">{petData.chipId || '985 11235813'}</p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* QR Code - Updated with glassmorphism */}
+                      <div className="flex items-center justify-between">
+                        <div className="bg-gradient-to-br from-orange-100 to-orange-200/60 w-24 h-24 flex items-center justify-center rounded-lg backdrop-blur-md border border-orange-100 shadow-md">
+                          <QrCode size={64} className="text-orange-800" />
+                        </div>
+                        <div className="text-right">
+                          <p className="text-gray-500 mb-1">Create my 5th code</p>
+                          <p className="text-orange-600 font-semibold">Registered to Anima Unity PetCare</p>
+                        </div>
+                      </div>
+                      
+                      {/* Footer */}
+                      <div className="mt-6 pt-4 border-t border-gray-200/70 text-center text-gray-500 text-sm">
+                        <p>Scan QR code for complete pet profile</p>
+                        <div className="flex justify-center mt-2 space-x-6">
+                          <button className="p-2 text-orange-500 hover:bg-orange-100/50 rounded-full transition-all">
+                            <Globe size={20} />
+                          </button>
+                          <button className="p-2 text-orange-500 hover:bg-orange-100/50 rounded-full transition-all">
+                            <Phone size={20} />
+                          </button>
+                          <button className="p-2 text-orange-500 hover:bg-orange-100/50 rounded-full transition-all">
+                            <RefreshCw size={20} />
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
+                
+                {/* Bottom card accent */}
+                <div className="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-cyan-400 to-orange-400 rounded-b-xl"></div>
               </div>
             </div>
           </div>
