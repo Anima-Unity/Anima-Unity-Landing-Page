@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatsData, LeadsSummary } from '@/types/dashboard';
 import { Sidebar } from '@/app/components/organisms/admin/Sidebar';
 import { Header } from '@/app/components/organisms/admin/Header';
@@ -17,8 +17,56 @@ import { AnalyticsContent } from '@/app/components/organisms/admin/main/analytic
 import { SettingsContent } from '@/app/components/organisms/admin/main/settings/SettingsContent';
 
 export default function AdminBlogTemplate(): React.ReactElement {
-  const [activeMenu, setActiveMenu] = useState<string>('Dashboard');
+  // State untuk sidebar
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  
+  // State untuk menu aktif dengan nilai default yang akan segera diupdate
+  const [activeMenu, setActiveMenu] = useState<string>('Dashboard');
+
+  // Inisialisasi dan pengaturan listener untuk perubahan hash URL
+  useEffect(() => {
+    // Fungsi untuk mendapatkan menu aktif dari hash URL
+    const getActiveMenuFromHash = (): string => {
+      if (typeof window === 'undefined') return 'Dashboard';
+      
+      // Ambil hash dari URL (hilangkan tanda '#')
+      const hash = window.location.hash.replace('#', '');
+      
+      // Jika hash kosong, gunakan 'dashboard'
+      if (!hash) {
+        return 'Dashboard';
+      }
+      
+      // Konversi ke format yang benar (capitalize first letter)
+      return hash.charAt(0).toUpperCase() + hash.slice(1).toLowerCase();
+    };
+
+    // Set nilai awal dari hash
+    setActiveMenu(getActiveMenuFromHash());
+
+    // Tambahkan event listener untuk hashchange
+    const handleHashChange = () => {
+      setActiveMenu(getActiveMenuFromHash());
+    };
+    
+    window.addEventListener('hashchange', handleHashChange);
+    
+    // Jika tidak ada hash, set ke default
+    if (!window.location.hash) {
+      window.location.hash = 'dashboard';
+    }
+    
+    // Cleanup event listener
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
+  // Fungsi untuk mengganti menu aktif
+  const handleMenuChange = (menu: string) => {
+    // Update hash URL (yang akan men-trigger useEffect di atas)
+    window.location.hash = menu.toLowerCase();
+  };
 
   // Mock data for stats
   const stats: StatsData = {
@@ -96,7 +144,7 @@ export default function AdminBlogTemplate(): React.ReactElement {
       <aside className={`${sidebarOpen ? 'block' : 'hidden'} md:block md:w-64 bg-white shadow-md fixed md:static top-0 left-0 z-30 h-full overflow-y-auto`}>
         <Sidebar
           activeMenu={activeMenu}
-          setActiveMenu={setActiveMenu}
+          setActiveMenu={handleMenuChange}
           setSidebarOpen={setSidebarOpen}
         />
       </aside>
