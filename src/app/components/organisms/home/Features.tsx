@@ -25,7 +25,7 @@ export default function Features() {
       title: "AniTrack GPS",
       description: "IoT-powered GPS tracking for your pet's safety with real-time location updates.",
       bgColor: "bg-green-100",
-      path: "/gps-tracking",
+      path: "/features/anitrack-gps",
       delay: "300"
     },
     {

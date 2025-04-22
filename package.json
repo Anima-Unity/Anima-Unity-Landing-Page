@@ -4,11 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
-    "build": "prisma generate && next build",
     "prisma:generate": "prisma generate"
   },
   "dependencies": {
@@ -16,8 +15,11 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@prisma/client": "6.6.0",
+    "@radix-ui/react-slot": "^1.2.0",
     "aos": "^2.3.4",
     "chart.js": "^4.4.9",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "font-awesome": "^4.7.0",
     "lucide-react": "^0.487.0",
     "next": "14.2.27",
@@ -27,6 +29,8 @@
     "react-dom": "^18",
     "react-fast-marquee": "^1.6.5",
     "react-icons": "^5.5.0",
+    "tailwind-merge": "^3.2.0",
+    "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.3"
   },
   "devDependencies": {
@@ -43,6 +47,6 @@
     "typescript": "^5.8.3"
   },
   "prisma": {
-     "seed": "npm run seed"
+    "seed": "npm run seed"
   }
 }
