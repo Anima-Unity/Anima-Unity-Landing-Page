@@ -1,5 +1,5 @@
 // src/sections/Features.tsx
-import { FaHeartbeat, FaHome, FaMapMarkerAlt, FaVideo } from 'react-icons/fa';
+import { FaHeartbeat, FaHome, FaMapMarkerAlt, FaVideo, FaIdCard } from 'react-icons/fa';
 
 export default function Features() {
   return (
@@ -57,6 +57,31 @@ export default function Features() {
             <p className="text-gray-600 text-sm">
               24/7 access to licensed veterinarians through video consultations.
             </p>
+          </div>
+        </div>
+
+        {/* Additional row for Pet ID Card feature */}
+        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-1 gap-6 lg:gap-8">
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300" data-aos="fade-up" data-aos-delay="500">
+            <div className="w-14 h-14 bg-indigo-100 rounded-lg flex items-center justify-center mb-5">
+              <FaIdCard className="text-xl text-indigo-500" />
+            </div>
+            <h3 className="text-xl font-bold mb-3 text-gray-800">Digital Pet ID Card</h3>
+            <p className="text-gray-600 text-sm mb-4">
+              Create a personalized digital ID card for your pet with all essential information, 
+              medical records, and QR code for emergency access.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <span className="inline-block bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-xs font-medium">
+                QR Code
+              </span>
+              <span className="inline-block bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-xs font-medium">
+                Medical Records
+              </span>
+              <span className="inline-block bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-xs font-medium">
+                Emergency Info
+              </span>
+            </div>
           </div>
         </div>
       </div>
