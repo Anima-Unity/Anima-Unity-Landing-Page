@@ -1,7 +1,5 @@
-// src/lib/prisma.ts
 import { PrismaClient } from '@prisma/client'
 
-// Type safety for global prisma
 const globalForPrisma = global as unknown as {
   prisma: PrismaClient | undefined
 }
