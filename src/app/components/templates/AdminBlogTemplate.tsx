@@ -20,15 +20,14 @@ export default function AdminBlogTemplate(): React.ReactElement {
   // State untuk sidebar
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   
-  // State untuk menu aktif dengan nilai default yang akan segera diupdate
-  const [activeMenu, setActiveMenu] = useState<string>('Dashboard');
+  // State untuk menu aktif + state pengendali loading
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Inisialisasi dan pengaturan listener untuk perubahan hash URL
   useEffect(() => {
     // Fungsi untuk mendapatkan menu aktif dari hash URL
     const getActiveMenuFromHash = (): string => {
-      if (typeof window === 'undefined') return 'Dashboard';
-      
       // Ambil hash dari URL (hilangkan tanda '#')
       const hash = window.location.hash.replace('#', '');
       
@@ -43,6 +42,7 @@ export default function AdminBlogTemplate(): React.ReactElement {
 
     // Set nilai awal dari hash
     setActiveMenu(getActiveMenuFromHash());
+    setIsLoading(false);
 
     // Tambahkan event listener untuk hashchange
     const handleHashChange = () => {
@@ -91,6 +91,15 @@ export default function AdminBlogTemplate(): React.ReactElement {
 
   // Render konten berdasarkan menu yang aktif
   const renderContent = () => {
+    // Tampilkan loading state atau placeholder
+    if (isLoading || activeMenu === null) {
+      return (
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-pulse text-gray-400">Loading...</div>
+        </div>
+      );
+    }
+
     switch(activeMenu) {
       case 'Dashboard':
         return (
@@ -140,19 +149,23 @@ export default function AdminBlogTemplate(): React.ReactElement {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar */}
-      <aside className={`${sidebarOpen ? 'block' : 'hidden'} md:block md:w-64 bg-white shadow-md fixed md:static top-0 left-0 z-30 h-full overflow-y-auto`}>
-        <Sidebar
-          activeMenu={activeMenu}
-          setActiveMenu={handleMenuChange}
-          setSidebarOpen={setSidebarOpen}
-        />
-      </aside>
+      {/* Sidebar - hanya tampilkan jika sudah ada data activeMenu */}
+      {!isLoading && activeMenu && (
+        <aside className={`${sidebarOpen ? 'block' : 'hidden'} md:block md:w-64 bg-white shadow-md fixed md:static top-0 left-0 z-30 h-full overflow-y-auto`}>
+          <Sidebar
+            activeMenu={activeMenu}
+            setActiveMenu={handleMenuChange}
+            setSidebarOpen={setSidebarOpen}
+          />
+        </aside>
+      )}
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col w-full">
-        {/* Header */}
-        <Header sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+        {/* Header - hanya tampilkan jika sudah ada data activeMenu */}
+        {!isLoading && activeMenu && (
+          <Header sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+        )}
 
         {/* Content */}
         <main className="p-4 sm:p-6 md:p-8 max-w-screen-2xl mx-auto w-full space-y-6">
