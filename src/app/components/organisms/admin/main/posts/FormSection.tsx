@@ -1,42 +1,125 @@
-import React, { useState, FormEvent, ChangeEvent } from 'react';
+import React, { useState, FormEvent, ChangeEvent, useEffect } from 'react';
+
+interface Author {
+  id: string;
+  name: string;
+}
+
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface Tag {
+  id: string;
+  name: string;
+}
 
 export function FormSection(): JSX.Element {
   const [showCreateForm, setShowCreateForm] = useState<boolean>(false);
   const [title, setTitle] = useState<string>('');
-  const [slug, setSlug] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const [publishedAt, setPublishedAt] = useState<string>(new Date().toISOString().split('T')[0]); // Format: YYYY-MM-DD
-  const [category, setCategory] = useState<string>('');
-  const [tags, setTags] = useState<string[]>([]);
-  const [author, setAuthor] = useState<string>('');
+  const [pubDate, setPubDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [heroImage, setHeroImage] = useState<string>('');
+  const [slug, setSlug] = useState<string>('');
   
-  // Categories based on the image (Behavior/Kucing)
-  const categories: string[] = ['Behavior', 'Kucing', 'Kesehatan', 'Perawatan', 'Makanan'];
+  // Relation fields
+  const [selectedAuthors, setSelectedAuthors] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log({ 
-      title, 
-      slug, 
-      content, 
-      publishedAt,
-      category,
-      tags,
-      author
-    });
-    // Reset form and close
-    resetForm();
+// Di bagian atas komponen
+const [availableAuthors, setAvailableAuthors] = useState<Author[]>([]);
+const [availableCategories, setAvailableCategories] = useState<Category[]>([]);
+const [availableTags, setAvailableTags] = useState<Tag[]>([]);
+
+// Fetch data saat komponen mount
+useEffect(() => {
+  const fetchOptions = async () => {
+    try {
+      const [authorsRes, categoriesRes, tagsRes] = await Promise.all([
+        fetch('/api/authors'),
+        fetch('/api/categories'),
+        fetch('/api/tags')
+      ]);
+      
+      setAvailableAuthors(await authorsRes.json());
+      setAvailableCategories(await categoriesRes.json());
+      setAvailableTags(await tagsRes.json());
+    } catch (error) {
+      console.error("Failed to fetch options:", error);
+    }
   };
+
+  fetchOptions();
+}, []);
+  
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  
+  try {
+    console.log('Data yang dikirim:', {
+  title,
+  description,
+  content,
+  pubDate,
+  heroImage,
+  slug,
+  authors: selectedAuthors,
+  categories: selectedCategories,
+  tags: selectedTags
+});
+    const response = await fetch('/api/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        content,
+        pubDate,
+        heroImage,
+        slug,
+        authors: selectedAuthors,
+        categories: selectedCategories,
+        tags: selectedTags
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || 'Gagal membuat post');
+    }
+
+    // Tampilkan notifikasi sukses
+    alert(`Post berhasil dibuat! ID: ${result.data.id}`);
+    console.log('Post created:', result.data);
+    resetForm();
+
+  } catch (error) {
+    if (error instanceof Error) {
+      alert(`Error: ${error.message}`);
+  } else {
+      alert('Terjadi error yang tidak diketahui.');
+  }
+   console.error('Submission error:', error);
+}
+
+};
   
   const resetForm = (): void => {
     setTitle('');
-    setSlug('');
+    setDescription('');
     setContent('');
-    setPublishedAt(new Date().toISOString().split('T')[0]);
-    setCategory('');
-    setTags([]);
-    setAuthor('');
+    setPubDate(new Date().toISOString().split('T')[0]);
+    setHeroImage('');
+    setSlug('');
+    setSelectedAuthors([]);
+    setSelectedCategories([]);
+    setSelectedTags([]);
     setShowCreateForm(false);
   };
 
@@ -55,13 +138,42 @@ export function FormSection(): JSX.Element {
     setSlug(newSlug);
   };
 
-  const handleTagChange = (tag: string): void => {
-    if (tags.includes(tag)) {
-      setTags(tags.filter(t => t !== tag));
+  const handleTagToggle = (tagId: string): void => {
+    if (selectedTags.includes(tagId)) {
+      setSelectedTags(selectedTags.filter(id => id !== tagId));
     } else {
-      setTags([...tags, tag]);
+      setSelectedTags([...selectedTags, tagId]);
     }
   };
+  
+  const handleCategoryToggle = (categoryId: string): void => {
+    if (selectedCategories.includes(categoryId)) {
+      setSelectedCategories(selectedCategories.filter(id => id !== categoryId));
+    } else {
+      setSelectedCategories([...selectedCategories, categoryId]);
+    }
+  };
+  
+  const handleAuthorToggle = (authorId: string): void => {
+    if (selectedAuthors.includes(authorId)) {
+      setSelectedAuthors(selectedAuthors.filter(id => id !== authorId));
+    } else {
+      setSelectedAuthors([...selectedAuthors, authorId]);
+    }
+  };
+  
+  const handleImageUpload = async (file: File) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await fetch('/api/upload', {
+    method: 'POST',
+    body: formData
+  });
+
+  const { url } = await response.json();
+  setHeroImage(url);
+};
 
   return (
     <>
@@ -92,6 +204,17 @@ export function FormSection(): JSX.Element {
                     placeholder="Kenapa Kucing Suka Ngilang? Ini 5 Alasannya"
                     required
                   />
+                </div>
+                
+                <div className="mb-4">
+                  <label className="block text-sm font-medium mb-1">Deskripsi<span className="text-red-500">*</span></label>
+                  <textarea 
+                    className="w-full border border-gray-300 rounded p-2 h-20"
+                    value={description}
+                    onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)}
+                    placeholder="Deskripsi singkat artikel untuk preview dan SEO"
+                    required
+                  ></textarea>
                 </div>
                 
                 <div className="mb-4">
@@ -184,41 +307,52 @@ export function FormSection(): JSX.Element {
                   <div className="border border-gray-300 border-dashed rounded-lg p-4 flex items-center justify-center text-center h-24">
                     <div>
                       <p className="text-sm text-gray-500 mb-1">Drag & Drop gambar atau</p>
-                      <button type="button" className="text-red-500 hover:underline text-sm">Pilih File</button>
+                      <input 
+  type="file" 
+  onChange={(e) => {
+    const file = e.target.files?.[0];
+    if (file) handleImageUpload(file);
+  }}
+/>
                     </div>
                   </div>
                 </div>
                 
                 <div className="bg-gray-50 rounded-lg p-4 mb-4">
                   <h3 className="font-medium mb-2">Kategori</h3>
-                  <select 
-                    className="w-full border border-gray-300 rounded p-2"
-                    value={category}
-                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setCategory(e.target.value)}
-                    required
-                  >
-                    <option value="">Pilih kategori</option>
-                    {categories.map((cat, index) => (
-                      <option key={index} value={cat}>{cat}</option>
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {availableCategories.map((category) => (
+                      <button
+                        key={category.id}
+                        type="button"
+                        className={`px-2 py-1 rounded-full text-xs ${
+                          selectedCategories.includes(category.id)
+                            ? 'bg-red-500 text-white' 
+                            : 'bg-gray-200 text-gray-700'
+                        }`}
+                        onClick={() => handleCategoryToggle(category.id)}
+                      >
+                        {category.name}
+                      </button>
                     ))}
-                  </select>
+                  </div>
                 </div>
                 
                 <div className="bg-gray-50 rounded-lg p-4 mb-4">
                   <h3 className="font-medium mb-2">Tags</h3>
                   <div className="flex flex-wrap gap-2 mb-2">
-                    {['Kucing', 'Behavior', 'Perilaku', 'Hilang', 'Tips'].map((tag, idx) => (
+                    {availableTags.map((tag) => (
                       <button
-                        key={idx}
+                        key={tag.id}
                         type="button"
                         className={`px-2 py-1 rounded-full text-xs ${
-                          tags.includes(tag) 
+                          selectedTags.includes(tag.id) 
                             ? 'bg-red-500 text-white' 
                             : 'bg-gray-200 text-gray-700'
                         }`}
-                        onClick={() => handleTagChange(tag)}
+                        onClick={() => handleTagToggle(tag.id)}
                       >
-                        {tag}
+                        {tag.name}
                       </button>
                     ))}
                   </div>
@@ -226,16 +360,22 @@ export function FormSection(): JSX.Element {
                 
                 <div className="bg-gray-50 rounded-lg p-4 mb-4">
                   <h3 className="font-medium mb-2">Penulis</h3>
-                  <select 
-                    className="w-full border border-gray-300 rounded p-2"
-                    value={author}
-                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setAuthor(e.target.value)}
-                    required
-                  >
-                    <option value="">Pilih penulis</option>
-                    <option value="Dian Sastro">Dian Sastro</option>
-                    <option value="Admin">Admin</option>
-                  </select>
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {availableAuthors.map((author) => (
+                      <button
+                        key={author.id}
+                        type="button"
+                        className={`px-2 py-1 rounded-full text-xs ${
+                          selectedAuthors.includes(author.id) 
+                            ? 'bg-red-500 text-white' 
+                            : 'bg-gray-200 text-gray-700'
+                        }`}
+                        onClick={() => handleAuthorToggle(author.id)}
+                      >
+                        {author.name}
+                      </button>
+                    ))}
+                  </div>
                 </div>
                 
                 <div className="bg-gray-50 rounded-lg p-4">
@@ -244,8 +384,8 @@ export function FormSection(): JSX.Element {
                     <input 
                       type="date" 
                       className="w-full border border-gray-300 rounded p-2"
-                      value={publishedAt}
-                      onChange={(e: ChangeEvent<HTMLInputElement>) => setPublishedAt(e.target.value)}
+                      value={pubDate}
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => setPubDate(e.target.value)}
                       required
                     />
                   </div>
