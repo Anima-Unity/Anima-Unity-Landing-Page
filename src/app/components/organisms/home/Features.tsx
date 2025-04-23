@@ -9,7 +9,7 @@ export default function Features() {
       title: "Healthcare Hub",
       description: "Centralized medical records, vaccination reminders, and vet appointment scheduling.",
       bgColor: "bg-orange-100",
-      path: "/healthcare",
+      path: "/features/healthcare-hub",
       delay: "100"
     },
     {
@@ -33,7 +33,7 @@ export default function Features() {
       title: "Telemedicine",
       description: "24/7 access to licensed veterinarians through video consultations.",
       bgColor: "bg-purple-100",
-      path: "/telemedicine",
+      path: "/features/telemedicine",
       delay: "400"
     },
   ];
