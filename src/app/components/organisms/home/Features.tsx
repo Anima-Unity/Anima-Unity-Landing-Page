@@ -10,7 +10,12 @@ export default function Features() {
       description: "Centralized medical records, vaccination reminders, and vet appointment scheduling.",
       bgColor: "bg-orange-100",
       path: "/features/healthcare-hub",
-      delay: "100"
+      delay: "100",
+      badges: [
+        { text: "Medical Records", color: "orange" },
+        { text: "Reminders", color: "orange" },
+        { text: "Appointments", color: "orange" }
+      ]
     },
     {
       icon: <FaHome className="text-xl text-blue-500" />,
@@ -18,7 +23,12 @@ export default function Features() {
       description: "Find your perfect pet match with our verified shelter network and adoption tools.",
       bgColor: "bg-blue-100",
       path: "/features/shelter-adoption",
-      delay: "200"
+      delay: "200",
+      badges: [
+        { text: "Shelter Network", color: "blue" },
+        { text: "Match Finder", color: "blue" },
+        { text: "Verified", color: "blue" }
+      ]
     },
     {
       icon: <FaMapMarkerAlt className="text-xl text-green-500" />,
@@ -26,7 +36,12 @@ export default function Features() {
       description: "IoT-powered GPS tracking for your pet's safety with real-time location updates.",
       bgColor: "bg-green-100",
       path: "/features/anitrack-gps",
-      delay: "300"
+      delay: "300",
+      badges: [
+        { text: "Real-time", color: "green" },
+        { text: "IoT-powered", color: "green" },
+        { text: "Location Alerts", color: "green" }
+      ]
     },
     {
       icon: <FaVideo className="text-xl text-purple-500" />,
@@ -34,7 +49,12 @@ export default function Features() {
       description: "24/7 access to licensed veterinarians through video consultations.",
       bgColor: "bg-purple-100",
       path: "/features/telemedicine",
-      delay: "400"
+      delay: "400",
+      badges: [
+        { text: "24/7 Access", color: "purple" },
+        { text: "Licensed Vets", color: "purple" },
+        { text: "Video Consults", color: "purple" }
+      ]
     },
   ];
 
@@ -44,8 +64,15 @@ export default function Features() {
     description: "Create a personalized digital ID card for your pet with all essential information, medical records, and QR code for emergency access.",
     bgColor: "bg-indigo-100",
     path: "/features/pet-id",
-    delay: "500"
+    delay: "500",
+    badges: [
+      { text: "QR Code", color: "indigo" },
+      { text: "Medical Records", color: "indigo" },
+      { text: "Emergency Info", color: "indigo" }
+    ]
   };
+
+  
 
   return (
     <section id="features" className="py-20 bg-gradient-to-br from-gray-50 to-white">
@@ -75,7 +102,17 @@ export default function Features() {
                 {feature.icon}
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">{feature.title}</h3>
-              <p className="text-gray-600 text-sm">{feature.description}</p>
+              <p className="text-gray-600 text-sm mb-4">{feature.description}</p>
+              <div className="flex flex-wrap gap-2">
+                {feature.badges.map((badge, idx) => (
+                  <span 
+                    key={idx} 
+                    className={`inline-block bg-${badge.color}-50 text-${badge.color}-600 px-3 py-1 rounded-full text-xs font-medium`}
+                  >
+                    {badge.text}
+                  </span>
+                ))}
+              </div>
             </Link>
           ))}
         </div>
@@ -94,15 +131,14 @@ export default function Features() {
             <h3 className="text-xl font-bold mb-3 text-gray-800">{petIdCard.title}</h3>
             <p className="text-gray-600 text-sm mb-4">{petIdCard.description}</p>
             <div className="flex flex-wrap gap-2">
-              <span className="inline-block bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-xs font-medium">
-                QR Code
-              </span>
-              <span className="inline-block bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-xs font-medium">
-                Medical Records
-              </span>
-              <span className="inline-block bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-xs font-medium">
-                Emergency Info
-              </span>
+              {petIdCard.badges.map((badge, idx) => (
+                <span 
+                  key={idx} 
+                  className={`inline-block bg-${badge.color}-50 text-${badge.color}-600 px-3 py-1 rounded-full text-xs font-medium`}
+                >
+                  {badge.text}
+                </span>
+              ))}
             </div>
           </Link>
         </div>
