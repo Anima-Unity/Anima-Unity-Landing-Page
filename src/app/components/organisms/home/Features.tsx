@@ -17,7 +17,7 @@ export default function Features() {
       title: "Shelter & Adoption",
       description: "Find your perfect pet match with our verified shelter network and adoption tools.",
       bgColor: "bg-blue-100",
-      path: "/adoption",
+      path: "/features/shelter-adoption",
       delay: "200"
     },
     {
