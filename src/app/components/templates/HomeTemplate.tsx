@@ -1,3 +1,6 @@
+'use client'
+
+
 import Hero from '@/app/components/organisms/home/Hero'
 import Features from '@/app/components/organisms/home/Features'
 import About from '@/app/components/organisms/home/About'

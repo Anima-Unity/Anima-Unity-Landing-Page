@@ -43,7 +43,7 @@ export default function Navbar() {
 
   if (isMinimal) {
     return (
-      <nav className="w-full py-4 px-6 shadow-sm">
+      <nav className="w-full py-4 px-6 shadow-sm bg-white">
         <Link href="/" className="flex items-center space-x-2">
           <Image src="/img/logo.png" alt="Anima Unity Logo" width={32} height={32} />
           <span className="text-xl font-bold text-gray-800">Anima Unity</span>
@@ -54,7 +54,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 backdrop-blur-md bg-white/30 border-b border-white/20 transition-transform duration-300 ${
+      className={`fixed top-0 w-full z-50 backdrop-blur-md bg-white/95 border-b border-gray-200 transition-transform duration-300 ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
@@ -74,8 +74,8 @@ export default function Navbar() {
                 href={`/#${item}`}
                 className={`text-sm font-medium px-3 py-2 rounded-md transition ${
                   activeSection === item
-                    ? 'text-orange-500 font-semibold'
-                    : 'text-gray-800 hover:text-orange-500'
+                    ? 'text-[#4FD1C5] font-semibold'
+                    : 'text-gray-700 hover:text-[#4FD1C5]'
                 }`}
               >
                 {item.charAt(0).toUpperCase() + item.slice(1)}
@@ -83,7 +83,7 @@ export default function Navbar() {
             ))}
             <Link
               href="#cta"
-              className="ml-4 px-5 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-sm font-medium transition"
+              className="ml-4 px-5 py-2 bg-[#4FD1C5] hover:bg-[#38B2AC] text-white rounded-full text-sm font-medium transition shadow-md hover:shadow-lg"
             >
               Join Now
             </Link>
@@ -93,7 +93,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 hover:text-orange-500 transition"
+              className="text-gray-700 hover:text-[#4FD1C5] transition"
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -103,7 +103,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden backdrop-blur-md bg-white/70 border-t border-white/30 shadow-sm px-4 pb-6 pt-2 space-y-4 transition">
+        <div className="md:hidden bg-white/95 border-t border-gray-200 shadow-sm px-4 pb-6 pt-2 space-y-4 transition">
           {navItems.map((item) => (
             <Link
               key={item}
@@ -111,8 +111,8 @@ export default function Navbar() {
               onClick={() => setIsOpen(false)}
               className={`block text-sm font-medium ${
                 activeSection === item
-                  ? 'text-orange-500 font-semibold'
-                  : 'text-gray-800 hover:text-orange-500'
+                  ? 'text-[#4FD1C5] font-semibold'
+                  : 'text-gray-700 hover:text-[#4FD1C5]'
               }`}
             >
               {item.charAt(0).toUpperCase() + item.slice(1)}
@@ -121,7 +121,7 @@ export default function Navbar() {
           <Link
             href="#cta"
             onClick={() => setIsOpen(false)}
-            className="inline-block w-full text-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-sm font-medium transition"
+            className="inline-block w-full text-center px-4 py-2 bg-[#4FD1C5] hover:bg-[#38B2AC] text-white rounded-full text-sm font-medium transition shadow-md hover:shadow-lg"
           >
             Join Now
           </Link>
