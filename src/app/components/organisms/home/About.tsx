@@ -1,5 +1,6 @@
 // src/sections/About.tsx
 import { FaPaw, FaUserMd, FaHeart, FaSmile } from 'react-icons/fa';
+import Image from 'next/image'
 
 export default function About() {
   return (
@@ -7,7 +8,7 @@ export default function About() {
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="md:flex items-center">
       <div className="md:w-1/2 mb-12 md:mb-0" data-aos="fade-right">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1558788353-f76d92427f16?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80"
           alt="Dog and cat together"
           className="rounded-2xl shadow-xl w-full h-auto"

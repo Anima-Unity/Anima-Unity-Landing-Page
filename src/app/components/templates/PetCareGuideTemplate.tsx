@@ -376,7 +376,7 @@ export default function PetCareGuideTemplate() {
         <div className="relative">
           <div className="w-full h-64 md:h-96 bg-gray-200 rounded-lg relative z-10 overflow-hidden">
             {/* Using an img tag instead of background for better mobile support */}
-            <img 
+            <Image 
               src="https://plus.unsplash.com/premium_photo-1661963279669-48d017318c96?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
               alt="Veterinarian with pet" 
               className="w-full h-full object-cover object-center"

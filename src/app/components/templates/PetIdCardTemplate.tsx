@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { QrCode, FileText, AlertCircle, Camera, Wifi, Upload, RefreshCw, Globe, Phone } from 'lucide-react';
 import { FaPaw } from 'react-icons/fa';
+import Image from 'next/image'
 
 interface PetFormData {
   name: string;
@@ -269,7 +270,7 @@ const DigitalPetIDCardTemplate: React.FC = () => {
                 <div className="flex items-center space-x-6">
                   <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-gray-200">
                     {petImage ? (
-                      <img 
+                      <Image 
                         src={petImage} 
                         alt="Pet preview" 
                         className="w-full h-full object-cover"
@@ -377,14 +378,14 @@ const DigitalPetIDCardTemplate: React.FC = () => {
                         </div>
                         <div className="w-24 h-24 rounded-lg overflow-hidden border-2 border-white shadow-lg">
                           {petImage ? (
-                            <img 
+                            <Image 
                               src={petImage} 
                               alt="Pet" 
                               className="w-full h-full object-cover"
                             />
                           ) : (
                             <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                              <img src="/api/placeholder/120/120" alt="Pet" className="w-full h-full object-cover" />
+                              <Image src="/api/placeholder/120/120" alt="Pet" className="w-full h-full object-cover" />
                             </div>
                           )}
                         </div>

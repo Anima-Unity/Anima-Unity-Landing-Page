@@ -4,6 +4,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import Image from 'next/image'
 
 export default function ShelterAdoptionTemplate() {
   // Sample data for shelters
@@ -154,7 +155,7 @@ export default function ShelterAdoptionTemplate() {
             
             <div className="w-full md:w-1/2" data-aos="fade-left">
               <div className="relative">
-                <img 
+                <Image 
                   src="/api/placeholder/500/400" 
                   alt="Pet matching interface" 
                   className="rounded-lg shadow-lg w-full"
@@ -280,7 +281,7 @@ export default function ShelterAdoptionTemplate() {
             {pets.map((pet) => (
               <Card key={pet.id} className="bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow border-0 overflow-hidden">
                 <div className="h-48 bg-gray-200 dark:bg-gray-700 relative">
-                  <img 
+                  <Image 
                     src="/api/placeholder/300/240" 
                     alt={pet.name} 
                     className="w-full h-full object-cover"

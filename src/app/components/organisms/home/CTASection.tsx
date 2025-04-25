@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image'
 
 export default function CTASection() {
   return (
@@ -25,7 +26,7 @@ export default function CTASection() {
                 {/* Phone screen */}
                 <div className="w-full h-full bg-gray-100 rounded-2xl overflow-hidden relative">
                   {/* App screenshot */}
-                  <img 
+                  <Image 
                     src="/api/placeholder/240/500" 
                     alt="Anima Unity App Screenshot" 
                     className="w-full h-full object-cover"

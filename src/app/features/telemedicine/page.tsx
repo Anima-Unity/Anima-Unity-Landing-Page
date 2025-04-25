@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Image from 'next/image'
 
 // Import AOS if not already done at app level
 // import AOS from 'aos';
@@ -135,7 +136,7 @@ export default function TelemedicinePage() {
             <div className="md:w-1/2 relative">
               <div className="rounded-lg overflow-hidden shadow-xl bg-white dark:bg-gray-800 p-4">
                 <div className="relative">
-                  <img 
+                  <Image 
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdQWDolFUO0W_iqcSVBn8aTgbHWuct1U-cBP9fVWLBCgkr7P_WhwJ6C30&s=10" 
                     alt="Konsultasi dokter hewan via video call" 
                     className="w-full rounded-lg"
@@ -380,7 +381,7 @@ export default function TelemedicinePage() {
             <div className="md:flex">
               <div className="md:w-2/3 relative">
                 <div className="bg-black rounded-lg overflow-hidden aspect-video relative">
-                  <img 
+                  <Image 
                     src="/api/placeholder/640/360" 
                     alt="Video call interface" 
                     className="w-full opacity-70"

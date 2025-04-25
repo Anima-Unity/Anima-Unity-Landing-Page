@@ -5,6 +5,7 @@ import { FaMobileAlt, FaHistory, FaBell, FaBatteryThreeQuarters, FaPaw } from "r
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import Image from 'next/image'
 
 export default function AnitrackGpsTemplate() {
   return (
@@ -39,7 +40,7 @@ export default function AnitrackGpsTemplate() {
             <div className="relative z-10 bg-white rounded-xl shadow-xl overflow-hidden">
               <div className="h-2 bg-gradient-to-r from-orange-400 to-amber-500"></div>
               <div className="p-4">
-                <img 
+                <Image 
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDNOZ_0WG2EDLaJdfugmevz-qqgEXIpakLjLgArhIkRQpolz2UdVZSgGk&s=10" 
                   alt="Pet Tracking Map" 
                   className="rounded-lg w-full"
@@ -210,9 +211,10 @@ export default function AnitrackGpsTemplate() {
           </div>
           
           <div className="order-1 md:order-2">
-            <img
+            <Image
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpYwIhOH5QH3vkXh5t-HfB7rVa4DOd30bgzA5SMdgHSRGSDy86VP6EMpoB&s=10"
               className="rounded-2xl shadow-lg w-full"
+              alt=""
             />
           </div>
         </div>

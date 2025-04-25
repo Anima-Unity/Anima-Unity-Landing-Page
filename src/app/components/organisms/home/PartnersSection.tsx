@@ -3,6 +3,7 @@
 import React from 'react'
 import Marquee from 'react-fast-marquee'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 // Define partner type
 type Partner = {
@@ -57,7 +58,7 @@ export default function PartnersSection(): JSX.Element {
             {PARTNERS.map((partner, index) => (
               <div key={index} className="mx-8 md:mx-12">
                 <div className="w-24 md:w-32 h-16 md:h-20 flex items-center justify-center opacity-70 hover:opacity-100 transition duration-300 ease-in-out">
-                  <img
+                  <Image
                     src={partner.logo}
                     alt={`${partner.name} logo`}
                     className="object-contain w-full h-full"
