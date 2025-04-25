@@ -7,9 +7,9 @@ const nextConfig = {
         hostname: 'source.unsplash.com',
         pathname: '**',
       },
+      // Add any other image domains you might be using
     ],
-    domains: ['source.unsplash.com'],
-    unoptimized: process.env.NODE_ENV === 'development',
+    unoptimized: true, // Try setting this to true for both dev and prod
   },
 };
 
