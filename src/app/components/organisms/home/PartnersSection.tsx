@@ -59,10 +59,13 @@ export default function PartnersSection(): JSX.Element {
               <div key={index} className="mx-8 md:mx-12">
                 <div className="w-24 md:w-32 h-16 md:h-20 flex items-center justify-center opacity-70 hover:opacity-100 transition duration-300 ease-in-out">
                   <Image
-                    src={partner.logo}
-                    alt={`${partner.name} logo`}
-                    className="object-contain w-full h-full"
-                  />
+  src={partner.logo}
+  alt={`${partner.name} logo`}
+  layout="intrinsic"  // Automatically adjusts based on the image's natural size
+  width={500}         // Provide a reference width (this could vary based on your design)
+  height={250}        // Provide a reference height (this could vary based on your design)
+  className="object-contain w-full h-full"
+/>
                 </div>
               </div>
             ))}

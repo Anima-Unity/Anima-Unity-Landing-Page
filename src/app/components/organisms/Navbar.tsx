@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 
-const navItems = ['home', 'features', 'about', 'pricing', 'testimonials']
+const navItems = ['home', 'features', 'about', /*'pricing',*/ 'testimonials']
 
 export default function Navbar() {
   const pathname = usePathname()

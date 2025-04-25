@@ -8,11 +8,14 @@ export default function About() {
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="md:flex items-center">
       <div className="md:w-1/2 mb-12 md:mb-0" data-aos="fade-right">
-        <Image
-          src="https://images.unsplash.com/photo-1558788353-f76d92427f16?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80"
-          alt="Dog and cat together"
-          className="rounded-2xl shadow-xl w-full h-auto"
-        />
+        <div className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-xl">
+  <Image
+    src="https://images.unsplash.com/photo-1558788353-f76d92427f16?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80"
+    alt="Dog and cat together"
+    fill
+    className="object-cover"
+  />
+</div>
       </div>
       <div className="md:w-1/2 md:pl-16" data-aos="fade-left">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Mission</h2>

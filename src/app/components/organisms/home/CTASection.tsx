@@ -26,11 +26,14 @@ export default function CTASection() {
                 {/* Phone screen */}
                 <div className="w-full h-full bg-gray-100 rounded-2xl overflow-hidden relative">
                   {/* App screenshot */}
-                  <Image 
-                    src="/api/placeholder/240/500" 
-                    alt="Anima Unity App Screenshot" 
-                    className="w-full h-full object-cover"
-                  />
+                  <div className="relative w-full aspect-[240/500]">
+  <Image
+    src="/api/placeholder/240/500"
+    alt="Placeholder"
+    fill
+    className="object-cover rounded-2xl shadow-xl"
+  />
+</div>
                   
                   {/* App UI elements overlay */}
                   <div className="absolute top-0 left-0 w-full h-14 bg-teal-500 flex items-center px-4">

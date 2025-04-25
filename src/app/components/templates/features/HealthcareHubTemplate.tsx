@@ -427,11 +427,16 @@ export default function HealthcareHubTemplate() {
               <div className="relative w-full max-w-md">
                 <div className="absolute -top-6 -right-6 w-32 h-32 bg-teal-200/30 rounded-full -z-10"></div>
                 <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-blue-100/50 rounded-full -z-10"></div>
-                <Image 
-                  src="https://plus.unsplash.com/premium_photo-1663039950073-187c977da2e9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-                  alt="Veterinarian checking a dog" 
-                  className="rounded-xl shadow-lg w-full object-cover border border-gray-100" 
-                />
+                
+
+<Image 
+  src="https://plus.unsplash.com/premium_photo-1663039950073-187c977da2e9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+  alt="Veterinarian checking a dog" 
+  width={1170}  // Set the reference width
+  height={780}  // Set the reference height
+  layout="responsive" // This makes the image responsive to its container's width
+  className="rounded-xl shadow-lg w-full object-cover border border-gray-100" 
+/>
               </div>
             </div>
           </div>
