@@ -54,7 +54,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 backdrop-blur-md bg-white/95 border-b border-gray-200 transition-transform duration-300 ${
+      className={`fixed top-0 w-full z-50 backdrop-blur-xs bg-white/95 border-b border-gray-200 transition-transform duration-300 ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
