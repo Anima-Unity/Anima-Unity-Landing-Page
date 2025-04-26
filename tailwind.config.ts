@@ -29,45 +29,44 @@ const config: Config = {
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         
-        // Updated color schemes based on the images
+        // Main brand color - teal/green used for buttons & accents
         primary: {
-          light: "#34d399", // Lighter green from Image 2
-          DEFAULT: "#10b981", // Green from Image 2
-          dark: "#059669", // Darker green for contrast
+          light: "#2dd4bf", // Lighter teal for hover states
+          DEFAULT: "#10b981", // Main green/teal color from buttons
+          dark: "#0d9488", // Darker teal for pressed states
         },
         secondary: {
-          light: "#e2e8f0",
+          light: "#f1f5f9",
           DEFAULT: "#64748b",
-          dark: "#1e293b",
+          dark: "#334155",
           foreground: "hsl(var(--secondary-foreground))",
         },
         
-        // Gradient colors from both images
-        gradient: {
-          blue: {
-            start: "#0ea5e9", // Blue from Image 2
-            mid: "#2563eb",
-            end: "#1d4ed8",
-          },
-          green: {
-            start: "#10b981", // Green from Image 2
-            mid: "#059669",
-            end: "#047857",
-          },
-          teal: {
-            start: "#14b8a6",
-            mid: "#0d9488",
-            end: "#0f766e",
-          },
+        // Feature card colors from Image 2
+        feature: {
+          healthcare: "#fff7ed", // Light orange bg 
+          shelter: "#eff6ff", // Light blue bg
+          tracking: "#ecfdf5", // Light green bg
+          telemedicine: "#f3e8ff", // Light purple bg
+          digital: "#f0f9ff", // Light cyan bg
         },
         
-        // Accent colors observed in both designs
+        // Icon colors from feature sections
+        icon: {
+          healthcare: "#fb923c", // Orange
+          shelter: "#3b82f6", // Blue
+          tracking: "#10b981", // Green
+          telemedicine: "#a855f7", // Purple
+          digital: "#0ea5e9", // Cyan
+        },
+        
+        // Accent colors from the design
         accent: {
-          blue: "#3b82f6", // Lattice blue from Image 1
-          teal: "#0d9488", // Teal accent
-          green: "#10b981", // Green from Image 2
+          blue: "#3b82f6",
+          teal: "#14b8a6",
+          green: "#10b981",
           orange: "#f97316",
-          yellow: "#f59e0b", // Rating stars color in Image 1
+          yellow: "#fbbf24", // Stars in reviews
         },
         
         destructive: {
@@ -76,24 +75,26 @@ const config: Config = {
         },
         success: "#10b981",
         warning: "#f59e0b",
-        chart: {
-          "1": "#3b82f6",
-          "2": "#10b981",
-          "3": "#f59e0b",
-          "4": "#ef4444",
-          "5": "#8b5cf6",
-        },
+        info: "#3b82f6",
+        stat: {
+          shelters: "#fef3c7", // Light yellow bg
+          vets: "#dbeafe", // Light blue bg
+          pets: "#d1fae5", // Light green bg
+          satisfaction: "#f3e8ff", // Light purple bg
+        }
       },
       
       fontFamily: {
         sans: [
-          "Inter", // Main font seen in Image 1
+          "Inter",
+          "-apple-system",
+          "BlinkMacSystemFont",
           "system-ui",
           "sans-serif",
         ],
         display: [
-          "Plus Jakarta Sans", // For headings like in Image 2
           "Inter",
+          "system-ui",
           "sans-serif",
         ],
       },
@@ -102,21 +103,25 @@ const config: Config = {
         lg: "var(--radius, 0.75rem)",
         md: "calc(var(--radius, 0.75rem) - 2px)",
         sm: "calc(var(--radius, 0.75rem) - 4px)",
-        "2xl": "1rem", // Rounded corners like in Image 2
-        "3xl": "1.5rem", // Very rounded card in Image 1
+        "2xl": "1rem", // Rounded corners for cards
+        "3xl": "1.5rem", // Very rounded elements like in hero section
+        "4xl": "2rem", // Extra rounded corners for featured mobile app cards
       },
       
       boxShadow: {
-        card: "0 4px 24px rgba(0, 0, 0, 0.06)", // Card shadow from Image 1
-        "card-hover": "0 8px 32px rgba(0, 0, 0, 0.12)",
-        button: "0 2px 8px rgba(0, 0, 0, 0.1)",
+        card: "0 4px 24px rgba(0, 0, 0, 0.04)", // Light shadow for cards
+        "card-hover": "0 8px 32px rgba(0, 0, 0, 0.08)",
+        button: "0 2px 8px rgba(16, 185, 129, 0.25)", // Green glow for buttons
+        "button-hover": "0 4px 12px rgba(16, 185, 129, 0.4)",
+        app: "0 25px 50px -12px rgba(0, 0, 0, 0.15)", // Shadow for app mockups
       },
       
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "hero-gradient": "linear-gradient(to right, #0ea5e9, #10b981)", // Blue to green gradient like Image 2
+        "hero-pattern": "radial-gradient(circle at 10% 90%, rgba(236, 253, 245, 0.7), transparent 30%), radial-gradient(circle at 90% 10%, rgba(224, 242, 254, 0.7), transparent 30%)",
         "card-gradient": "linear-gradient(to bottom right, #f0fdfa, #ecfdf5)", // Subtle card gradient
+        "cta-gradient": "linear-gradient(to right, #10b981, #0ea5e9)", // Green to blue gradient
       },
       
       keyframes: {
@@ -136,6 +141,10 @@ const config: Config = {
           "0%": { transform: "translateY(10px)", opacity: "0" },
           "100%": { transform: "translateY(0)", opacity: "1" },
         },
+        "pulse-gentle": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.85" },
+        },
       },
       
       animation: {
@@ -143,6 +152,7 @@ const config: Config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.5s ease-out",
         "slide-up": "slide-up 0.5s ease-out",
+        "pulse-gentle": "pulse-gentle 3s infinite ease-in-out",
       },
     },
   },

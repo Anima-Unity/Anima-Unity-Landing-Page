@@ -29,14 +29,14 @@ const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
     if (i < Math.floor(rating)) {
       // Full star
       stars.push(
-        <svg key={i} className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+        <svg key={i} className="w-4 h-4 text-accent-yellow" fill="currentColor" viewBox="0 0 20 20">
           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
         </svg>
       );
     } else if (i === Math.floor(rating) && rating % 1 !== 0) {
       // Half star
       stars.push(
-        <svg key={i} className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+        <svg key={i} className="w-4 h-4 text-accent-yellow" fill="currentColor" viewBox="0 0 20 20">
           <defs>
             <linearGradient id="halfStar">
               <stop offset="50%" stopColor="currentColor" />
@@ -60,7 +60,7 @@ const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
 };
 
 const VetCardSkeleton: React.FC = () => (
-  <div className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse">
+  <div className="bg-white rounded-2xl shadow-card overflow-hidden animate-pulse">
     <div className="bg-gray-200 h-48"></div>
     <div className="p-5">
       <div className="flex items-start justify-between mb-2">
@@ -89,7 +89,7 @@ const VetCardSkeleton: React.FC = () => (
 );
 
 const VetCard: React.FC<{ vet: Vet }> = ({ vet }) => (
-  <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-200">
+  <div className="bg-white rounded-2xl shadow-card overflow-hidden hover:shadow-card-hover transition duration-200">
     <div className="h-48 relative">
       <Image 
         src={vet.imageUrl} 
@@ -97,31 +97,26 @@ const VetCard: React.FC<{ vet: Vet }> = ({ vet }) => (
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         className="object-cover"
-       /* onError={(e) => {
-          const target = e.target as HTMLImageElement;
-          target.onerror = null;
-          target.src = '/placeholder-vet.jpg';
-        }}*/
       />
     </div>
     <div className="p-5">
       <div className="flex items-start justify-between mb-2">
         <h3 className="text-lg font-semibold text-gray-800">{vet.name}</h3>
-        <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
+        <span className="bg-primary-light/20 text-primary-dark text-xs font-medium px-2.5 py-0.5 rounded-full">
           {vet.availability}
         </span>
       </div>
-      <p className="text-sm text-orange-600 font-medium mb-2">{vet.specialty}</p>
+      <p className="text-sm text-accent-orange font-medium mb-2">{vet.specialty}</p>
       <div className="mb-3">
         <div className="flex items-center mb-1">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-500 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-secondary-DEFAULT mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
           <span className="text-sm text-gray-600">{vet.location}</span>
         </div>
         <div className="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-500 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-secondary-DEFAULT mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
           </svg>
           <span className="text-sm text-gray-600">{vet.distance}</span>
@@ -134,10 +129,10 @@ const VetCard: React.FC<{ vet: Vet }> = ({ vet }) => (
         <span className="text-sm text-gray-600">({vet.reviewCount} reviews)</span>
       </div>
       <div className="flex space-x-3">
-        <button className="bg-orange-500 text-white py-2 px-4 rounded font-medium hover:bg-orange-600 transition duration-200 flex-grow">
-          Book Appointment
-        </button>
-        <button className="border border-gray-300 text-gray-700 py-2 px-4 rounded font-medium hover:bg-gray-100 transition duration-200">
+        <button className="bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:bg-primary-light transition duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg active:scale-95">
+  Book Appointment
+</button>
+        <button className="border border-gray-300 text-gray-700 py-2 px-4 rounded-md font-medium hover:bg-gray-100 transition duration-200">
           Profile
         </button>
       </div>
@@ -147,23 +142,23 @@ const VetCard: React.FC<{ vet: Vet }> = ({ vet }) => (
 
 const NoResults: React.FC<{ resetFilter: () => void }> = ({ resetFilter }) => (
   <div className="text-center py-10">
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-gray-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-secondary-DEFAULT mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
     <h3 className="text-lg font-medium text-gray-700 mb-2">No veterinarians found</h3>
     <p className="text-gray-500">No veterinarians match your current filter. Please try another specialty.</p>
     <button 
       onClick={resetFilter} 
-      className="mt-4 px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition duration-200"
+      className="mt-4 px-4 py-2 bg-primary-DEFAULT text-white rounded-md hover:bg-primary-dark transition duration-200 shadow-button hover:shadow-button-hover"
     >
       Show all veterinarians
     </button>
   </div>
 );
 
-const FeatureCard: React.FC<{ icon: JSX.Element, title: string, description: string }> = ({ icon, title, description }) => (
-  <div className="bg-white p-6 rounded-lg shadow-md">
-    <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+const FeatureCard: React.FC<{ icon: JSX.Element, title: string, description: string, bgColor: string, iconColor: string }> = ({ icon, title, description, bgColor, iconColor }) => (
+  <div className={`${bgColor} p-6 rounded-2xl shadow-card hover:shadow-card-hover transition duration-200`}>
+    <div className={`w-12 h-12 ${iconColor} rounded-full flex items-center justify-center mb-4`}>
       {icon}
     </div>
     <h3 className="text-lg font-semibold text-gray-800 mb-2">{title}</h3>
@@ -260,7 +255,6 @@ const useMockVetData = () => {
   return { vets, isLoading };
 };
 
-// Main component
 const VetDirectoryTemplate: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>('All');
   const { vets, isLoading } = useMockVetData();
@@ -274,7 +268,7 @@ const VetDirectoryTemplate: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50" data-aos="fade-up">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-orange-50 py-12 px-4 md:px-8">
+      <section className="bg-hero-pattern py-16 px-4 md:px-8 animate-fade-in">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
             Veterinarian Directory
@@ -282,12 +276,12 @@ const VetDirectoryTemplate: React.FC = () => {
           <p className="text-lg text-gray-600 mb-8">
             Find trusted veterinarians near you, browse by specialty, and book appointments easily.
           </p>
-          <div className="bg-white rounded-lg shadow-md p-4 flex items-center">
-            <div className="relative flex-grow">
+          <div className="bg-white rounded-2xl shadow-card p-4 flex flex-col md:flex-row items-center">
+            <div className="relative flex-grow w-full md:w-auto mb-4 md:mb-0">
               <input 
                 type="text" 
                 placeholder="Enter your location or zip code" 
-                className="w-full py-3 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full py-3 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-DEFAULT"
               />
               <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -295,7 +289,7 @@ const VetDirectoryTemplate: React.FC = () => {
                 </svg>
               </span>
             </div>
-            <button className="ml-4 bg-orange-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-orange-600 transition duration-200">
+            <button className="w-full md:w-auto ml-0 md:ml-4 bg-primary-DEFAULT text-white py-3 px-6 rounded-lg font-medium hover:bg-primary-dark transition duration-200 shadow-button hover:shadow-button-hover">
               Search
             </button>
           </div>
@@ -305,11 +299,11 @@ const VetDirectoryTemplate: React.FC = () => {
       {/* Filter Section */}
       <section className="py-6 px-4 md:px-8 border-b border-gray-200">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold text-gray-800">Available Veterinarians</h2>
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
+            <h2 className="text-xl font-semibold text-gray-800 mb-3 md:mb-0">Available Veterinarians</h2>
             <div className="flex items-center">
               <span className="text-gray-600 mr-2">Sort by:</span>
-              <select className="border border-gray-300 rounded-md py-1 px-3 focus:outline-none focus:ring-2 focus:ring-orange-500">
+              <select className="border border-gray-300 rounded-md py-1 px-3 focus:outline-none focus:ring-2 focus:ring-primary-DEFAULT">
                 <option>Distance</option>
                 <option>Rating</option>
                 <option>Availability</option>
@@ -320,9 +314,9 @@ const VetDirectoryTemplate: React.FC = () => {
             {FILTERS.map((filter) => (
               <button
                 key={filter}
-                className={`px-4 py-2 rounded-full text-sm font-medium ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition duration-200 ${
                   selectedFilter === filter
-                    ? 'bg-orange-500 text-white'
+                    ? 'bg-primary-DEFAULT text-white shadow-button'
                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
                 onClick={() => setSelectedFilter(filter)}
@@ -360,7 +354,7 @@ const VetDirectoryTemplate: React.FC = () => {
       </section>
 
       {/* Featured Section */}
-      <section className="bg-blue-50 py-12 px-4 md:px-8">
+      <section className="bg-card-gradient py-14 px-4 md:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-2xl font-bold text-gray-800 mb-2">Why Choose Our Vet Network?</h2>
@@ -369,31 +363,81 @@ const VetDirectoryTemplate: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <FeatureCard 
               icon={
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-icon-healthcare" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               }
               title="Verified Professionals"
               description="All veterinarians are thoroughly verified and must maintain high standards of care and expertise."
+              bgColor="bg-feature-healthcare"
+              iconColor="bg-white"
             />
             <FeatureCard 
               icon={
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-icon-shelter" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               }
               title="24/7 Availability"
               description="Find emergency veterinary care at any time of day or night through our network of professionals."
+              bgColor="bg-feature-shelter"
+              iconColor="bg-white"
             />
             <FeatureCard 
               icon={
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-icon-tracking" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
                 </svg>
               }
               title="Verified Reviews"
               description="All reviews come from actual pet owners who have used the services of our listed veterinarians."
+              bgColor="bg-feature-tracking"
+              iconColor="bg-white"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-14 px-4 md:px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">Our Network By The Numbers</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">Join thousands of pet owners who trust our platform for their pet healthcare needs.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-stat-shelters rounded-2xl p-6 text-center">
+              <div className="text-4xl font-bold text-accent-orange mb-2">250+</div>
+              <div className="text-gray-700">Partner Shelters</div>
+            </div>
+            <div className="bg-stat-vets rounded-2xl p-6 text-center">
+              <div className="text-4xl font-bold text-accent-blue mb-2">1,000+</div>
+              <div className="text-gray-700">Verified Veterinarians</div>
+            </div>
+            <div className="bg-stat-pets rounded-2xl p-6 text-center">
+              <div className="text-4xl font-bold text-accent-green mb-2">50,000+</div>
+              <div className="text-gray-700">Pets Treated</div>
+            </div>
+            <div className="bg-stat-satisfaction rounded-2xl p-6 text-center">
+              <div className="text-4xl font-bold text-accent-teal mb-2">98%</div>
+              <div className="text-gray-700">Satisfaction Rate</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-cta-gradient py-14 px-4 md:px-8 text-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to find the perfect vet for your pet?</h2>
+          <p className="text-lg opacity-90 mb-8">Join thousands of happy pet owners who have found reliable veterinary care through our platform.</p>
+          <div className="flex flex-col md:flex-row justify-center gap-4">
+            <button className="bg-primary-light text-primary-DEFAULT py-3 px-8 rounded-lg font-medium hover:bg-primary-dark transition duration-200 shadow-lg">
+              Download Our App
+            </button>
+            <button className="border-2 border-white text-white py-3 px-8 rounded-lg font-medium hover:bg-white hover:text-primary-DEFAULT transition duration-200">
+              Learn More
+            </button>
           </div>
         </div>
       </section>

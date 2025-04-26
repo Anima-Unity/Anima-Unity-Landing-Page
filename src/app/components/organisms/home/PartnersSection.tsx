@@ -9,12 +9,43 @@ import Image from 'next/image'
 type Partner = {
   name: string
   logo: string
+  width?: number
+  height?: number
 }
 
+// Enhanced partner data with consistent dimensions
 const PARTNERS: Partner[] = [
-  { name: 'Gojek', logo: '/img/partners-logo/gojek.png' },
-  { name: 'Halodoc', logo: '/img/partners-logo/halodoc.png' },
-  { name: 'Allianz', logo: '/img/partners-logo/allianz.png' },
+  { 
+    name: 'Halodoc', 
+    logo: '/img/partners-logo/halodoc.png',
+    width: 140,
+    height: 50
+  },
+  { 
+    name: 'Allianz', 
+    logo: '/img/partners-logo/allianz.png',
+    width: 140,
+    height: 50
+  },
+  { 
+    name: 'Gojek', 
+    logo: '/img/partners-logo/gojek.png',
+    width: 140,
+    height: 50
+  },
+  // Add more partners for a smoother scrolling effect and fewer gaps
+  { 
+    name: 'Tokopedia', 
+    logo: '/img/partners-logo/tokopedia.png',
+    width: 140,
+    height: 50
+  },
+  { 
+    name: 'Grab', 
+    logo: '/img/partners-logo/grab.png',
+    width: 140,
+    height: 50
+  },
 ]
 
 export default function PartnersSection(): JSX.Element {
@@ -56,16 +87,23 @@ export default function PartnersSection(): JSX.Element {
             className="py-4"
           >
             {PARTNERS.map((partner, index) => (
-              <div key={index} className="mx-8 md:mx-12">
-                <div className="w-24 md:w-32 h-16 md:h-20 flex items-center justify-center opacity-70 hover:opacity-100 transition duration-300 ease-in-out">
+              <div 
+                key={index} 
+                className="mx-8 flex items-center justify-center"
+                style={{ height: '80px' }}
+              >
+                <div className="flex items-center justify-center opacity-80 hover:opacity-100 transition duration-300 ease-in-out">
                   <Image
-  src={partner.logo}
-  alt={`${partner.name} logo`}
-  layout="intrinsic"  // Automatically adjusts based on the image's natural size
-  width={500}         // Provide a reference width (this could vary based on your design)
-  height={250}        // Provide a reference height (this could vary based on your design)
-  className="object-contain w-full h-full"
-/>
+                    src={partner.logo}
+                    alt={`${partner.name} logo`}
+                    width={partner.width || 140}
+                    height={partner.height || 50}
+                    className="object-contain"
+                    style={{ 
+                      maxWidth: partner.width || 140,
+                      maxHeight: partner.height || 50
+                    }}
+                  />
                 </div>
               </div>
             ))}
