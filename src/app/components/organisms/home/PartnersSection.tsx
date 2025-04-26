@@ -9,48 +9,98 @@ import Image from 'next/image'
 type Partner = {
   name: string
   logo: string
-  width?: number
-  height?: number
+  width: number
+  height: number
 }
 
 // Enhanced partner data with consistent dimensions
 const PARTNERS: Partner[] = [
   { 
     name: 'Halodoc', 
-    logo: '/img/partners-logo/halodoc.png',
+    logo: 'https://upload.wikimedia.org/wikipedia/id/3/39/Logo_Halodoc.png',
     width: 140,
     height: 50
   },
   { 
     name: 'Allianz', 
-    logo: '/img/partners-logo/allianz.png',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Allianz.svg',
     width: 140,
     height: 50
   },
   { 
     name: 'Gojek', 
-    logo: '/img/partners-logo/gojek.png',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Gojek_logo_2022.svg/250px-Gojek_logo_2022.svg.png',
     width: 140,
     height: 50
   },
-  // Add more partners for a smoother scrolling effect and fewer gaps
   { 
     name: 'Tokopedia', 
-    logo: '/img/partners-logo/tokopedia.png',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Logo-Tokopedia.png/1200px-Logo-Tokopedia.png',
     width: 140,
     height: 50
   },
   { 
     name: 'Grab', 
-    logo: '/img/partners-logo/grab.png',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Grab_Logo.svg/1200px-Grab_Logo.svg.png',
+    width: 140,
+    height: 50
+  },
+  { 
+    name: 'Gopay', 
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Logo_Gopay.svg/1200px-Logo_Gopay.svg.png',
+    width: 140,
+    height: 50
+  },
+  { 
+    name: 'IPB', 
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Bogor_Agricultural_University_%28IPB%29_symbol.svg',
+    width: 140,
+    height: 50
+  },
+  { 
+    name: 'ITB', 
+    logo: 'https://upload.wikimedia.org/wikipedia/id/9/95/Logo_Institut_Teknologi_Bandung.png',
+    width: 140,
+    height: 50
+  },
+  { 
+    name: 'Nodeflux', 
+    logo: 'https://www.centraldatatech.com/wp-content/uploads/2023/02/nodeflux-logo.png.webp',
+    width: 140,
+    height: 50
+  },
+  { 
+    name: 'Qlue', 
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Master_Logo_-_Qlue_Corporate.png',
     width: 140,
     height: 50
   },
 ]
 
+// Split partners evenly for desktop layout
+const firstRowPartners = PARTNERS.slice(0, Math.ceil(PARTNERS.length / 2))
+const secondRowPartners = PARTNERS.slice(Math.ceil(PARTNERS.length / 2))
+
+// Partner logo component for consistent rendering
+const PartnerLogo = ({ partner }: { partner: Partner }) => (
+  <div 
+    className="flex items-center justify-center h-20 px-6"
+  >
+    <div className="flex items-center justify-center opacity-80 hover:opacity-100 transition duration-300 ease-in-out">
+      {/* Use img instead of Next.js Image component for guaranteed display */}
+      <img
+        src={partner.logo}
+        alt={`${partner.name} logo`}
+        className="object-contain max-h-12 max-w-[120px]"
+        loading="eager"
+      />
+    </div>
+  </div>
+)
+
 export default function PartnersSection(): JSX.Element {
   return (
-    <section className="relative py-16 bg-blue-50/30">
+    <section className="relative py-16 bg-blue-50/30 overflow-hidden">
       {/* Decorative Blurs */}
       <div className="absolute top-0 left-1/4 w-64 h-64 rounded-full bg-teal-100/30 blur-3xl opacity-70" />
       <div className="absolute bottom-0 right-1/4 w-48 h-48 rounded-full bg-blue-100/30 blur-3xl opacity-70" />
@@ -72,46 +122,54 @@ export default function PartnersSection(): JSX.Element {
         </motion.div>
 
         <motion.div
-          className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 relative overflow-hidden"
+          className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8 relative overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <Marquee
-            gradient
-            gradientColor="#ffffff"
-            gradientWidth={50}
-            speed={30}
-            pauseOnHover
-            className="py-4"
-          >
-            {PARTNERS.map((partner, index) => (
-              <div 
-                key={index} 
-                className="mx-8 flex items-center justify-center"
-                style={{ height: '80px' }}
-              >
-                <div className="flex items-center justify-center opacity-80 hover:opacity-100 transition duration-300 ease-in-out">
-                  <Image
-                    src={partner.logo}
-                    alt={`${partner.name} logo`}
-                    width={partner.width || 140}
-                    height={partner.height || 50}
-                    className="object-contain"
-                    style={{ 
-                      maxWidth: partner.width || 140,
-                      maxHeight: partner.height || 50
-                    }}
-                  />
+          {/* Desktop view - Evenly distributed 2-row grid layout */}
+          <div className="hidden lg:block">
+            {/* First row */}
+            <div className="grid grid-cols-5 gap-4">
+              {firstRowPartners.map((partner, index) => (
+                <PartnerLogo key={`first-row-${index}`} partner={partner} />
+              ))}
+            </div>
+            
+            {/* Second row */}
+            <div className="grid grid-cols-5 gap-4 mt-8">
+              {/* Center the logos in the second row */}
+              {secondRowPartners.length < 5 && <div className={`col-span-${Math.floor((5 - secondRowPartners.length) / 2)}`} />}
+              {secondRowPartners.map((partner, index) => (
+                <PartnerLogo key={`second-row-${index}`} partner={partner} />
+              ))}
+            </div>
+          </div>
+          
+          {/* Mobile/Tablet view - Debug view to ensure logos appear */}
+          <div className="lg:hidden">
+            <div className="flex flex-wrap justify-center gap-4 py-4">
+              {PARTNERS.slice(0, 4).map((partner, index) => (
+                <div key={`mobile-${index}`} className="w-1/3 max-w-[140px]">
+                  <PartnerLogo partner={partner} />
                 </div>
-              </div>
-            ))}
-          </Marquee>
+              ))}
+            </div>
+            
+            {/* Static display of logos */}
+            <div className="mt-4 flex flex-wrap justify-center gap-4 py-4">
+              {PARTNERS.slice(4, 8).map((partner, index) => (
+                <div key={`mobile-static-${index}`} className="w-1/3 max-w-[140px]">
+                  <PartnerLogo partner={partner} />
+                </div>
+              ))}
+            </div>
+          </div>
 
-          {/* Decorative Dots */}
-          <div className="absolute top-0 right-0 w-40 h-40 opacity-5">
-            <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          {/* Decorative Dots - Improved positioning */}
+          <div className="absolute top-4 right-4 w-32 h-32 opacity-5">
+            <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <pattern id="dots" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
                 <circle cx="5" cy="5" r="1.5" fill="currentColor" />
               </pattern>
