@@ -103,11 +103,11 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <FaMapMarkerAlt className="text-teal-500 mt-1 mr-3 flex-shrink-0" />
-                <span className="text-gray-600">123 Pet Avenue, San Francisco, CA 94107</span>
+                <span className="text-gray-600">Bekasi, Jawabarat, Indonesia 17145</span>
               </li>
               <li className="flex items-center">
                 <FaPhoneAlt className="text-teal-500 mr-3 flex-shrink-0" />
-                <span className="text-gray-600">(415) 555-1234</span>
+                <span className="text-gray-600">(021) 555-1234</span>
               </li>
               <li className="flex items-center">
                 <FaEnvelope className="text-teal-500 mr-3 flex-shrink-0" />

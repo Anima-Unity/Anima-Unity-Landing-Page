@@ -19,7 +19,7 @@ export default function CTASection() {
           <div className="absolute right-0 top-0 h-full w-1/3 hidden lg:block">
             <div className="h-full w-full relative">
               {/* Phone frame */}
-              <div className="absolute -right-24 top-1/2 transform -translate-y-1/2 h-auto max-h-[90%] w-60 bg-gray-900 rounded-3xl p-3 shadow-xl">
+              <div className="absolute top-1/2 transform -translate-y-1/2 h-auto max-h-[90%] w-60 bg-gray-900 rounded-3xl p-3 shadow-xl">
                 {/* Phone notch */}
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-5 bg-gray-900 rounded-b-xl z-10"></div>
                 
@@ -28,7 +28,7 @@ export default function CTASection() {
                   {/* App screenshot */}
                   <div className="relative w-full aspect-[240/500]">
   <Image
-    src="/api/placeholder/240/500"
+    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTyxFCc6FRE2-iMY7EuKMvpHV0lRFRSnT_bj9RqlG1guCZ-SRrmFxyq-o&s=10"
     alt="Placeholder"
     fill
     className="object-cover rounded-2xl shadow-xl"

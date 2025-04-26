@@ -1,6 +1,17 @@
 'use client'
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { 
+  Search, 
+  ChevronRight, 
+  ArrowRight, 
+  Book, 
+  Video, 
+  Archive, 
+  Beaker, 
+  FileText, 
+  ClipboardCheck
+} from 'lucide-react';
 
 interface Question {
   id: number;
@@ -64,6 +75,7 @@ export default function HelpCenterTemplate(): React.ReactElement {
       ]
     },
   ];
+  
   const supportOptions: SupportOption[] = [
     {
       title: "Contact Support",
@@ -99,68 +111,73 @@ export default function HelpCenterTemplate(): React.ReactElement {
 
 
   return (
-    <div>
-      <main className="p-4 sm:p-6 md:p-8 max-w-screen-2xl mx-auto w-full space-y-6">
+    <div className="min-h-screen bg-slate-50/50">
+      <main className="p-4 sm:p-6 md:p-8 max-w-screen-2xl mx-auto w-full space-y-12 md:space-y-24">
         {/* Hero Section */}
         <section className="pt-16 pb-12 text-center">
           <div className="container mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-800">How Can We Help?</h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-800 tracking-tight">
+              How Can We Help?
+            </h1>
+            <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
               Find answers to common questions or contact our support team for assistance.
             </p>
             
             {/* Search Bar */}
-            <div className="max-w-xl mx-auto relative">
-              <input
-                type="text"
-                placeholder="Search for help..."
-                className="w-full px-6 py-4 rounded-xl shadow-md border-0 focus:ring-2 focus:ring-orange-500 transition-all"
-                value={searchQuery}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
-              />
-              <button className="absolute right-4 top-4 text-gray-400 hover:text-orange-500">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
+            <div className="max-w-xl mx-auto relative group">
+              <div className="absolute inset-0 bg-primary/10 rounded-xl blur-lg opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search for help..."
+                  className="w-full px-6 py-4 rounded-xl shadow-md border-0 ring-1 ring-slate-200 focus:ring-2 focus:ring-primary 
+                             transition-all duration-300 bg-white/80 backdrop-blur-sm"
+                  value={searchQuery}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
+                />
+                <button className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary transition-colors duration-200">
+                  <Search className="h-5 w-5" />
+                </button>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Common Questions Section */}
-        <section className="py-12 bg-white">
+        <section className="py-12 bg-white rounded-2xl shadow-sm">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Common Questions</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12 text-gray-800">Common Questions</h2>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {filteredFAQs.map((category, index) => (
-                <div key={index} className="bg-slate-50 rounded-xl p-6 shadow-sm transition-all hover:shadow-md">
-                  <div className="flex items-center mb-4">
+                <div 
+                  key={index} 
+                  className="bg-slate-50 rounded-xl p-6 shadow-sm transition-all duration-300 hover:shadow-md
+                            hover:translate-y-[-4px] border border-slate-100"
+                >
+                  <div className="flex items-center mb-5">
                     <span className="text-2xl mr-3">{category.icon}</span>
                     <h3 className="text-xl font-semibold text-gray-800">{category.title}</h3>
                   </div>
-                  <ul className="space-y-3">
+                  <ul className="space-y-4">
                     {category.questions.map((item) => (
                       <li key={item.id}>
-                        <Link href={item.link}>
-                          <div className="text-gray-600 hover:text-orange-500 flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mt-0.5 mr-2 text-orange-500" viewBox="0 0 20 20" fill="currentColor">
-                              <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                            </svg>
+                        <Link href={item.link} className="group">
+                          <div className="text-gray-600 group-hover:text-primary flex items-start transition-colors duration-200">
+                            <ChevronRight className="h-5 w-5 mt-0.5 mr-2 text-primary-light group-hover:text-primary" />
                             <span>{item.question}</span>
                           </div>
                         </Link>
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-4 pt-4 border-t border-gray-200">
-                    <Link href={`/help/category/${category.title.toLowerCase().replace(/\s+/g, '-')}`}>
-                      <div className="text-orange-500 hover:text-orange-600 font-medium flex items-center">
-                        <span>View all</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
-                      </div>
+                  <div className="mt-6 pt-4 border-t border-slate-200">
+                    <Link 
+                      href={`/help/category/${category.title.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="text-primary hover:text-primary-dark font-medium flex items-center transition-colors duration-200"
+                    >
+                      <span>View all</span>
+                      <ArrowRight className="h-4 w-4 ml-1" />
                     </Link>
                   </div>
                 </div>
@@ -170,20 +187,25 @@ export default function HelpCenterTemplate(): React.ReactElement {
         </section>
 
         {/* Support Options */}
-        <section className="py-12">
+        <section className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Need More Help?</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12 text-gray-800">Need More Help?</h2>
             
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {supportOptions.map((option, index) => (
-                <div key={index} className="bg-white rounded-xl p-6 shadow-sm text-center transition-all hover:shadow-md">
-                  <div className="bg-orange-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center text-2xl mb-4">
+                <div 
+                  key={index} 
+                  className="bg-white rounded-xl p-8 shadow-sm text-center transition-all duration-300 
+                            hover:shadow-md hover:translate-y-[-4px] border border-slate-100 flex flex-col h-full"
+                >
+                  <div className="bg-primary-light w-16 h-16 mx-auto rounded-full flex items-center justify-center text-2xl mb-5">
                     {option.icon}
                   </div>
-                  <h3 className="text-xl font-semibold mb-2 text-gray-800">{option.title}</h3>
-                  <p className="text-gray-600 mb-6">{option.description}</p>
-                  <Link href={option.link}>
-                    <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition-colors w-full">
+                  <h3 className="text-xl font-semibold mb-3 text-gray-800">{option.title}</h3>
+                  <p className="text-gray-600 mb-6 flex-grow">{option.description}</p>
+                  <Link href={option.link} className="block mt-auto">
+                    <button className="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg 
+                                      transition-colors duration-200 w-full font-medium shadow-sm hover:shadow">
                       {option.buttonText}
                     </button>
                   </Link>
@@ -194,66 +216,57 @@ export default function HelpCenterTemplate(): React.ReactElement {
         </section>
 
         {/*  Care Tips Section */}
-        <section className="py-12 bg-white">
+        <section className="py-16 bg-white rounded-2xl shadow-sm">
           <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="md:w-1/2 mb-8 md:mb-0">
-                <h2 className="text-3xl font-bold mb-6 text-gray-800"> Care Resources</h2>
-                <p className="text-gray-600 mb-6">
-                  Explore our library of  care resources and expert advice to keep your furry friends happy and healthy.
+            <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+              <div className="md:w-1/2">
+                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800"> Care Resources</h2>
+                <p className="text-gray-600 mb-8 leading-relaxed">
+                  Explore our library of care resources and expert advice to keep your furry friends happy and healthy.
                 </p>
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <div className="bg-orange-100 p-2 rounded-full mr-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                      </svg>
+                <div className="space-y-6">
+                  <div className="flex items-start group">
+                    <div className="bg-primary-light p-3 rounded-lg mr-4 group-hover:bg-primary transition-colors duration-200">
+                      <Book className="h-5 w-5 text-primary group-hover:text-white transition-colors duration-200" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg text-gray-800">Educational Articles</h3>
-                      <p className="text-gray-600">In-depth guides on  nutrition, training, and healthcare.</p>
+                      <p className="text-gray-600">In-depth guides on nutrition, training, and healthcare.</p>
                     </div>
                   </div>
-                  <div className="flex items-start">
-                    <div className="bg-orange-100 p-2 rounded-full mr-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                      </svg>
+                  <div className="flex items-start group">
+                    <div className="bg-primary-light p-3 rounded-lg mr-4 group-hover:bg-primary transition-colors duration-200">
+                      <Video className="h-5 w-5 text-primary group-hover:text-white transition-colors duration-200" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg text-gray-800">Video Library</h3>
-                      <p className="text-gray-600">Watch tutorials on  care, training techniques, and more.</p>
+                      <p className="text-gray-600">Watch tutorials on care, training techniques, and more.</p>
                     </div>
                   </div>
-                  <div className="flex items-start">
-                    <div className="bg-orange-100 p-2 rounded-full mr-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                      </svg>
+                  <div className="flex items-start group">
+                    <div className="bg-primary-light p-3 rounded-lg mr-4 group-hover:bg-primary transition-colors duration-200">
+                      <Archive className="h-5 w-5 text-primary group-hover:text-white transition-colors duration-200" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg text-gray-800">Downloadable Resources</h3>
-                      <p className="text-gray-600">Checklists, guides, and templates for  parents.</p>
+                      <p className="text-gray-600">Checklists, guides, and templates for parents.</p>
                     </div>
                   </div>
                 </div>
                 <Link href="/resources">
-                  <button className="mt-8 bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg transition-colors flex items-center">
+                  <button className="mt-10 bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg 
+                                   transition-colors duration-200 flex items-center font-medium shadow-sm hover:shadow">
                     <span>Explore Resources</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
+                    <ArrowRight className="h-5 w-5 ml-2" />
                   </button>
                 </Link>
               </div>
               <div className="md:w-5/12">
-                <div className="bg-slate-50 p-4 rounded-2xl shadow-lg overflow-hidden relative">
-                  <div className="bg-white rounded-xl p-6 mb-4">
-                    <div className="flex items-center mb-3">
-                      <div className="bg-orange-100 p-2 rounded-lg mr-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                        </svg>
+                <div className="bg-slate-50 p-6 rounded-2xl shadow-md overflow-hidden relative border border-slate-100">
+                  <div className="bg-white rounded-xl p-6 mb-6 shadow-sm border border-slate-50">
+                    <div className="flex items-center mb-4">
+                      <div className="bg-primary-light p-2 rounded-lg mr-3">
+                        <Beaker className="h-5 w-5 text-primary" />
                       </div>
                       <h4 className="font-semibold"> Nutrition Guide</h4>
                     </div>
@@ -263,19 +276,17 @@ export default function HelpCenterTemplate(): React.ReactElement {
                     <div className="h-2 bg-slate-100 rounded-full w-2/3"></div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white p-4 rounded-xl shadow-sm flex flex-col items-center justify-center">
-                      <div className="bg-blue-100 rounded-full p-3 mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
+                    <div className="bg-white p-5 rounded-xl shadow-sm flex flex-col items-center justify-center 
+                                 hover:shadow-md transition-all duration-200 border border-slate-50 group">
+                      <div className="bg-blue-100 rounded-lg p-3 mb-3 group-hover:bg-blue transition-colors duration-200">
+                        <FileText className="h-5 w-5 text-blue group-hover:text-white transition-colors duration-200" />
                       </div>
                       <span className="text-sm font-medium text-gray-700">Training Tips</span>
                     </div>
-                    <div className="bg-white p-4 rounded-xl shadow-sm flex flex-col items-center justify-center">
-                      <div className="bg-green-100 rounded-full p-3 mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                        </svg>
+                    <div className="bg-white p-5 rounded-xl shadow-sm flex flex-col items-center justify-center 
+                                 hover:shadow-md transition-all duration-200 border border-slate-50 group">
+                      <div className="bg-teal-100 rounded-lg p-3 mb-3 group-hover:bg-teal transition-colors duration-200">
+                        <ClipboardCheck className="h-5 w-5 text-teal group-hover:text-white transition-colors duration-200" />
                       </div>
                       <span className="text-sm font-medium text-gray-700">Health Checklists</span>
                     </div>
@@ -287,52 +298,52 @@ export default function HelpCenterTemplate(): React.ReactElement {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-12 bg-slate-50">
+        <section className="py-16 bg-slate-50 rounded-2xl shadow-sm">
           <div className="container mx-auto px-4 max-w-4xl">
-            <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Frequently Asked Questions</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12 text-gray-800">Frequently Asked Questions</h2>
             
-            <div className="space-y-6">
-              <div className="bg-white rounded-xl p-6 shadow-sm">
+            <div className="space-y-4">
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-all duration-200">
                 <h3 className="text-lg font-semibold mb-3 text-gray-800">How do I get started with Anima Unity?</h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 leading-relaxed">
                   Getting started is easy! Simply sign up for an account, complete your profile and add your pet&apos;s information. 
                   Once set up, you&apos;ll have access to all our features including healthcare tracking, shelter connections, and more.
                 </p>
               </div>
               
-              <div className="bg-white rounded-xl p-6 shadow-sm">
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-all duration-200">
                 <h3 className="text-lg font-semibold mb-3 text-gray-800">Is my personal information secure?</h3>
-                <p className="text-gray-600">
-                  Yes, we take data security seriously. All your personal and  information is encrypted and stored securely. 
+                <p className="text-gray-600 leading-relaxed">
+                  Yes, we take data security seriously. All your personal and information is encrypted and stored securely. 
                   We never share your information with third parties without your explicit consent.
                 </p>
               </div>
               
-              <div className="bg-white rounded-xl p-6 shadow-sm">
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-all duration-200">
                 <h3 className="text-lg font-semibold mb-3 text-gray-800">How does the AniTrack GPS feature work?</h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 leading-relaxed">
                   AniTrack GPS uses IoT technology to provide real-time location tracking for your pet&apos;s. The small, 
                   lightweight device attaches to your pet&apos;s collar and connects to our app, allowing you to monitor their 
                   location and set up safe zones.
                 </p>
               </div>
               
-              <div className="bg-white rounded-xl p-6 shadow-sm">
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-all duration-200">
                 <h3 className="text-lg font-semibold mb-3 text-gray-800">Can I change my subscription plan?</h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 leading-relaxed">
                   Yes, you can upgrade or downgrade your subscription plan at any time from your account settings. 
                   Changes will be applied at the start of your next billing cycle.
                 </p>
               </div>
             </div>
             
-            <div className="text-center mt-10">
+            <div className="text-center mt-12">
               <Link href="/faq">
-                <button className="bg-white border border-orange-500 text-orange-500 hover:bg-orange-50 px-6 py-3 rounded-lg transition-colors inline-flex items-center">
+                <button className="bg-white border-2 border-primary text-primary hover:bg-primary-light/20 
+                                 px-6 py-3 rounded-lg transition-colors duration-200 inline-flex items-center
+                                 font-medium shadow-sm hover:shadow">
                   <span>View All FAQs</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
+                  <ArrowRight className="h-5 w-5 ml-2" />
                 </button>
               </Link>
             </div>
@@ -342,4 +353,3 @@ export default function HelpCenterTemplate(): React.ReactElement {
     </div>
   );
 }
-
