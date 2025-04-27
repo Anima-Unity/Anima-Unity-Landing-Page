@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import Marquee from 'react-fast-marquee'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 
@@ -88,11 +87,13 @@ const PartnerLogo = ({ partner }: { partner: Partner }) => (
   >
     <div className="flex items-center justify-center opacity-80 hover:opacity-100 transition duration-300 ease-in-out">
       {/* Use img instead of Next.js Image component for guaranteed display */}
-      <img
+      <Image
         src={partner.logo}
         alt={`${partner.name} logo`}
         className="object-contain max-h-12 max-w-[120px]"
         loading="eager"
+        width={partner.width}
+        height={partner.height}
       />
     </div>
   </div>

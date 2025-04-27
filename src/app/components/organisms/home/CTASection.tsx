@@ -1,131 +1,88 @@
 import React from 'react';
-import Image from 'next/image'
 
 export default function CTASection() {
   return (
     <section
       id="cta"
-      className="py-20 bg-gray-50 relative overflow-hidden"
+      className="py-16 bg-white relative overflow-hidden"
     >
-      {/* Background elements */}
-      <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-teal-100 opacity-30 blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-blue-100 opacity-30 blur-3xl"></div>
-      
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+      <div className="max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
         <div 
-          className="bg-white rounded-2xl p-8 md:p-12 shadow-lg relative overflow-hidden"
+          className="bg-newsletter-card rounded-xl p-8 md:p-12 shadow-card relative overflow-hidden border border-gray-100"
         >
-          {/* Phone mockup */}
-          <div className="absolute right-0 top-0 h-full w-1/3 hidden lg:block">
-            <div className="h-full w-full relative">
-              {/* Phone frame */}
-              <div className="absolute top-1/2 transform -translate-y-1/2 h-auto max-h-[90%] w-60 bg-gray-900 rounded-3xl p-3 shadow-xl">
-                {/* Phone notch */}
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-5 bg-gray-900 rounded-b-xl z-10"></div>
-                
-                {/* Phone screen */}
-                <div className="w-full h-full bg-gray-100 rounded-2xl overflow-hidden relative">
-                  {/* App screenshot */}
-                  <div className="relative w-full aspect-[240/500]">
-  <Image
-    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTyxFCc6FRE2-iMY7EuKMvpHV0lRFRSnT_bj9RqlG1guCZ-SRrmFxyq-o&s=10"
-    alt="Placeholder"
-    fill
-    className="object-cover rounded-2xl shadow-xl"
-  />
-</div>
-                  
-                  {/* App UI elements overlay */}
-                  <div className="absolute top-0 left-0 w-full h-14 bg-teal-500 flex items-center px-4">
-                    <div className="text-white font-semibold">Anima Unity</div>
-                    <div className="ml-auto flex space-x-2">
-                      <div className="w-4 h-4 rounded-full bg-white opacity-70"></div>
-                      <div className="w-4 h-4 rounded-full bg-white opacity-70"></div>
-                    </div>
-                  </div>
-                  
-                  {/* App bottom navigation */}
-                  <div className="absolute bottom-0 left-0 w-full h-14 bg-white flex justify-around items-center px-4">
-                    <div className="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center">
-                      <div className="w-4 h-4 rounded-sm bg-teal-500"></div>
-                    </div>
-                    <div className="w-8 h-8 rounded-full bg-teal-500 flex items-center justify-center">
-                      <div className="w-4 h-4 rounded-full bg-white"></div>
-                    </div>
-                    <div className="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center">
-                      <div className="w-4 h-4 rounded-sm bg-teal-500"></div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Phone buttons */}
-                <div className="absolute -left-1 top-24 h-12 w-1 bg-gray-800 rounded-l-lg"></div>
-                <div className="absolute -right-1 top-20 h-8 w-1 bg-gray-800 rounded-r-lg"></div>
-                <div className="absolute -right-1 top-32 h-12 w-1 bg-gray-800 rounded-r-lg"></div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="lg:w-2/3 relative z-10">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-                Join Our Pet Care Community
+          <div className="w-full relative z-10">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-newsletter-text mb-4">
+                Join the Movement for Pet Welfare
               </h2>
               
-              <p className="text-gray-600 text-lg mb-8 max-w-lg">
-                Connect with veterinarians, shelters, and fellow pet lovers in one unified platform. Experience seamless pet care management.
+              <p className="text-newsletter-subtle text-base mb-6">
+                Be part of our community empowering animals, shelters, and pet lovers worldwide. Start with just your email.
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-4 mb-6">
-              <div className="flex items-center">
-                <div className="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center text-teal-600 mr-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <span className="text-gray-700">Centralized pet records</span>
-              </div>
-              
-              <div className="flex items-center">
-                <div className="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center text-teal-600 mr-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <span className="text-gray-700">Verified vet network</span>
-              </div>
-              
-              <div className="flex items-center">
-                <div className="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center text-teal-600 mr-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <span className="text-gray-700">Real-time location tracking</span>
-              </div>
+            <div className="mb-8">
+              <input
+                type="email"
+                placeholder="you@example.com"
+                className="w-full px-5 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-newsletter-text"
+              />
             </div>
 
-            <div className="mt-8">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-grow px-5 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300"
-                />
-                <button
-                  type="submit"
-                  className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg"
-                >
-                  Join Now
-                </button>
-              </div>
+            <div className="flex flex-col items-center">
+              <button
+                type="submit"
+                className="bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-lg font-medium transition-all duration-200 shadow-button hover:shadow-button-hover w-full sm:w-auto mb-4"
+              >
+                Support Animals Today
+              </button>
               
-              <p className="text-gray-500 text-sm mt-3">
-                Join 10,000+ pet owners already using Anima Unity
+              <p className="text-newsletter-subtle text-xs text-center">
+                No spam. Just pure love for animals.
               </p>
             </div>
           </div>
+        </div>
+
+<div className="mt-12 grid md:grid-cols-3 gap-8">
+  {/* Inspiring Stories */}
+  <div className="bg-white p-6 rounded-lg border border-gray-100 shadow-sm">
+    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-accent-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-2h6a2 2 0 012 2v14a2 2 0 01-2 2z" />
+      </svg>
+    </div>
+    <h3 className="font-semibold text-newsletter-text mb-2">Inspiring Stories Every Week</h3>
+    <p className="text-newsletter-subtle text-sm">Hear real stories from shelters, rescuers, and pet owners..</p>
+  </div>
+
+  {/* Tips for Better Pet Care */}
+  <div className="bg-white p-6 rounded-lg border border-gray-100 shadow-sm">
+    <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mb-4">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4c-2.5 0-4.5 2-4.5 4.5S9.5 13 12 15.5 16.5 18 16.5 15.5 14.5 9 12 6.5 14.5 4 12 4z" />
+      </svg>
+    </div>
+    <h3 className="font-semibold text-newsletter-text mb-2">Tips for Better Pet Care</h3>
+    <p className="text-newsletter-subtle text-sm">Get expert advice and health tips to keep your pets happy.</p>
+  </div>
+
+  {/* Join Animal Welfare Campaigns */}
+  <div className="bg-white p-6 rounded-lg border border-gray-100 shadow-sm">
+    <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mb-4">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-accent-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+    <h3 className="font-semibold text-newsletter-text mb-2">Join Animal Welfare Campaigns</h3>
+    <p className="text-newsletter-subtle text-sm">Stay updated and make a difference in your community.</p>
+  </div>
+</div>
+
+        <div className="mt-8 text-center">
+          <p className="text-newsletter-subtle text-sm">
+            250+ animal lovers have joined our journey.
+          </p>
         </div>
       </div>
     </section>
