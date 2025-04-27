@@ -30,7 +30,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-white border-t border-gray-100">
+    <footer className="bg-background border-t border-border">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -41,26 +41,26 @@ export default function Footer() {
                 xmlns="http://www.w3.org/2000/svg" 
                 viewBox="0 0 24 24" 
                 fill="currentColor" 
-                className="w-6 h-6 text-teal-500 mr-2"
+                className="w-6 h-6 text-primary mr-2"
               >
                 <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
               </svg>
-              <span className="text-xl font-semibold text-gray-800">Anima Unity</span>
+              <span className="text-xl font-semibold text-foreground">Anima Unity</span>
             </div>
-            <p className="text-gray-600 mb-6 pr-4">
+            <p className="text-muted-foreground mb-6 pr-4">
               Unite pet lovers, veterinarians, and shelters through a seamless digital experience.
             </p>
             <div className="flex space-x-4">
-              <Link href="https://www.facebook.com/share/18gonJgN8b/" prefetch={true} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-teal-500 hover:text-white transition-all duration-300">
+              <Link href="https://www.facebook.com/share/18gonJgN8b/" prefetch={true} className="w-8 h-8 rounded-full bg-secondary-light flex items-center justify-center text-secondary hover:bg-primary hover:text-white transition-all duration-300">
                 <FaFacebookF size={14} />
               </Link>
-              <Link href="https://x.com/animaunity?t=XhOboKYyqxiAUNHKupDPrg&s=09" prefetch={true} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-teal-500 hover:text-white transition-all duration-300">
+              <Link href="https://x.com/animaunity?t=XhOboKYyqxiAUNHKupDPrg&s=09" prefetch={true} className="w-8 h-8 rounded-full bg-secondary-light flex items-center justify-center text-secondary hover:bg-primary hover:text-white transition-all duration-300">
                 <FaTwitter size={14} />
               </Link>
-              <a href="#" className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-teal-500 hover:text-white transition-all duration-300">
+              <a href="#" className="w-8 h-8 rounded-full bg-secondary-light flex items-center justify-center text-secondary hover:bg-primary hover:text-white transition-all duration-300">
                 <FaInstagram size={14} />
               </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-teal-500 hover:text-white transition-all duration-300">
+              <a href="#" className="w-8 h-8 rounded-full bg-secondary-light flex items-center justify-center text-secondary hover:bg-primary hover:text-white transition-all duration-300">
                 <FaLinkedinIn size={14} />
               </a>
             </div>
@@ -68,11 +68,11 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-6">Quick Links</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-6">Quick Links</h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-gray-600 hover:text-teal-500 transition-colors">
+                  <Link href={link.href} className="text-muted-foreground hover:text-primary transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -82,13 +82,13 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-6">Resources</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-6">Resources</h3>
             <ul className="space-y-3">
               {resources.map((item) => (
                 <li key={item.label}>
                   <Link
                     href={item.href}
-                    className="text-gray-600 hover:text-teal-500 transition-colors"
+                    className="text-muted-foreground hover:text-primary transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -99,41 +99,41 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-6">Contact Us</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-6">Contact Us</h3>
             <ul className="space-y-4">
               <li className="flex items-start">
-                <FaMapMarkerAlt className="text-teal-500 mt-1 mr-3 flex-shrink-0" />
-                <span className="text-gray-600">Bekasi, Jawabarat, Indonesia 17145</span>
+                <FaMapMarkerAlt className="text-primary mt-1 mr-3 flex-shrink-0" />
+                <span className="text-muted-foreground">Bekasi, Jawabarat, Indonesia 17145</span>
               </li>
               <li className="flex items-center">
-                <FaPhoneAlt className="text-teal-500 mr-3 flex-shrink-0" />
-                <span className="text-gray-600">(021) 555-1234</span>
+                <FaPhoneAlt className="text-primary mr-3 flex-shrink-0" />
+                <span className="text-muted-foreground">(021) 555-1234</span>
               </li>
               <li className="flex items-center">
-                <FaEnvelope className="text-teal-500 mr-3 flex-shrink-0" />
-                <span className="text-gray-600">hello@animaunity.com</span>
+                <FaEnvelope className="text-primary mr-3 flex-shrink-0" />
+                <span className="text-muted-foreground">hello@animaunity.com</span>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Newsletter */}
-        <div className="mt-12 pt-8 border-t border-gray-100">
+        <div className="mt-12 pt-8 border-t border-border">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h4 className="text-lg font-semibold text-gray-800 mb-2">Stay Updated</h4>
-              <p className="text-gray-600">Subscribe to our newsletter for pet care tips and product updates.</p>
+              <h4 className="text-lg font-semibold text-foreground mb-2">Stay Updated</h4>
+              <p className="text-muted-foreground">Subscribe to our newsletter for pet care tips and product updates.</p>
             </div>
             <div>
               <form className="flex flex-col sm:flex-row gap-3">
                 <input
                   type="email"
                   placeholder="Your email address"
-                  className="flex-grow px-4 py-2 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"
+                  className="flex-grow px-4 py-2 rounded-full border border-input focus:outline-none focus:ring-2 focus:ring-primary transition-all"
                 />
                 <button 
                   type="submit"
-                  className="bg-teal-500 hover:bg-teal-600 text-white px-5 py-2 rounded-full font-medium transition-all"
+                  className="bg-primary hover:bg-primary-dark text-white px-5 py-2 rounded-full font-medium transition-all shadow-button hover:shadow-button-hover"
                 >
                   Subscribe
                 </button>
@@ -144,17 +144,17 @@ export default function Footer() {
       </div>
 
       {/* Footer Bottom */}
-      <div className="bg-gray-50 py-6">
+      <div className="bg-secondary-light py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm mb-4 md:mb-0">© 2023 Anima Unity. All rights reserved.</p>
+          <p className="text-secondary text-sm mb-4 md:mb-0">© 2023 Anima Unity. All rights reserved.</p>
           <div className="flex space-x-6">
-            <Link href="/privacy-policy" className="text-gray-500 hover:text-teal-500 text-sm">
+            <Link href="/privacy-policy" className="text-secondary hover:text-primary text-sm">
               Privacy Policy
             </Link>
-            <Link href="/terms-of-service" className="text-gray-500 hover:text-teal-500 text-sm">
+            <Link href="/terms-of-service" className="text-secondary hover:text-primary text-sm">
               Terms of Service
             </Link>
-            <Link href="/cookie-policy" className="text-gray-500 hover:text-teal-500 text-sm">
+            <Link href="/cookie-policy" className="text-secondary hover:text-primary text-sm">
               Cookie Policy
             </Link>
           </div>
