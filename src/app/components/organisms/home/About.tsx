@@ -1,6 +1,7 @@
 // src/sections/About.tsx
-import { FaPaw, FaUserMd, FaHeart, FaSmile } from 'react-icons/fa';
+import { FaPaw, FaUserMd, FaHeart, FaSmile, FaArrowRight } from 'react-icons/fa';
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function About() {
   const stats = [
@@ -50,7 +51,7 @@ export default function About() {
               At Anima Unity, we believe every pet deserves access to quality care and every shelter deserves visibility. Our platform bridges the gap between pet owners, veterinarians, and animal shelters to create a unified pet care ecosystem.
             </p>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-6 mb-8">
               {stats.map((stat, index) => (
                 <div key={index} className="flex items-start">
                   <div className={`${stat.bgColor} p-3 rounded-xl mr-4`}>
@@ -63,6 +64,12 @@ export default function About() {
                 </div>
               ))}
             </div>
+            
+            {/* Link/Button for Detail Page */}
+            <Link href="/about" className="inline-flex items-center px-6 py-3 bg-primary text-white font-medium rounded-xl hover:bg-primary-dark transition duration-300 shadow-lg">
+              Lihat Detail Selengkapnya
+              <FaArrowRight className="ml-2" />
+            </Link>
           </div>
         </div>
       </div>
