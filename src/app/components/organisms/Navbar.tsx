@@ -15,6 +15,8 @@ export default function Navbar() {
   const [prevScrollPos, setPrevScrollPos] = useState(0)
   const [isVisible, setIsVisible] = useState(true)
 
+  const hiddenNavbarPaths = ['/help-center']; // daftar path yang mau hide Navbar
+  const isHidden = hiddenNavbarPaths.some(path => pathname.startsWith(path));
   const isMinimal = pathname !== '/'
 
   useEffect(() => {
@@ -40,6 +42,10 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [prevScrollPos, isMinimal])
+
+  if (isHidden) {
+    return null
+  }
 
   if (isMinimal) {
     return (
