@@ -34,6 +34,7 @@ const config: Config = {
           light: "#2dd4bf", // Lighter teal for hover states
           DEFAULT: "#10b981", // Main green/teal color from buttons
           dark: "#0d9488", // Darker teal for pressed states
+          gradient: "linear-gradient(to right, #10b981, #0ea5e9)"
         },
         secondary: {
           light: "#f1f5f9",
@@ -156,7 +157,21 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function({ addUtilities }: { addUtilities: any }) {
+      const newUtilities = {
+        '.text-primary-gradient': {
+          background: 'linear-gradient(to right, #10b981, #0ea5e9)',
+          '-webkit-background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+          'background-clip': 'text',
+          'text-fill-color': 'transparent',
+        },
+      }
+      addUtilities(newUtilities)
+    }
+  ],
 };
 
 export default config;

@@ -76,9 +76,7 @@ export default function AboutPage() {
               transition={{ delay: 0.2, duration: 0.7 }}
             >
               Pioneering the Future of
-              <br/>
-              <br/>
-              <span className="text-white bg-cta-gradient"> Animal Welfare</span>
+              <span className="text-primary-gradient"> Animal Welfare</span>
             </motion.h1>
             
             <motion.p 

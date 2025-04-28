@@ -1,5 +1,5 @@
 // src/components/sections/Features.tsx
-import { FaHeartbeat, FaHome, FaMapMarkerAlt, FaVideo, FaIdCard } from 'react-icons/fa';
+import { FaHeartbeat, FaHome, FaMapMarkerAlt, FaVideo, FaIdCard, FaHandHoldingHeart } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function Features() {
@@ -58,16 +58,29 @@ export default function Features() {
     },
     {
       icon: <FaIdCard className="text-2xl text-icon-digital" />,
-    title: "Digital Pet ID Card",
-    description: "Create a personalized digital ID card for your pet with all essential information, medical records, and QR code for emergency access.",
-    bgColor: "bg-feature-digital",
-    path: "/features/pet-id",
-    delay: "500",
-    badges: [
-      { text: "QR Code", color: "digital" },
-      { text: "Medical Records", color: "digital" },
-      { text: "Emergency Info", color: "digital" }
-    ]
+      title: "Digital Pet ID Card",
+      description: "Create a personalized digital ID card for your pet with all essential information, medical records, and QR code for emergency access.",
+      bgColor: "bg-feature-digital",
+      path: "/features/pet-id",
+      delay: "500",
+      badges: [
+        { text: "QR Code", color: "digital" },
+        { text: "Medical Records", color: "digital" },
+        { text: "Emergency Info", color: "digital" }
+      ]
+    },
+    {
+      icon: <FaHandHoldingHeart className="text-2xl text-red-600" />,
+      title: "PawHelp Donations",
+      description: "Provide direct support to abandoned animals and those in need of medical care through our donation platform.",
+      bgColor: "bg-red-100",
+      path: "/features/pawhelp",
+      delay: "600",
+      badges: [
+        { text: "Medical Support", color: "pawhelp" },
+        { text: "Direct Donations", color: "pawhelp" },
+        { text: "Emergency Aid", color: "pawhelp" }
+      ]
     },
   ];
 
@@ -86,7 +99,7 @@ export default function Features() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {features.map((feature, index) => (
             <Link 
               href={feature.path} 
@@ -107,7 +120,8 @@ export default function Features() {
                     shelter: "bg-feature-shelter text-icon-shelter",
                     tracking: "bg-feature-tracking text-icon-tracking",
                     telemedicine: "bg-feature-telemedicine text-icon-telemedicine",
-                    digital: "bg-feature-digital text-icon-digital"
+                    digital: "bg-feature-digital text-icon-digital",
+                    pawhelp: "bg-red-50 text-red-600"
                   }[badge.color] || "bg-gray-100 text-gray-600";
                   
                   return (

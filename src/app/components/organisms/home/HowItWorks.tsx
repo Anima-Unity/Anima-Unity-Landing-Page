@@ -94,7 +94,7 @@ export default function HowItWorks() {
         >
           <a 
             href="#join-now" 
-            className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 rounded-full text-base font-medium transition-all duration-300 inline-flex items-center"
+            className="bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full text-base font-medium transition-all duration-300 inline-flex items-center shadow-button hover:shadow-button-hover"
           >
             Join Now
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
