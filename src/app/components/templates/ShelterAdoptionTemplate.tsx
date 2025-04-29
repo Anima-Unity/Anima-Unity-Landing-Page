@@ -1,6 +1,3 @@
-// Refactored implementation of the Shelter & Adoption section with updated color scheme (Option 1)
-// This maintains the existing structure while updating the color palette to use primary teal with blue accents
-
 "use client";
 import { FaPaw, FaSearch, FaHeart, FaMapMarkerAlt, FaStar, FaCheck } from "react-icons/fa";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
@@ -34,26 +31,26 @@ export default function ShelterAdoptionTemplate() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Hero Section - Updated with teal as primary color */}
-      <section className="bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800 pt-16 pb-24 px-6">
+    <div className="min-h-screen bg-feature-lightGray dark:bg-gray-900">
+      {/* Hero Section - Updated with coral/salmon gradient */}
+      <section className="bg-hero-pattern dark:from-gray-900 dark:to-gray-800 pt-16 pb-24 px-6">
         <div className="max-w-6xl mx-auto" data-aos="fade-up">
           <div className="flex items-center mb-2">
-            <Badge className="bg-primary-100 text-primary-600 dark:bg-primary-900 dark:text-primary-300 mr-2">Anima Unity Feature</Badge>
+            <Badge className="bg-primary-light/20 text-primary-coral dark:bg-accent-coral/20 dark:text-accent-coral mr-2">Anima Unity Feature</Badge>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800 dark:text-white">
             Shelter & Adoption
-            <span className="block text-primary mt-1">Find Your Perfect Match</span>
+            <span className="block text-primary-gradient text-gradient mt-1">Find Your Perfect Match</span>
           </h1>
           <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mb-8">
             Find your perfect pet match with our verified shelter network and adoption tools.
             Our platform connects you with reputable shelters and simplifies the adoption process.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Button className="bg-primary hover:bg-primary-600 text-white px-8 py-2 text-base rounded-md">
+            <Button className="btn-primary px-8 py-2 text-base rounded-3xl">
               Browse Pets
             </Button>
-            <Button variant="outline" className="border-primary text-primary hover:bg-primary-50 dark:hover:bg-gray-800 px-8 py-2 text-base rounded-md">
+            <Button variant="outline" className="border-primary-coral text-primary-coral hover:bg-primary-light/10 dark:hover:bg-gray-800 px-8 py-2 text-base rounded-3xl">
               See How It Works
             </Button>
           </div>
@@ -68,10 +65,10 @@ export default function ShelterAdoptionTemplate() {
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="100">
-            <Card className="bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow border-0">
+            <Card className="bg-white dark:bg-gray-800 shadow-card hover:shadow-card-hover transition-shadow border-0 rounded-2xl">
               <CardHeader className="pb-2">
-                <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mb-4">
-                  <FaSearch className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 bg-primary-light/20 dark:bg-accent-coral/20 rounded-full flex items-center justify-center mb-4">
+                  <FaSearch className="w-6 h-6 text-primary-coral" />
                 </div>
                 <CardTitle className="text-xl text-gray-800 dark:text-white">Verified Shelters</CardTitle>
                 <CardDescription className="text-gray-600 dark:text-gray-400">
@@ -80,10 +77,10 @@ export default function ShelterAdoptionTemplate() {
               </CardHeader>
             </Card>
 
-            <Card className="bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow border-0">
+            <Card className="bg-white dark:bg-gray-800 shadow-card hover:shadow-card-hover transition-shadow border-0 rounded-2xl">
               <CardHeader className="pb-2">
-                <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mb-4">
-                  <FaPaw className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 bg-primary-light/20 dark:bg-accent-coral/20 rounded-full flex items-center justify-center mb-4">
+                  <FaPaw className="w-6 h-6 text-primary-coral" />
                 </div>
                 <CardTitle className="text-xl text-gray-800 dark:text-white">Pet Matching Tool</CardTitle>
                 <CardDescription className="text-gray-600 dark:text-gray-400">
@@ -92,10 +89,10 @@ export default function ShelterAdoptionTemplate() {
               </CardHeader>
             </Card>
 
-            <Card className="bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow border-0">
+            <Card className="bg-white dark:bg-gray-800 shadow-card hover:shadow-card-hover transition-shadow border-0 rounded-2xl">
               <CardHeader className="pb-2">
-                <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mb-4">
-                  <FaHeart className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 bg-primary-light/20 dark:bg-accent-coral/20 rounded-full flex items-center justify-center mb-4">
+                  <FaHeart className="w-6 h-6 text-primary-coral" />
                 </div>
                 <CardTitle className="text-xl text-gray-800 dark:text-white">Simple Adoption Process</CardTitle>
                 <CardDescription className="text-gray-600 dark:text-gray-400">
@@ -107,8 +104,8 @@ export default function ShelterAdoptionTemplate() {
         </div>
       </section>
 
-      {/* Pet Matching Tool - Updated background to teal palette */}
-      <section className="py-16 px-6 bg-primary-50 dark:bg-gray-800">
+      {/* Pet Matching Tool - Updated background to coral-tinted */}
+      <section className="py-16 px-6 bg-feature-lightPink dark:bg-gray-800">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row gap-12 items-center">
             <div className="w-full md:w-1/2" data-aos="fade-right">
@@ -119,10 +116,10 @@ export default function ShelterAdoptionTemplate() {
                 Our intelligent matching algorithm helps you find the perfect pet based on your lifestyle, living situation, and preferences. Simply answer a few questions and we&apos;ll suggest pets that would be a great fit for your home.
               </p>
               
-              <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm">
+              <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-card">
                 <div className="grid grid-cols-1 gap-4 mb-6">
                   <Select>
-                    <SelectTrigger className="border-gray-300 dark:border-gray-700">
+                    <SelectTrigger className="border-gray-300 dark:border-gray-700 rounded-xl">
                       <SelectValue placeholder="Pet Type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -134,7 +131,7 @@ export default function ShelterAdoptionTemplate() {
                   </Select>
                   
                   <Select>
-                    <SelectTrigger className="border-gray-300 dark:border-gray-700">
+                    <SelectTrigger className="border-gray-300 dark:border-gray-700 rounded-xl">
                       <SelectValue placeholder="Age Range" />
                     </SelectTrigger>
                     <SelectContent>
@@ -146,7 +143,7 @@ export default function ShelterAdoptionTemplate() {
                   </Select>
                   
                   <Select>
-                    <SelectTrigger className="border-gray-300 dark:border-gray-700">
+                    <SelectTrigger className="border-gray-300 dark:border-gray-700 rounded-xl">
                       <SelectValue placeholder="Location" />
                     </SelectTrigger>
                     <SelectContent>
@@ -158,7 +155,7 @@ export default function ShelterAdoptionTemplate() {
                   </Select>
                 </div>
                 
-                <Button className="w-full bg-primary hover:bg-primary-600 text-white">
+                <Button className="w-full btn-primary rounded-xl">
                   Find Matches
                 </Button>
               </div>
@@ -169,14 +166,14 @@ export default function ShelterAdoptionTemplate() {
                 <Image 
                   src="https://images.unsplash.com/photo-1611170078485-6c1c9ca31936?q=80&w=1218&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                   alt="Pet matching interface" 
-                  className="rounded-lg shadow-lg w-full"
-                  width={1170}  // Set the reference width
-                  height={780}  // Set the reference height
-                  layout="responsive" // This makes the image responsive to its container's width
+                  className="rounded-2xl shadow-app w-full"
+                  width={1170}
+                  height={780}
+                  layout="responsive"
                 />
-                <div className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+                <div className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-card">
                   <div className="flex items-center space-x-2">
-                    <span className="text-green-500 flex items-center gap-1">
+                    <span className="text-success flex items-center gap-1">
                       <FaCheck /> <span className="font-medium">94% Match Rate</span>
                     </span>
                   </div>
@@ -200,24 +197,24 @@ export default function ShelterAdoptionTemplate() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up" data-aos-delay="100">
             {shelters.map((shelter) => (
-              <Card key={shelter.id} className="bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow border-0">
+              <Card key={shelter.id} className="bg-white dark:bg-gray-800 shadow-card hover:shadow-card-hover transition-all feature-card border-0 rounded-2xl">
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-xl text-gray-800 dark:text-white">{shelter.name}</CardTitle>
                     {shelter.verified && (
-                      <Badge className="bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-400">
+                      <Badge className="bg-success/10 text-success dark:bg-success/20 dark:text-success">
                         Verified
                       </Badge>
                     )}
                   </div>
                   <CardDescription className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
-                    <FaMapMarkerAlt className="text-primary" /> {shelter.location}
+                    <FaMapMarkerAlt className="text-primary-coral" /> {shelter.location}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1">
-                      <FaStar className="text-blue-400" />
+                      <FaStar className="text-warning" />
                       <span className="font-medium">{shelter.rating}</span>
                       <span className="text-gray-500 text-sm">(120 reviews)</span>
                     </div>
@@ -225,7 +222,7 @@ export default function ShelterAdoptionTemplate() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary-50 dark:hover:bg-gray-800">
+                  <Button variant="outline" className="w-full border-primary-coral text-primary-coral hover:bg-primary-light/10 dark:hover:bg-gray-800 rounded-xl">
                     View Pets
                   </Button>
                 </CardFooter>
@@ -234,15 +231,15 @@ export default function ShelterAdoptionTemplate() {
           </div>
           
           <div className="text-center mt-8" data-aos="fade-up">
-            <Button variant="outline" className="border-primary text-primary hover:bg-primary-50 dark:hover:bg-gray-800">
+            <Button variant="outline" className="border-primary-coral text-primary-coral hover:bg-primary-light/10 dark:hover:bg-gray-800 rounded-3xl px-8">
               View All Shelters
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Adoption Process - Alternating background with teal */}
-      <section className="py-16 px-6 bg-primary-50 dark:bg-gray-800">
+      {/* Adoption Process - Alternating background with coral tint */}
+      <section className="py-16 px-6 bg-feature-lightPink dark:bg-gray-800 paw-bg">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-800 dark:text-white mb-12" data-aos="fade-up">
             Simple 3-Step Adoption Process
@@ -269,9 +266,9 @@ export default function ShelterAdoptionTemplate() {
                 icon: <FaHeart className="w-6 h-6" /> 
               },
             ].map((item) => (
-              <div key={item.step} className="text-center p-6 bg-white dark:bg-gray-900 rounded-lg shadow-sm">
-                <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-primary">{item.icon}</span>
+              <div key={item.step} className="text-center p-6 bg-card-gradient dark:bg-gray-900 rounded-2xl shadow-card hover:shadow-card-hover transition-all">
+                <div className="w-12 h-12 bg-primary-light/20 dark:bg-accent-coral/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-primary-coral">{item.icon}</span>
                 </div>
                 <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white">{item.title}</h3>
                 <p className="text-gray-600 dark:text-gray-400">{item.desc}</p>
@@ -281,75 +278,75 @@ export default function ShelterAdoptionTemplate() {
         </div>
       </section>
 
-{/* Featured Pets */}
-<section className="py-16 px-6 bg-white dark:bg-gray-900">
-  <div className="max-w-6xl mx-auto">
-    <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-2" data-aos="fade-up">
-      Pets Looking for Homes
-    </h2>
-    <p className="text-gray-600 dark:text-gray-400 mb-8" data-aos="fade-up">
-      Meet some of the wonderful animals currently available for adoption
-    </p>
-    
-    {/* Add Filter Buttons like in reference */}
-    <div className="flex flex-wrap gap-2 mb-6" data-aos="fade-up">
-      <Button variant="outline" size="sm">Dog</Button>
-      <Button variant="outline" size="sm">Cat</Button>
-      <Button variant="outline" size="sm">Others</Button>
-    </div>
-    
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6" data-aos="fade-up" data-aos-delay="100">
-      {pets.map((pet) => (
-        <Card key={pet.id} className="bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow border-0 overflow-hidden h-full flex flex-col">
-          <div className="relative aspect-[4/3]"> {/* Better aspect ratio */}
-            <Image 
-              src={pet.image || '/placeholder-pet.jpg'}
-              alt={pet.name}
-              fill
-              className="object-cover"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            />
-            <Badge className="absolute top-2 right-2 bg-white/90 text-gray-800">
-              {pet.type}
-            </Badge>
+      {/* Featured Pets */}
+      <section className="py-16 px-6 bg-white dark:bg-gray-900">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-2" data-aos="fade-up">
+            Pets Looking for Homes
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-8" data-aos="fade-up">
+            Meet some of the wonderful animals currently available for adoption
+          </p>
+          
+          {/* Add Filter Buttons like in reference */}
+          <div className="flex flex-wrap gap-2 mb-6" data-aos="fade-up">
+            <Button variant="outline" size="sm" className="rounded-full border-primary-coral text-primary-coral hover:bg-primary-light/10">Dog</Button>
+            <Button variant="outline" size="sm" className="rounded-full border-primary-coral text-primary-coral hover:bg-primary-light/10">Cat</Button>
+            <Button variant="outline" size="sm" className="rounded-full border-primary-coral text-primary-coral hover:bg-primary-light/10">Others</Button>
           </div>
-          <CardHeader className="pb-2 px-4 pt-3">
-            <CardTitle className="text-md font-medium text-gray-800 dark:text-white">{pet.name}</CardTitle>
-            <CardDescription className="text-sm text-gray-600 dark:text-gray-400">
-              {pet.breed} • {pet.age} • {pet.gender}
-            </CardDescription>
-          </CardHeader>
-          <CardFooter className="px-4 pb-3 mt-auto">
-            <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary-50 dark:hover:bg-gray-700 text-sm">
-              <FaHeart className="mr-2" /> Meet Me
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6" data-aos="fade-up" data-aos-delay="100">
+            {pets.map((pet) => (
+              <Card key={pet.id} className="bg-white dark:bg-gray-800 shadow-card hover:shadow-card-hover transition-all border-0 overflow-hidden h-full flex flex-col rounded-2xl">
+                <div className="relative aspect-[4/3]">
+                  <Image 
+                    src={pet.image || '/placeholder-pet.jpg'}
+                    alt={pet.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  />
+                  <Badge className="absolute top-2 right-2 bg-white/90 text-gray-800 rounded-full">
+                    {pet.type}
+                  </Badge>
+                </div>
+                <CardHeader className="pb-2 px-4 pt-3">
+                  <CardTitle className="text-md font-medium text-gray-800 dark:text-white">{pet.name}</CardTitle>
+                  <CardDescription className="text-sm text-gray-600 dark:text-gray-400">
+                    {pet.breed} • {pet.age} • {pet.gender}
+                  </CardDescription>
+                </CardHeader>
+                <CardFooter className="px-4 pb-3 mt-auto">
+                  <Button variant="outline" className="w-full border-primary-coral text-primary-coral hover:bg-primary-light/10 dark:hover:bg-gray-700 text-sm rounded-xl">
+                    <FaHeart className="mr-2" /> Meet Me
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+          
+          <div className="text-center mt-8" data-aos="fade-up">
+            <Button variant="ghost" className="text-primary-coral hover:bg-primary-light/10 rounded-3xl px-8">
+              Browse All Pets
             </Button>
-          </CardFooter>
-        </Card>
-      ))}
-    </div>
-    
-    <div className="text-center mt-8" data-aos="fade-up">
-      <Button variant="ghost" className="text-primary hover:bg-primary-50">
-        Browse All Pets
-      </Button>
-    </div>
-  </div>
-</section>
+          </div>
+        </div>
+      </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-6 bg-primary-50 dark:bg-gray-800">
+      <section className="py-16 px-6 bg-coral-gradient dark:bg-gray-800 text-white">
         <div className="max-w-4xl mx-auto text-center" data-aos="fade-up">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-white dark:text-white mb-4">
             Join Our Shelter Network
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+          <p className="text-white/90 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
             Are you a shelter or rescue organization? Join our network to increase your visibility and help more animals find their forever homes.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button className="bg-primary hover:bg-primary-600 text-white px-8">
+            <Button className="bg-white text-primary-coral hover:bg-gray-100 px-8 rounded-3xl button-shadow">
               Join as Shelter
             </Button>
-            <Button variant="outline" className="border-primary text-primary hover:bg-primary-50 dark:hover:bg-gray-800 px-8">
+            <Button variant="outline" className="border-white text-black hover:bg-white/10 dark:hover:bg-white/5 px-8 rounded-3xl">
               Learn More
             </Button>
           </div>

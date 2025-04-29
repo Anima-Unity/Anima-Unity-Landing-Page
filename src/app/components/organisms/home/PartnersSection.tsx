@@ -83,10 +83,9 @@ const secondRowPartners = PARTNERS.slice(Math.ceil(PARTNERS.length / 2))
 // Partner logo component for consistent rendering
 const PartnerLogo = ({ partner }: { partner: Partner }) => (
   <div 
-    className="flex items-center justify-center h-20 px-6"
+    className="flex items-center justify-center h-20 px-6 group"
   >
-    <div className="flex items-center justify-center opacity-80 hover:opacity-100 transition duration-300 ease-in-out">
-      {/* Use img instead of Next.js Image component for guaranteed display */}
+    <div className="flex items-center justify-center opacity-70 group-hover:opacity-100 transition-all duration-300 ease-in-out transform group-hover:scale-105">
       <Image
         src={partner.logo}
         alt={`${partner.name} logo`}
@@ -100,11 +99,36 @@ const PartnerLogo = ({ partner }: { partner: Partner }) => (
 )
 
 export default function PartnersSection(): JSX.Element {
+  // Container variants for staggered animation
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+  
+  // Item variants for logo animation
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
   return (
-    <section className="relative py-16 bg-blue-50/30 overflow-hidden">
-      {/* Decorative Blurs */}
-      <div className="absolute top-0 left-1/4 w-64 h-64 rounded-full bg-teal-100/30 blur-3xl opacity-70" />
-      <div className="absolute bottom-0 right-1/4 w-48 h-48 rounded-full bg-blue-100/30 blur-3xl opacity-70" />
+    <section className="relative py-20 bg-feature-lightPink overflow-hidden">
+      {/* Decorative Elements */}
+      <div className="absolute top-0 left-1/4 w-64 h-64 rounded-full bg-primary-coral/5 blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-primary-coral/10 blur-3xl" />
+      <div className="absolute -left-10 top-1/2 w-40 h-40 rounded-full bg-accent-coral/5 blur-2xl" />
+      
+      {/* Paw pattern background for texture */}
+      <div className="absolute inset-0 paw-bg opacity-20" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -114,84 +138,110 @@ export default function PartnersSection(): JSX.Element {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            Partners in Pet Care
+          <span className="text-primary-coral font-medium block mb-2">Trusted By Industry Leaders</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-accent-black mb-4">
+            Our <span className="text-primary-gradient">Pet Partners</span>
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            We&apos;re proud to collaborate with leading companies committed to improving animal welfare and pet care services.
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            We collaborate with leading companies committed to improving animal welfare and providing exceptional pet care services.
           </p>
         </motion.div>
 
         <motion.div
-          className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8 relative overflow-hidden"
+          className="bg-card rounded-3xl shadow-card hover:shadow-card-hover transition-all duration-300 border border-border/50 p-8 sm:p-10 relative overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {/* Desktop view - Evenly distributed 2-row grid layout */}
-          <div className="hidden lg:block">
+          <motion.div 
+            className="hidden lg:block"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             {/* First row */}
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-5 gap-6">
               {firstRowPartners.map((partner, index) => (
-                <PartnerLogo key={`first-row-${index}`} partner={partner} />
+                <motion.div key={`first-row-${index}`} variants={itemVariants}>
+                  <PartnerLogo partner={partner} />
+                </motion.div>
               ))}
             </div>
             
+            {/* Subtle divider */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent my-6 opacity-50"></div>
+            
             {/* Second row */}
-            <div className="grid grid-cols-5 gap-4 mt-8">
+            <div className="grid grid-cols-5 gap-6">
               {/* Center the logos in the second row */}
               {secondRowPartners.length < 5 && <div className={`col-span-${Math.floor((5 - secondRowPartners.length) / 2)}`} />}
               {secondRowPartners.map((partner, index) => (
-                <PartnerLogo key={`second-row-${index}`} partner={partner} />
+                <motion.div key={`second-row-${index}`} variants={itemVariants}>
+                  <PartnerLogo partner={partner} />
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
           
-          {/* Mobile/Tablet view - Debug view to ensure logos appear */}
-          <div className="lg:hidden">
-            <div className="flex flex-wrap justify-center gap-4 py-4">
-              {PARTNERS.slice(0, 4).map((partner, index) => (
-                <div key={`mobile-${index}`} className="w-1/3 max-w-[140px]">
+          {/* Mobile/Tablet view - Responsive grid */}
+          <motion.div 
+            className="lg:hidden"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {PARTNERS.map((partner, index) => (
+                <motion.div key={`mobile-${index}`} variants={itemVariants}>
                   <PartnerLogo partner={partner} />
-                </div>
+                </motion.div>
               ))}
             </div>
-            
-            {/* Static display of logos */}
-            <div className="mt-4 flex flex-wrap justify-center gap-4 py-4">
-              {PARTNERS.slice(4, 8).map((partner, index) => (
-                <div key={`mobile-static-${index}`} className="w-1/3 max-w-[140px]">
-                  <PartnerLogo partner={partner} />
-                </div>
-              ))}
-            </div>
-          </div>
+          </motion.div>
 
-          {/* Decorative Dots - Improved positioning */}
-          <div className="absolute top-4 right-4 w-32 h-32 opacity-5">
-            <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <pattern id="dots" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                <circle cx="5" cy="5" r="1.5" fill="currentColor" />
-              </pattern>
-              <rect x="0" y="0" width="100%" height="100%" fill="url(#dots)" />
+          {/* Decorative Elements */}
+          <div className="absolute top-0 right-0 w-40 h-40 opacity-5">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M22.5,35c-0.3,0-0.5-0.1-0.7-0.3c-1.9-1.9-2.8-3.2-3.4-4.3c-0.8-1.3-1.5-2.5-3.9-4.9c-1.8-1.8-3.1-2.7-4.2-3.3
+              c-1.4-0.8-2.5-1.5-5-3.9c-0.4-0.4-0.4-1,0-1.4c0.4-0.4,1-0.4,1.4,0c2.7,2.7,4.1,3.5,5.3,4.2c1.3,0.8,2.1,1.5,3.3,2.7
+              c2.7,2.7,3.5,4.1,4.2,5.3c0.8,1.3,1.5,2.1,2.7,3.3c0.4,0.4,0.4,1,0,1.4C23,34.9,22.8,35,22.5,35z" fill="currentColor"/>
+              <path d="M61.9,74.4c-0.3,0-0.5-0.1-0.7-0.3c-2.7-2.7-4.1-3.5-5.3-4.2c-1.3-0.8-2.1-1.5-3.3-2.7c-2.7-2.7-3.5-4.1-4.2-5.3
+              c-0.8-1.3-1.5-2.1-2.7-3.3c-0.4-0.4-0.4-1,0-1.4c0.4-0.4,1-0.4,1.4,0c1.9,1.9,2.8,3.2,3.4,4.3c0.8,1.3,1.5,2.5,3.9,4.9
+              c1.8,1.8,3.1,2.7,4.2,3.3c1.4,0.8,2.5,1.5,5,3.9c0.4,0.4,0.4,1,0,1.4C62.4,74.3,62.1,74.4,61.9,74.4z" fill="currentColor"/>
+              <path d="M34.9,47.3c-0.5,0-1-0.2-1.4-0.6c-0.8-0.8-0.8-2,0-2.8l7.3-7.3c3.8-3.8,10-3.8,13.9,0c0.8,0.8,0.8,2,0,2.8
+              c-0.8,0.8-2,0.8-2.8,0c-2.3-2.3-6-2.3-8.3,0l-7.3,7.3C35.9,47.1,35.4,47.3,34.9,47.3z" fill="currentColor"/>
+              <circle cx="31.8" cy="24.4" r="6" fill="currentColor"/>
+              <circle cx="69.6" cy="62.2" r="6" fill="currentColor"/>
+              <circle cx="69.6" cy="31.8" r="6" fill="currentColor"/>
+              <circle cx="31.8" cy="69.6" r="6" fill="currentColor"/>
             </svg>
           </div>
         </motion.div>
 
         <motion.div
-          className="text-center mt-12"
+          className="mt-12 flex flex-col sm:flex-row justify-center items-center gap-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <p className="text-gray-500 text-sm">
-            Interested in becoming a partner?{' '}
-            <a href="#contact" className="text-teal-500 hover:text-teal-600 font-medium">
-              Contact us
-            </a>
+          <p className="text-muted-foreground">
+            Want to join our growing partner network?
           </p>
+          <a 
+            href="#contact" 
+            className="inline-flex items-center gap-2 bg-transparent hover:bg-primary-coral/10 text-primary-coral px-4 py-2 rounded-full font-medium transition-all duration-300 button-shadow hover:button-shadow"
+          >
+            Become a Partner
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
         </motion.div>
       </div>
     </section>

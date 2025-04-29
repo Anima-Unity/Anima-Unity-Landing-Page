@@ -12,13 +12,15 @@ import {
   FaCheckCircle,
   FaExclamationTriangle,
   FaClock,
+  FaHeart,
+  FaShieldAlt
 } from "react-icons/fa";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "@/components/ui/calendar";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import Image from 'next/image'
+import Image from 'next/image';
 
 export default function HealthcareHubTemplate() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -47,35 +49,34 @@ export default function HealthcareHubTemplate() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-teal-50 to-blue-50 py-16 px-6">
+      <section className="bg-hero-pattern py-16 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="mb-2">
-            <span className="inline-block bg-teal-100 text-teal-600 px-3 py-1 rounded-full text-sm font-medium">
+            <span className="inline-block bg-feature-lightPink text-primary-coral px-3 py-1 rounded-full text-sm font-medium">
               Healthcare Solution
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
             Healthcare Hub
           </h1>
           
-          <h2 className="text-2xl md:text-3xl font-semibold text-teal-600 mb-6">
+          <h2 className="text-2xl md:text-3xl font-semibold text-primary-coral mb-6">
             Centralized Pet Health Management
           </h2>
           
-          <p className="text-lg text-gray-600 max-w-3xl leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed">
             Manage all aspects of your pet&apos;s health in one place. Keep track of medical records, 
             vaccination schedules, and vet appointments with our comprehensive healthcare tools.
           </p>
           
           <div className="flex flex-wrap gap-4 mt-10">
-            <Button className="bg-teal-500 hover:bg-teal-600 text-white rounded-full transition-colors">
+            <Button className="btn-primary rounded-full px-6 py-2 font-medium">
               Book Appointment
             </Button>
-            <Button variant="outline" className="border-teal-500 text-teal-600 hover:bg-teal-50 rounded-full">
+            <Button variant="outline" className="border-primary-coral text-primary-coral hover:bg-feature-lightPink rounded-full px-6 py-2 font-medium">
               Add Medical Record
             </Button>
           </div>
@@ -86,51 +87,51 @@ export default function HealthcareHubTemplate() {
       <div className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Medical Records */}
-          <Card className="border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-xl overflow-hidden">
-            <CardHeader className="bg-teal-50 pb-4">
+          <Card className="border border-border shadow-card hover:shadow-card-hover transition-shadow rounded-2xl overflow-hidden feature-card">
+            <CardHeader className="bg-feature-lightPink pb-4">
               <div className="flex items-center gap-3">
                 <div className="bg-white p-3 rounded-lg shadow-sm">
-                  <FaClipboardList className="w-6 h-6 text-teal-500" />
+                  <FaClipboardList className="w-6 h-6 text-primary-coral" />
                 </div>
-                <CardTitle className="text-gray-900">Medical Records</CardTitle>
+                <CardTitle className="text-foreground">Medical Records</CardTitle>
               </div>
             </CardHeader>
             <CardContent className="pt-5 pb-6">
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Centralized medical records and history for your pet. Track visits, procedures, and medications.
               </p>
             </CardContent>
           </Card>
 
           {/* Vaccination Tracker */}
-          <Card className="border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-xl overflow-hidden">
-            <CardHeader className="bg-blue-50 pb-4">
+          <Card className="border border-border shadow-card hover:shadow-card-hover transition-shadow rounded-2xl overflow-hidden feature-card">
+            <CardHeader className="bg-feature-lightPink pb-4">
               <div className="flex items-center gap-3">
                 <div className="bg-white p-3 rounded-lg shadow-sm">
-                  <FaSyringe className="w-6 h-6 text-blue-500" />
+                  <FaSyringe className="w-6 h-6 text-primary-coral" />
                 </div>
-                <CardTitle className="text-gray-900">Vaccination Tracker</CardTitle>
+                <CardTitle className="text-foreground">Vaccination Tracker</CardTitle>
               </div>
             </CardHeader>
             <CardContent className="pt-5 pb-6">
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Never miss a vaccination with our reminder system. Keep your pet protected with up-to-date immunizations.
               </p>
             </CardContent>
           </Card>
 
           {/* Vet Scheduling */}
-          <Card className="border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-xl overflow-hidden">
-            <CardHeader className="bg-purple-50 pb-4">
+          <Card className="border border-border shadow-card hover:shadow-card-hover transition-shadow rounded-2xl overflow-hidden feature-card">
+            <CardHeader className="bg-feature-lightPink pb-4">
               <div className="flex items-center gap-3">
                 <div className="bg-white p-3 rounded-lg shadow-sm">
-                  <FaCalendarAlt className="w-6 h-6 text-purple-500" />
+                  <FaCalendarAlt className="w-6 h-6 text-primary-coral" />
                 </div>
-                <CardTitle className="text-gray-900">Vet Scheduling</CardTitle>
+                <CardTitle className="text-foreground">Vet Scheduling</CardTitle>
               </div>
             </CardHeader>
             <CardContent className="pt-5 pb-6">
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Easily schedule appointments with nearby veterinarians. Manage bookings and get reminders.
               </p>
             </CardContent>
@@ -142,35 +143,35 @@ export default function HealthcareHubTemplate() {
       <section className="bg-white py-16 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 flex items-center gap-3">
-              <div className="bg-teal-100 p-2 rounded-lg">
-                <FaClipboardList className="w-5 h-5 text-teal-600" />
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground flex items-center gap-3">
+              <div className="bg-feature-lightPink p-2 rounded-lg">
+                <FaClipboardList className="w-5 h-5 text-primary-coral" />
               </div>
               Medical Records
             </h2>
-            <Button className="bg-teal-500 hover:bg-teal-600 text-white rounded-full">
+            <Button className="btn-primary rounded-full">
               <FaPlus className="mr-2 w-4 h-4" /> Add Record
             </Button>
           </div>
 
-          <Card className="border border-gray-100 shadow-sm rounded-xl overflow-hidden">
+          <Card className="border border-border shadow-card rounded-2xl overflow-hidden">
             <div className="overflow-x-auto">
               <Table>
-                <TableHeader className="bg-gray-50">
+                <TableHeader className="bg-secondary">
                   <TableRow>
-                    <TableHead className="text-gray-600 font-medium">Date</TableHead>
-                    <TableHead className="text-gray-600 font-medium">Procedure</TableHead>
-                    <TableHead className="text-gray-600 font-medium">Veterinarian</TableHead>
-                    <TableHead className="text-gray-600 font-medium">Notes</TableHead>
+                    <TableHead className="text-muted-foreground font-medium">Date</TableHead>
+                    <TableHead className="text-muted-foreground font-medium">Procedure</TableHead>
+                    <TableHead className="text-muted-foreground font-medium">Veterinarian</TableHead>
+                    <TableHead className="text-muted-foreground font-medium">Notes</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {medicalRecords.map((record) => (
-                    <TableRow key={record.id} className="hover:bg-gray-50">
+                    <TableRow key={record.id} className="hover:bg-secondary">
                       <TableCell className="font-medium">{record.date}</TableCell>
                       <TableCell>{record.procedure}</TableCell>
                       <TableCell>{record.vet}</TableCell>
-                      <TableCell className="text-gray-600 max-w-xs truncate">
+                      <TableCell className="text-muted-foreground max-w-xs truncate">
                         {record.notes}
                       </TableCell>
                     </TableRow>
@@ -178,8 +179,8 @@ export default function HealthcareHubTemplate() {
                 </TableBody>
               </Table>
             </div>
-            <CardFooter className="flex justify-center border-t border-gray-100 p-4 bg-white">
-              <Button variant="outline" className="text-teal-600 border-teal-500 hover:bg-teal-50 rounded-full">
+            <CardFooter className="flex justify-center border-t border-border p-4 bg-white">
+              <Button variant="outline" className="text-primary-coral border-primary-coral hover:bg-feature-lightPink rounded-full">
                 View Complete History
               </Button>
             </CardFooter>
@@ -188,52 +189,52 @@ export default function HealthcareHubTemplate() {
       </section>
 
       {/* Vaccination Tracker */}
-      <section className="py-16 px-6 bg-gray-50">
+      <section className="py-16 px-6 bg-secondary">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3 mb-8">
-            <div className="bg-blue-100 p-2 rounded-lg">
-              <FaSyringe className="w-5 h-5 text-blue-600" />
+            <div className="bg-feature-lightPink p-2 rounded-lg">
+              <FaSyringe className="w-5 h-5 text-primary-coral" />
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">
               Vaccination Tracker
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Progress Card */}
-            <Card className="border border-gray-100 shadow-sm rounded-xl overflow-hidden">
+            <Card className="border border-border shadow-card rounded-2xl overflow-hidden">
               <CardHeader>
-                <CardTitle className="text-gray-900">Vaccination Progress</CardTitle>
-                <CardDescription className="text-gray-600">
+                <CardTitle className="text-foreground">Vaccination Progress</CardTitle>
+                <CardDescription className="text-muted-foreground">
                   Keep your pet fully protected
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="mb-6">
                   <div className="flex justify-between mb-2">
-                    <span className="text-sm text-gray-600">Progress</span>
-                    <span className="text-sm font-medium text-gray-900">
+                    <span className="text-sm text-muted-foreground">Progress</span>
+                    <span className="text-sm font-medium text-foreground">
                       {vaccinationProgress}%
                     </span>
                   </div>
-                  <div className="h-2 bg-gray-100 rounded-full">
+                  <div className="h-2 bg-secondary rounded-full">
                     <div
-                      className="h-full bg-teal-500 rounded-full"
+                      className="h-full bg-primary-coral rounded-full"
                       style={{ width: `${vaccinationProgress}%` }}
                     ></div>
                   </div>
                 </div>
-                <p className="text-sm text-gray-600 mb-4">
+                <p className="text-sm text-muted-foreground mb-4">
                   Next vaccination due:{" "}
-                  <span className="font-medium text-teal-600">
+                  <span className="font-medium text-primary-coral">
                     May 15, 2025
                   </span>
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <Badge className="bg-green-100 text-green-800">
+                  <Badge className="bg-success/20 text-success">
                     <FaCheckCircle className="mr-1" /> 2 Completed
                   </Badge>
-                  <Badge className="bg-amber-100 text-amber-800">
+                  <Badge className="bg-warning/20 text-warning">
                     <FaClock className="mr-1" /> 2 Pending
                   </Badge>
                 </div>
@@ -241,7 +242,7 @@ export default function HealthcareHubTemplate() {
               <CardFooter>
                 <Button
                   variant="outline"
-                  className="border-teal-500 text-teal-600 hover:bg-teal-50 w-full rounded-full"
+                  className="border-primary-coral text-primary-coral hover:bg-feature-lightPink w-full rounded-full"
                 >
                   <FaBell className="mr-2" /> Set Vaccination Reminders
                 </Button>
@@ -249,10 +250,10 @@ export default function HealthcareHubTemplate() {
             </Card>
 
             {/* Schedule Card */}
-            <Card className="border border-gray-100 shadow-sm rounded-xl overflow-hidden">
+            <Card className="border border-border shadow-card rounded-2xl overflow-hidden">
               <CardHeader>
-                <CardTitle className="text-gray-900">Vaccination Schedule</CardTitle>
-                <CardDescription className="text-gray-600">
+                <CardTitle className="text-foreground">Vaccination Schedule</CardTitle>
+                <CardDescription className="text-muted-foreground">
                   Track your pet&apos;s immunization status
                 </CardDescription>
               </CardHeader>
@@ -260,21 +261,21 @@ export default function HealthcareHubTemplate() {
                 {vaccines.map((vaccine) => (
                   <div
                     key={vaccine.name}
-                    className="flex items-center justify-between p-3 border-b border-gray-100 last:border-b-0 hover:bg-gray-50"
+                    className="flex items-center justify-between p-3 border-b border-border last:border-b-0 hover:bg-secondary"
                   >
                     <div>
-                      <p className="font-medium text-gray-900">{vaccine.name}</p>
-                      <p className="text-sm text-gray-600">
+                      <p className="font-medium text-foreground">{vaccine.name}</p>
+                      <p className="text-sm text-muted-foreground">
                         Due: {vaccine.dueDate}
                       </p>
                     </div>
                     <Badge
                       className={
                         vaccine.status === "completed"
-                          ? "bg-green-100 text-green-800"
+                          ? "bg-success/20 text-success"
                           : vaccine.status === "pending"
-                          ? "bg-amber-100 text-amber-800"
-                          : "bg-gray-100 text-gray-800"
+                          ? "bg-warning/20 text-warning"
+                          : "bg-muted text-muted-foreground"
                       }
                     >
                       {vaccine.status === "completed" && <FaCheckCircle className="mr-1" />}
@@ -285,8 +286,8 @@ export default function HealthcareHubTemplate() {
                   </div>
                 ))}
               </CardContent>
-              <CardFooter className="bg-gray-50 flex justify-center">
-                <Button className="bg-teal-500 hover:bg-teal-600 text-white rounded-full">
+              <CardFooter className="bg-secondary flex justify-center">
+                <Button className="btn-primary rounded-full">
                   Update Vaccination Records
                 </Button>
               </CardFooter>
@@ -298,15 +299,15 @@ export default function HealthcareHubTemplate() {
       {/* Vet Scheduling */}
       <section className="bg-white py-16 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-            <div className="bg-purple-100 p-2 rounded-lg">
-              <FaCalendarAlt className="w-5 h-5 text-purple-600" />
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 flex items-center gap-2">
+            <div className="bg-feature-lightPink p-2 rounded-lg">
+              <FaCalendarAlt className="w-5 h-5 text-primary-coral" />
             </div>
             Vet Appointment Scheduling
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Calendar */}
-            <Card className="border border-gray-100 shadow-sm rounded-xl overflow-hidden">
+            <Card className="border border-border shadow-card rounded-2xl overflow-hidden">
               <CardHeader>
                 <CardTitle>Select Appointment Date</CardTitle>
                 <CardDescription>Choose a date for your next vet visit</CardDescription>
@@ -316,15 +317,15 @@ export default function HealthcareHubTemplate() {
                   mode="single" 
                   selected={date} 
                   onSelect={setDate} 
-                  className="rounded-md border border-gray-200" 
+                  className="rounded-md border border-border" 
                 />
               </CardContent>
               <CardFooter className="flex flex-col gap-2">
-                <div className="flex items-center text-sm text-gray-600 mb-2">
-                  <div className="w-3 h-3 rounded-full bg-teal-500 mr-2"></div>
+                <div className="flex items-center text-sm text-muted-foreground mb-2">
+                  <div className="w-3 h-3 rounded-full bg-primary-coral mr-2"></div>
                   <span>Available slots</span>
                 </div>
-                <Button className="bg-teal-500 hover:bg-teal-600 w-full text-white rounded-full">
+                <Button className="btn-primary w-full rounded-full">
                   See Available Times
                 </Button>
               </CardFooter>
@@ -334,20 +335,20 @@ export default function HealthcareHubTemplate() {
             <div className="lg:col-span-2 space-y-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-semibold flex items-center gap-2">
-                  <FaMapMarkerAlt className="text-teal-500" /> Nearby Veterinarians
+                  <FaMapMarkerAlt className="text-primary-coral" /> Nearby Veterinarians
                 </h3>
-                <Badge variant="outline" className="gap-1 border-gray-200">
+                <Badge variant="outline" className="gap-1 border-border">
                   <FaMapMarkerAlt /> 10km Radius
                 </Badge>
               </div>
               <div className="space-y-4">
                 {vets.map((vet) => (
-                  <Card key={vet.id} className="border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-xl overflow-hidden">
+                  <Card key={vet.id} className="border border-border shadow-card hover:shadow-card-hover transition-shadow rounded-2xl overflow-hidden">
                     <CardHeader className="pb-3">
                       <div className="flex justify-between">
                         <CardTitle>{vet.name}</CardTitle>
                         <div className="flex items-center gap-1">
-                          <FaStar className="text-amber-500 w-4 h-4" />
+                          <FaStar className="text-warning w-4 h-4" />
                           <span>{vet.rating}</span>
                         </div>
                       </div>
@@ -360,9 +361,9 @@ export default function HealthcareHubTemplate() {
                         <Badge variant="secondary">Dental</Badge>
                       </div>
                     </CardContent>
-                    <CardFooter className="border-t border-gray-100 pt-4">
+                    <CardFooter className="border-t border-border pt-4">
                       <Button 
-                        className={`w-full rounded-full ${vet.available ? 'bg-teal-500 hover:bg-teal-600 text-white' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`}
+                        className={`w-full rounded-full ${vet.available ? 'btn-primary' : 'bg-muted text-muted-foreground cursor-not-allowed'}`}
                         disabled={!vet.available}
                       >
                         {vet.available ? 'Book Appointment' : 'No Availability'}
@@ -377,66 +378,64 @@ export default function HealthcareHubTemplate() {
       </section>
 
       {/* Why Use Healthcare Hub */}
-      <section className="bg-gray-50 py-16 px-6">
+      <section className="bg-secondary py-16 px-6 paw-bg">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
                 Why Use Healthcare Hub?
               </h2>
               <div className="space-y-6">
                 <div className="flex gap-4">
-                  <div className="bg-teal-100 p-2 rounded-lg h-fit">
-                    <FaCheckCircle className="w-5 h-5 text-teal-600" />
+                  <div className="bg-feature-lightPink p-2 rounded-lg h-fit">
+                    <FaHeart className="w-5 h-5 text-primary-coral" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-gray-900">Complete Health Overview</h3>
-                    <p className="text-gray-600">
+                    <h3 className="font-semibold text-lg text-foreground">Complete Health Overview</h3>
+                    <p className="text-muted-foreground">
                       All your pet&apos;s health information centralized in one secure location for easy access.
                     </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="bg-teal-100 p-2 rounded-lg h-fit">
-                    <FaCheckCircle className="w-5 h-5 text-teal-600" />
+                  <div className="bg-feature-lightPink p-2 rounded-lg h-fit">
+                    <FaBell className="w-5 h-5 text-primary-coral" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-gray-900">Timely Reminders</h3>
-                    <p className="text-gray-600">
+                    <h3 className="font-semibold text-lg text-foreground">Timely Reminders</h3>
+                    <p className="text-muted-foreground">
                       Get notifications for upcoming vaccinations and appointments so you never miss important care.
                     </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="bg-teal-100 p-2 rounded-lg h-fit">
-                    <FaCheckCircle className="w-5 h-5 text-teal-600" />
+                  <div className="bg-feature-lightPink p-2 rounded-lg h-fit">
+                    <FaShieldAlt className="w-5 h-5 text-primary-coral" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-gray-900">Vet-Verified Network</h3>
-                    <p className="text-gray-600">
+                    <h3 className="font-semibold text-lg text-foreground">Vet-Verified Network</h3>
+                    <p className="text-muted-foreground">
                       Connect with our network of 1,200+ verified veterinarians who use our platform.
                     </p>
                   </div>
                 </div>
               </div>
-              <Button className="bg-teal-500 hover:bg-teal-600 text-white mt-8 rounded-full">
+              <Button className="btn-primary mt-8 rounded-full">
                 Connect Your Veterinarian
               </Button>
             </div>
             <div className="flex justify-center">
               <div className="relative w-full max-w-md">
-                <div className="absolute -top-6 -right-6 w-32 h-32 bg-teal-200/30 rounded-full -z-10"></div>
-                <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-blue-100/50 rounded-full -z-10"></div>
-                
-
-<Image 
-  src="https://plus.unsplash.com/premium_photo-1663039950073-187c977da2e9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-  alt="Veterinarian checking a dog" 
-  width={1170}  // Set the reference width
-  height={780}  // Set the reference height
-  layout="responsive" // This makes the image responsive to its container's width
-  className="rounded-xl shadow-lg w-full object-cover border border-gray-100" 
-/>
+                <div className="absolute -top-6 -right-6 w-32 h-32 bg-feature-lightPink rounded-full -z-10"></div>
+                <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-feature-lightPink rounded-full -z-10"></div>
+                <Image 
+                  src="https://plus.unsplash.com/premium_photo-1663039950073-187c977da2e9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                  alt="Veterinarian checking a dog" 
+                  width={1170}
+                  height={780}
+                  layout="responsive"
+                  className="rounded-2xl shadow-app w-full object-cover border border-border" 
+                />
               </div>
             </div>
           </div>
@@ -444,17 +443,17 @@ export default function HealthcareHubTemplate() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-teal-500 to-blue-500 py-16 px-6 text-white">
+      <section className="bg-coral-gradient py-16 px-6 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-bold mb-4">Ready to manage your pet&apos;s health better?</h2>
           <p className="text-lg mb-8 opacity-90">
             Join thousands of pet parents who trust Anima Unity for their pet healthcare management.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button className="bg-white text-teal-600 hover:bg-gray-100 rounded-full px-8 py-6">
+            <Button className="bg-white text-primary-coral hover:bg-gray-100 rounded-full px-8 py-6 button-shadow hover:shadow-button-hover">
               Join Now
             </Button>
-            <Button className="bg-white text-teal-600 hover:bg-gray-100 rounded-full px-8 py-6">
+            <Button variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 rounded-full px-8 py-6">
               Learn More
             </Button>
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
 interface TestimonialProps {
@@ -33,41 +33,106 @@ export default function Testimonials() {
   ];
 
   const sliderRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   const scrollPrev = () => {
     if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: -350, behavior: "smooth" });
+      const newIndex = Math.max(0, activeIndex - 1);
+      setActiveIndex(newIndex);
+      const cardWidth = sliderRef.current.querySelector('div')?.clientWidth || 0;
+      sliderRef.current.scrollTo({ left: cardWidth * newIndex, behavior: "smooth" });
     }
   };
 
   const scrollNext = () => {
     if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: 350, behavior: "smooth" });
+      const newIndex = Math.min(testimonials.length - 1, activeIndex + 1);
+      setActiveIndex(newIndex);
+      const cardWidth = sliderRef.current.querySelector('div')?.clientWidth || 0;
+      sliderRef.current.scrollTo({ left: cardWidth * newIndex, behavior: "smooth" });
     }
   };
 
+  // Mouse events for drag scrolling
+  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (sliderRef.current) {
+      setIsDragging(true);
+      setStartX(e.pageX - sliderRef.current.offsetLeft);
+      setScrollLeft(sliderRef.current.scrollLeft);
+    }
+  };
+
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    if (sliderRef.current) {
+      const x = e.pageX - sliderRef.current.offsetLeft;
+      const walk = (x - startX) * 2; // Scroll speed multiplier
+      sliderRef.current.scrollLeft = scrollLeft - walk;
+    }
+  };
+
+  const onMouseUpOrLeave = () => {
+    setIsDragging(false);
+  };
+
+  // Update active index when scrolling
+  useEffect(() => {
+    const handleScroll = () => {
+      if (sliderRef.current) {
+        const cardWidth = sliderRef.current.querySelector('div')?.clientWidth || 0;
+        const index = Math.round(sliderRef.current.scrollLeft / cardWidth);
+        setActiveIndex(index);
+      }
+    };
+
+    const slider = sliderRef.current;
+    if (slider) {
+      slider.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (slider) {
+        slider.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
+
   return (
-    <section id="testimonials" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-10">
-          <div>
-            <p className="text-sm uppercase font-medium tracking-wider text-gray-500 mb-1">
-              OUR REVIEWS
+    <section id="testimonials" className="py-24 bg-feature-lightPink relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-32 h-32 rounded-full bg-primary-coral opacity-5"></div>
+      <div className="absolute bottom-0 right-0 w-64 h-64 rounded-full bg-primary-coral opacity-5"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
+          <div className="mb-6 md:mb-0">
+            <p className="text-sm uppercase font-semibold tracking-wider text-primary-coral mb-2">
+              WHAT PET LOVERS SAY
             </p>
-            <h2 className="text-4xl font-bold">
-              What Our <span className="text-gray-400">Clients</span> Say
+            <h2 className="text-4xl md:text-5xl font-bold">
+              Our <span className="text-primary-gradient">Happy</span> Clients
             </h2>
           </div>
-          <div className="flex space-x-2">
+          
+          <div className="flex space-x-3">
             <button
               onClick={scrollPrev}
-              className="p-3 rounded-full bg-black text-white"
+              className={`p-4 rounded-full border transition-all duration-300 ${
+                activeIndex === 0 
+                  ? 'border-gray-200 text-gray-300 cursor-not-allowed' 
+                  : 'hover:border-primary-coral hover:text-primary-coral border-gray-300 text-gray-500'
+              }`}
               aria-label="Previous"
+              disabled={activeIndex === 0}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
+                width="20"
+                height="20"
                 fill="currentColor"
                 viewBox="0 0 16 16"
               >
@@ -79,13 +144,18 @@ export default function Testimonials() {
             </button>
             <button
               onClick={scrollNext}
-              className="p-3 rounded-full bg-black text-white"
+              className={`p-4 rounded-full border transition-all duration-300 ${
+                activeIndex === testimonials.length - 1 
+                  ? 'border-gray-200 text-gray-300 cursor-not-allowed' 
+                  : 'hover:border-primary-coral hover:text-primary-coral border-gray-300 text-gray-500'
+              }`}
               aria-label="Next"
+              disabled={activeIndex === testimonials.length - 1}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
+                width="20"
+                height="20"
                 fill="currentColor"
                 viewBox="0 0 16 16"
               >
@@ -98,52 +168,85 @@ export default function Testimonials() {
           </div>
         </div>
         
+        {/* Testimonials carousel */}
         <div 
           ref={sliderRef}
-          className="flex overflow-x-auto space-x-6 pb-10 hide-scrollbar"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onMouseUp={onMouseUpOrLeave}
+          onMouseLeave={onMouseUpOrLeave}
         >
           {testimonials.map((testimonial, index) => (
             <div 
               key={index}
-              className="flex-none w-full max-w-md bg-white p-8 rounded-lg"
+              className="flex-none w-full md:w-1/2 lg:w-1/3 px-3 snap-start"
             >
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center">
-                  <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                    <Image 
-                      src={testimonial.avatar} 
-                      alt={testimonial.name} 
-                      width={48} 
-                      height={48}
-                      className="w-full h-full object-cover"
-                    />
+              <div className="bg-card rounded-3xl shadow-card hover:shadow-card-hover transform transition-all duration-300 p-8 h-full flex flex-col">
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-center">
+                    <div className="w-14 h-14 rounded-2xl overflow-hidden mr-4 border-2 border-primary-coral">
+                      <Image 
+                        src={testimonial.avatar} 
+                        alt={testimonial.name} 
+                        width={56} 
+                        height={56}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-base">{testimonial.name}</h4>
+                      <p className="text-sm text-muted-foreground">{testimonial.position}</p>
+                    </div>
                   </div>
                   
+                  <div className="text-primary-coral">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.59 5.34C9.21 5.57 7 7.1 7 10.14C7 12.8 8.97 14.99 11.63 14.99C13.9 14.99 15.75 13.13 15.75 10.86C15.75 8.81 14.13 7.19 12.08 7.19C11.78 7.19 11.49 7.23 11.21 7.3C11.77 6.47 12.58 6 13.13 5.86C13.35 5.8 13.41 5.53 13.24 5.37C12.84 4.99 12.37 4.77 12.06 4.67C11.59 4.5 10.99 4.19 9.59 5.34Z" fill="currentColor"/>
+                      <path d="M4.59 5.34C4.21 5.57 2 7.1 2 10.14C2 12.8 3.97 14.99 6.63 14.99C8.9 14.99 10.75 13.13 10.75 10.86C10.75 8.81 9.13 7.19 7.08 7.19C6.78 7.19 6.49 7.23 6.21 7.3C6.77 6.47 7.58 6 8.13 5.86C8.35 5.8 8.41 5.53 8.24 5.37C7.84 4.99 7.37 4.77 7.06 4.67C6.59 4.5 5.99 4.19 4.59 5.34Z" fill="currentColor"/>
+                    </svg>
+                  </div>
                 </div>
-              </div>
-              
-              <div className="mb-8">
-                <blockquote className="text-xl font-medium mb-4 relative">
-                  <span className="text-blue-300 text-4xl absolute -top-6 -left-2">&quot;</span>
-                  {testimonial.quote}
-                </blockquote>
-              </div>
-              
-              <div className="mt-auto">
-                <h4 className="font-bold text-sm">{testimonial.name}</h4>
-                <p className="text-xs text-gray-500">{testimonial.position}</p>
+                
+                <div className="flex-grow mb-6">
+                  <blockquote className="text-base font-medium">
+                    {testimonial.quote}
+                  </blockquote>
+                </div>
+                
+                {/* Star rating */}
+                <div className="flex items-center mt-auto">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 text-primary-coral fill-current" viewBox="0 0 24 24">
+                      <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                    </svg>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
         </div>
+        
+        {/* Pagination indicators */}
+        <div className="flex justify-center mt-8 space-x-2">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                if (sliderRef.current) {
+                  setActiveIndex(index);
+                  const cardWidth = sliderRef.current.querySelector('div')?.clientWidth || 0;
+                  sliderRef.current.scrollTo({ left: cardWidth * index, behavior: "smooth" });
+                }
+              }}
+              aria-label={`Go to slide ${index + 1}`}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                activeIndex === index ? 'bg-primary-coral w-6' : 'bg-gray-300 hover:bg-gray-400'
+              }`}
+            />
+          ))}
+        </div>
       </div>
-      
-      <style jsx>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </section>
   );
 }

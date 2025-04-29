@@ -14,6 +14,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [prevScrollPos, setPrevScrollPos] = useState(0)
   const [isVisible, setIsVisible] = useState(true)
+  const [scrolled, setScrolled] = useState(false)
 
   const hiddenNavbarPaths = ['/help-center']; // daftar path yang mau hide Navbar
   const isHidden = hiddenNavbarPaths.some(path => pathname.startsWith(path));
@@ -26,6 +27,7 @@ export default function Navbar() {
       const currentScrollPos = window.scrollY
       setIsVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10)
       setPrevScrollPos(currentScrollPos)
+      setScrolled(currentScrollPos > 20)
 
       for (const section of navItems) {
         const el = document.getElementById(section)
@@ -49,10 +51,18 @@ export default function Navbar() {
 
   if (isMinimal) {
     return (
-      <nav className="w-full py-4 px-6 shadow-sm bg-background">
-        <Link href="/" className="flex items-center space-x-2">
-          <Image src="/img/logo.png" alt="Anima Unity Logo" width={32} height={32} />
-          <span className="text-xl font-bold text-foreground">Anima Unity</span>
+      <nav className="w-full py-4 px-6 shadow-card bg-background">
+        <Link href="/" className="flex items-center space-x-3 group">
+          <div className="relative overflow-hidden rounded-lg">
+            <Image 
+              src="/img/logo.png" 
+              alt="Anima Unity Logo" 
+              width={36} 
+              height={36} 
+              className="transition-transform duration-300 group-hover:scale-110" 
+            />
+          </div>
+          <span className="text-xl font-bold">Anima Unity</span>
         </Link>
       </nav>
     )
@@ -60,36 +70,50 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 backdrop-blur-2xl bg-background/30 dark:bg-secondary-dark/30 border-b border-border/20 dark:border-border/20 shadow-lg transition-all duration-500 ease-out ${
-        isVisible ? 'translate-y-0' : '-translate-y-full'
-      }`}
+      className={`fixed top-0 w-full z-50 backdrop-blur-md transition-all duration-500 ease-out ${
+        scrolled 
+          ? 'bg-background/70 dark:bg-secondary/80 shadow-card py-3' 
+          : 'bg-transparent py-5'
+      } ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center">
           {/* Brand */}
-          <Link href="/" className="flex items-center space-x-2">
-            <Image src="/img/logo.png" alt="Anima Unity Logo" width={32} height={32} />
-            <span className="text-xl font-bold text-foreground">Anima Unity</span>
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="relative overflow-hidden rounded-lg">
+              <div className={`absolute inset-0 bg-coral-gradient rounded-lg -z-10 opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
+              <Image 
+                src="/img/logo.png" 
+                alt="Anima Unity Logo" 
+                width={40} 
+                height={40} 
+                className="transition-transform duration-300 group-hover:scale-110" 
+              />
+            </div>
+            <span className="text-xl font-bold">Anima Unity</span>
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8 items-center">
+          <div className="hidden md:flex space-x-1 lg:space-x-2 items-center">
             {navItems.map((item) => (
               <Link
                 key={item}
                 href={`/#${item}`}
-                className={`text-sm font-medium px-3 py-2 rounded-md transition ${
+                className={`relative text-sm font-medium px-4 py-2 rounded-full transition-all duration-300 overflow-hidden ${
                   activeSection === item
-                    ? 'text-primary font-semibold'
-                    : 'text-muted-foreground hover:text-primary'
+                    ? 'text-primary-coral font-semibold'
+                    : 'text-muted-foreground hover:text-primary-coral'
                 }`}
               >
-                {item.charAt(0).toUpperCase() + item.slice(1)}
+                {activeSection === item && (
+                  <span className="absolute inset-0 bg-primary-coral/10 rounded-full -z-10"></span>
+                )}
+                <span className="relative z-10">{item.charAt(0).toUpperCase() + item.slice(1)}</span>
               </Link>
             ))}
             <Link
               href="#cta"
-              className="ml-4 px-5 py-2 bg-primary hover:bg-primary-dark text-white rounded-full text-sm font-medium transition shadow-button hover:shadow-button-hover"
+              className="ml-4 px-6 py-2.5 bg-coral-gradient text-white rounded-full text-sm font-medium transition-all duration-300 shadow-button hover:shadow-button-hover hover:-translate-y-0.5"
             >
               Join Now
             </Link>
@@ -99,9 +123,9 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-muted-foreground hover:text-primary transition"
+              className="text-muted-foreground hover:text-primary-coral p-2 rounded-full hover:bg-primary-coral/10 transition-colors"
             >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
@@ -109,28 +133,35 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-background/95 border-t border-border shadow-sm px-4 pb-6 pt-2 space-y-4 transition">
+        <div className="md:hidden bg-background/95 backdrop-blur-md border-t border-border/30 shadow-card px-4 pb-6 pt-2 space-y-4 animate-slide-up">
           {navItems.map((item) => (
             <Link
               key={item}
               href={`/#${item}`}
               onClick={() => setIsOpen(false)}
-              className={`block text-sm font-medium ${
+              className={`block py-3 text-base font-medium transition-colors ${
                 activeSection === item
-                  ? 'text-primary font-semibold'
-                  : 'text-muted-foreground hover:text-primary'
+                  ? 'text-primary-coral font-semibold'
+                  : 'text-muted-foreground hover:text-primary-coral'
               }`}
             >
-              {item.charAt(0).toUpperCase() + item.slice(1)}
+              <div className="flex items-center justify-between">
+                <span>{item.charAt(0).toUpperCase() + item.slice(1)}</span>
+                {activeSection === item && (
+                  <div className="h-1.5 w-1.5 rounded-full bg-primary-coral"></div>
+                )}
+              </div>
             </Link>
           ))}
-          <Link
-            href="#cta"
-            onClick={() => setIsOpen(false)}
-            className="inline-block w-full text-center px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-full text-sm font-medium transition shadow-button hover:shadow-button-hover"
-          >
-            Join Now
-          </Link>
+          <div className="pt-4 mt-2">
+            <Link
+              href="#cta"
+              onClick={() => setIsOpen(false)}
+              className="inline-block w-full text-center px-5 py-3 bg-coral-gradient text-white rounded-xl text-base font-medium transition-all duration-300 shadow-button hover:shadow-button-hover"
+            >
+              Join Now
+            </Link>
+          </div>
         </div>
       )}
     </nav>
