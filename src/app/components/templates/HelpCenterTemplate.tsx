@@ -20,7 +20,10 @@ import {
   Menu,
   X,
   HelpCircle,
-  Headphones
+  Bell,
+  User,
+  Zap,
+  Mail
 } from 'lucide-react';
 
 interface Question {
@@ -223,256 +226,403 @@ export default function HelpCenterTemplate(): React.ReactElement {
            (path === '/messages' && pathname.includes('help-center'));
   };
 
-  // Support agent component
-  const SupportAgent = () => {
-  return (
-    <div className="mt-auto p-4 border-t border-border">
-      <div className="relative overflow-hidden rounded-2xl bg-feature-tracking p-6">
-        {/* Icon Container */}
-        <div className="absolute left-6 top-6">
-          <Headphones className="h-10 w-10 text-primary" />
-        </div>
-        
-        {/* Content Container */}
-        <div className="ml-16">
-          <div className="inline-block rounded-lg rounded-bl-none bg-card p-3 shadow-card">
-            <p className="text-sm text-muted-foreground">Need help?</p>
-          </div>
-          
-          <button 
-            className="mt-3 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white shadow-button hover:bg-primary/90 transition-colors"
-            aria-label="Contact Support"
-          >
-            Contact Support
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
 
-  // Sidebar navigation
-  const SidebarNav = () => (
-    <nav className="flex-1 px-2 py-4">
-      <ul className="space-y-1">
+// Redesigned Sidebar Navigation
+const SidebarNav = () => (
+  <nav className="flex-1 px-3 py-6">
+    <div className="mb-6">
+      <h2 className="text-sm font-semibold text-muted-foreground px-4 mb-3">MENU</h2>
+      <ul className="space-y-2">
         {navItems.map((item, index) => (
           <li key={index}>
             <Link 
               href={item.link}
-              className={`flex items-center px-4 py-3 rounded-lg transition-colors ${
+              className={`flex items-center px-4 py-3 rounded-xl transition-all duration-200 ${
                 isActive(item.link) 
-                  ? "bg-primary/10 text-primary font-medium" 
-                  : "text-gray-600 hover:bg-slate-50"
+                  ? "bg-coral-gradient text-white font-medium shadow-button" 
+                  : "text-gray-600 hover:bg-feature-lightPink hover:text-primary-coral"
               }`}
             >
-              <span className={`mr-3 ${isActive(item.link) ? "text-primary" : ""}`}>
+              <span className={`mr-3 text-lg ${isActive(item.link) ? "text-white" : "text-gray-500"}`}>
                 {item.icon}
               </span>
-              <span>{item.label}</span>
+              <span className="font-medium">{item.label}</span>
+              
+              {/* Indicator for active state */}
               {isActive(item.link) && (
                 <span className="ml-auto">
-                  <div className="h-2 w-2 rounded-full bg-primary"></div>
+                  <div className="flex items-center">
+                    <span className="text-xs mr-2">Active</span>
+                    <div className="h-2 w-2 rounded-full bg-white animate-pulse-gentle"></div>
+                  </div>
                 </span>
               )}
             </Link>
           </li>
         ))}
       </ul>
-    </nav>
-  );
+    </div>
+    
+    {/* Categories Section */}
+    <div className="mt-8">
+      <h2 className="text-sm font-semibold text-muted-foreground px-4 mb-3">CATEGORIES</h2>
+      <div className="px-4">
+        <div className="bg-feature-lightPink p-4 rounded-2xl">
+          <div className="flex flex-wrap gap-2">
+            {['Popular', 'Latest', 'Trending'].map((tag, index) => (
+              <span 
+                key={index} 
+                className="px-3 py-1 text-xs bg-white rounded-full text-primary-coral shadow-sm"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {/* Help Center */}
+    <div className="mt-auto px-4 pt-6">
+      <div className="bg-card-gradient rounded-2xl p-4 shadow-card border border-border">
+        <div className="flex items-center mb-3">
+          <div className="w-8 h-8 rounded-full bg-accent-coral flex items-center justify-center text-white mr-3">
+            <i className="fas fa-headset text-sm"></i>
+          </div>
+          <h3 className="font-medium">Need Help?</h3>
+        </div>
+        <p className="text-sm text-muted-foreground mb-3">
+          Contact our support team for assistance
+        </p>
+        <button className="w-full py-2 rounded-xl bg-white text-sm font-medium text-accent-coral border border-border hover:shadow-button transition-all duration-200">
+          Support Center
+        </button>
+      </div>
+    </div>
+  </nav>
+);
 
   return (
     <div className="flex flex-col lg:flex-row h-screen bg-slate-50/80">
-      {/* Mobile Header */}
-      <header className="md:hidden bg-white border-b border-slate-200 px-4 py-3 sticky top-0 z-20">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <Image src="/img/logo.png" alt="Anima Unity Logo" width={32} height={32} />
-            <span className="font-semibold text-gray-800">Anima Unity HC</span>
-          </div>
-          <button 
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 text-gray-600 focus:outline-none"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile Sidebar Overlay */}
-      {isMobileMenuOpen && (
-        <div 
-          className="md:hidden fixed inset-0 bg-gray-800/50 z-30"
-          onClick={() => setIsMobileMenuOpen(false)}
-        ></div>
-      )}
-
-      {/* Sidebar - both desktop and mobile */}
-      <div 
-        className={`
-          fixed md:relative inset-y-0 left-0 z-40 md:z-0
-          w-64 bg-white border-r border-slate-200 md:translate-x-0
-          transition-transform duration-300 ease-in-out transform
-          ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
-          flex flex-col max-h-screen overflow-hidden
-        `}
-      >
-        <div className="p-4 border-b border-slate-200 hidden md:block">
-          <div className="flex items-center">
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white mr-2">
-              A
-            </div>
-            <span className="font-semibold text-gray-800">Anima Unity HC</span>
-          </div>
-        </div>
-        
-        <div className="flex-1 overflow-y-auto">
-          <SidebarNav />
-        </div>
-        
-        <SupportAgent />
+{/* Mobile Header */}
+<header className="md:hidden bg-white border-b border-slate-100 shadow-sm px-4 py-4 sticky top-0 z-20">
+  <div className="flex items-center justify-between">
+    <div className="flex items-center space-x-2">
+      <div className="bg-gradient-to-r from-primary-coral to-primary-light rounded-lg p-1">
+        <Image 
+          src="/img/logo.png" 
+          alt="Anima Unity Logo" 
+          width={30} 
+          height={30} 
+          className="animate-pulse-gentle"
+        />
       </div>
+      <div className="flex flex-col">
+        <span className="font-semibold text-gradient bg-coral-gradient text-lg leading-tight">
+          Anima Unity
+        </span>
+        <span className="text-xs text-accent-gray font-medium">Healthcare</span>
+      </div>
+    </div>
+    
+    <div className="flex items-center space-x-3">
+      <button 
+        className="p-1.5 rounded-full bg-feature-lightPink hover:bg-primary-light/10 transition-all duration-300"
+        aria-label="Notifications"
+      >
+        <Bell className="w-5 h-5 text-primary-coral" />
+      </button>
+      
+      <button 
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        className="p-1.5 rounded-full bg-feature-lightPink hover:bg-primary-light/10 transition-all duration-300 focus:outline-none"
+        aria-label="Toggle menu"
+      >
+        {isMobileMenuOpen ? 
+          <X className="w-5 h-5 text-primary-coral" /> : 
+          <Menu className="w-5 h-5 text-primary-coral" />
+        }
+      </button>
+    </div>
+  </div>
+  
+  {/* Optional: Animated indicator for mobile menu state */}
+  <div className={`w-full flex justify-end pr-4 mt-1 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0'}`}>
+    <div className="w-8 h-1 rounded-full bg-primary-coral" />
+  </div>
+</header>
 
-      {/* Main Content */}
-      <div className="flex-1 overflow-y-auto pt-0 md:pt-0">
-        <div className="max-w-5xl mx-auto px-4 py-6">
-          {/* Search bar - Added as requested */}
-          <div className="relative flex items-center mb-6">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-gray-400" />
-            </div>
-            <input
-              type="text"
-              placeholder="Search for help topics..."
-              className="bg-white w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-          
-          {/* Breadcrumb navigation - Added as requested */}
-          <div className="flex items-center text-sm text-gray-500 mb-6">
-            {currentPath.map((path, index) => (
-              <React.Fragment key={index}>
-                {index > 0 && <ChevronRight className="w-4 h-4 mx-1 text-gray-400" />}
-                <span className={index === currentPath.length - 1 ? "text-primary font-medium" : ""}>
-                  {path}
-                </span>
-              </React.Fragment>
-            ))}
-          </div>
+{/* Mobile Sidebar Overlay */}
+{isMobileMenuOpen && (
+  <div 
+    className="md:hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-30 transition-all duration-300 animate-fade-in"
+    onClick={() => setIsMobileMenuOpen(false)}
+    aria-hidden="true"
+  >
+    <div className="absolute top-4 right-4">
+      <button 
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsMobileMenuOpen(false);
+        }}
+        className="p-1.5 bg-white/20 rounded-full hover:bg-white/30 transition-all duration-300"
+        aria-label="Close menu"
+      >
+        <X className="w-5 h-5 text-white" />
+      </button>
+    </div>
+    
+    {/* Optional: add subtle gradient effect to match theme */}
+    <div className="absolute inset-0 bg-gradient-to-br from-primary-coral/5 to-transparent pointer-events-none" />
+  </div>
+)}
 
-          {/* Welcome Banner */}
-          <div className="bg-white rounded-xl p-6 flex flex-col md:flex-row justify-between items-start shadow-sm mb-8 border border-slate-100">
-            <div className="flex-1 mb-4 md:mb-0">
-              <h1 className="text-xl font-semibold text-gray-800">Welcome to Anima Unity Help Center</h1>
-              <p className="text-gray-600 mt-1 mb-4">Find answers to all your questions about our platform.</p>
-              <button className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
-                Get Started
-              </button>
-            </div>
-            <div className="flex-shrink-0 md:pl-4 w-full md:w-auto">
-              <Image 
-                src="/img/banner.png" 
-                alt="Support illustration" 
-                width={180} 
-                height={90}
-                className="object-contain mx-auto md:mx-0"
-                style={{ 
-                  maxWidth: '100%',
-                  height: 'auto'
-                }}
-              />
-            </div>
-          </div>
+{/* Sidebar - both desktop and mobile */}
+<div 
+  className={`
+    fixed md:relative inset-y-0 left-0 z-40 md:z-0
+    w-72 bg-white md:bg-gradient-to-b md:from-white md:to-feature-lightPink/30
+    border-r border-slate-100 shadow-card md:shadow-none md:translate-x-0
+    transition-all duration-300 ease-in-out transform
+    ${isMobileMenuOpen ? 'translate-x-0 animate-slide-up' : '-translate-x-full'}
+    flex flex-col h-screen overflow-hidden
+  `}
+>
+  {/* Mobile close button */}
+  <div className="absolute top-4 right-4 md:hidden">
+    <button 
+      onClick={() => setIsMobileMenuOpen(false)}
+      className="p-1.5 rounded-full bg-feature-lightPink hover:bg-primary-light/10 transition-all"
+      aria-label="Close sidebar"
+    >
+      <X className="w-4 h-4 text-primary-coral" />
+    </button>
+  </div>
 
-          {/* Need Help Section */}
-          <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-800 mb-6">Need help? We&apos;ve got your back</h2>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {supportOptions.slice(0, 4).map((option, index) => (
-                <Link key={index} href={option.link}>
-                  <div className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center h-full border border-slate-100">
-                    <div className={`${option.bgColor} p-3 rounded-lg mb-3`}>
-                      <div className={`${option.color}`}>
-                        {option.icon}
-                      </div>
-                    </div>
-                    <h3 className="font-medium text-sm text-gray-800 mb-1">{option.title}</h3>
-                    <p className="text-xs text-gray-500 line-clamp-2">
-                      {option.description}
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-              {supportOptions.slice(4, 8).map((option, index) => (
-                <Link key={index} href={option.link}>
-                  <div className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center h-full border border-slate-100">
-                    <div className={`${option.bgColor} p-3 rounded-lg mb-3`}>
-                      <div className={`${option.color}`}>
-                        {option.icon}
-                      </div>
-                    </div>
-                    <h3 className="font-medium text-sm text-gray-800 mb-1">{option.title}</h3>
-                    <p className="text-xs text-gray-500 line-clamp-2">
-                      {option.description}
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
+  {/* Sidebar Header - Desktop */}
+  <div className="p-5 border-b border-slate-100 hidden md:block">
+    <div className="flex items-center space-x-3">
+      <div className="w-10 h-10 rounded-xl bg-coral-gradient flex items-center justify-center text-white shadow-button">
+        <span className="font-semibold">A</span>
+      </div>
+      <div className="flex flex-col">
+        <span className="font-semibold text-gradient bg-coral-gradient">Anima Unity</span>
+        <span className="text-xs text-accent-gray font-medium">Healthcare Platform</span>
+      </div>
+    </div>
+  </div>
+  
+  {/* Mobile Header - shows logo and name on mobile */}
+  <div className="p-5 border-b border-slate-100 md:hidden">
+    <div className="flex items-center space-x-3">
+      <div className="w-10 h-10 rounded-xl bg-coral-gradient flex items-center justify-center text-white shadow-button">
+        <span className="font-semibold">A</span>
+      </div>
+      <div className="flex flex-col">
+        <span className="font-semibold text-gradient bg-coral-gradient">Anima Unity</span>
+        <span className="text-xs text-accent-gray font-medium">Healthcare Platform</span>
+      </div>
+    </div>
+  </div>
+  
+  {/* User Profile Section - Optional */}
+  <div className="px-4 py-3 border-b border-slate-100">
+    <div className="flex items-center space-x-3">
+      <div className="w-9 h-9 rounded-full bg-feature-lightPink flex items-center justify-center">
+        <User className="w-5 h-5 text-primary-coral" />
+      </div>
+      <div className="flex flex-col">
+        <span className="text-sm font-medium text-accent-black">Dr. Amanda</span>
+        <span className="text-xs text-accent-gray">Medical Staff</span>
+      </div>
+    </div>
+  </div>
+  
+  {/* Navigation Menu */}
+  <div className="flex-1 overflow-y-auto py-3 px-2 scrollbar-hide">
+    <SidebarNav />
+  </div>
+</div>
 
-          {/* FAQ Section */}
-          <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">Frequently Asked Questions</h2>
-            
-            {filteredFAQs.map((category, index) => (
-              <div key={index} className="mb-6">
-                <h3 className="flex items-center text-md font-medium text-gray-700 mb-3">
-                  <span className="mr-2">{category.icon}</span>
-                  {category.title}
-                </h3>
-                <div className="space-y-2">
-                  {category.questions.map((q) => (
-                    <Link key={q.id} href={q.link}>
-                      <div className="bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-all border border-slate-100">
-                        <div className="flex items-center">
-                          <div className="flex-1">
-                            <p className="text-sm text-gray-800">{q.question}</p>
-                          </div>
-                          <ArrowRight className="w-4 h-4 text-gray-400" />
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
+{/* Main Content */}
+<div className="flex-1 overflow-y-auto pt-0 md:pt-0 bg-feature-lightGray">
+  <div className="max-w-5xl mx-auto px-4 py-6">
+    {/* Search bar - Enhanced */}
+    <div className="relative flex items-center mb-6">
+      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+        <Search className="h-5 w-5 text-primary-coral" />
+      </div>
+      <input
+        type="text"
+        placeholder="Search for help topics..."
+        className="bg-white w-full pl-12 pr-4 py-3.5 rounded-2xl border border-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-coral/30 focus:border-primary-coral shadow-sm transition-all duration-300"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+      <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+        <kbd className="hidden md:inline-flex h-5 select-none items-center gap-1 rounded border border-slate-200 bg-slate-50 px-1.5 font-mono text-[10px] font-medium text-slate-500">
+          <span className="text-xs">⌘</span>K
+        </kbd>
+      </div>
+    </div>
+    
+    {/* Breadcrumb navigation - Enhanced */}
+    <div className="flex items-center text-sm text-accent-gray mb-6 bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-100">
+      <Home className="w-3.5 h-3.5 text-primary-coral mr-2" />
+      {currentPath.map((path, index) => (
+        <React.Fragment key={index}>
+          {index > 0 && <ChevronRight className="w-3.5 h-3.5 mx-1 text-slate-300" />}
+          <span className={index === currentPath.length - 1 
+            ? "text-primary-coral font-medium" 
+            : "hover:text-primary-coral transition-colors duration-200"}>
+            {path}
+          </span>
+        </React.Fragment>
+      ))}
+    </div>
+
+    {/* Welcome Banner - Enhanced */}
+    <div className="bg-gradient-to-r from-white to-feature-lightPink rounded-3xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-center shadow-card mb-8 border border-slate-100 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-primary-light/10 rounded-full -mr-10 -mt-10 paw-bg"/>
+      <div className="absolute bottom-0 left-0 w-24 h-24 bg-primary-light/5 rounded-full -ml-8 -mb-8"/>
+      
+      <div className="flex-1 mb-6 md:mb-0 relative z-10">
+        <h1 className="text-2xl font-bold text-gradient bg-coral-gradient mb-2">Welcome to Anima Unity</h1>
+        <h2 className="text-lg font-medium text-accent-black mb-2">Healthcare Help Center</h2>
+        <p className="text-accent-gray mt-1 mb-5 max-w-lg">Find answers to all your questions about our platform and get the support you need to succeed.</p>
+        <button className="bg-coral-gradient text-white px-6 py-2.5 rounded-xl text-sm font-medium hover:shadow-button-hover transition-all duration-300 button-shadow flex items-center">
+          <Zap className="w-4 h-4 mr-2" />
+          Get Started
+        </button>
+      </div>
+      <div className="flex-shrink-0 md:pl-4 w-full md:w-auto relative z-10">
+        <Image 
+          src="/img/banner.png" 
+          alt="Support illustration" 
+          width={220} 
+          height={110}
+          className="object-contain mx-auto md:mx-0 animate-pulse-gentle"
+          style={{ 
+            maxWidth: '100%',
+            height: 'auto'
+          }}
+        />
+      </div>
+    </div>
+
+    {/* Need Help Section - Enhanced */}
+    <div className="mb-10">
+      <h2 className="text-lg font-semibold text-accent-black mb-2">Need help? We&apos;ve got your back</h2>
+      <p className="text-accent-gray text-sm mb-6">Select from these popular help categories</p>
+      
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {supportOptions.slice(0, 4).map((option, index) => (
+          <Link key={index} href={option.link}>
+            <div className="bg-white rounded-2xl p-5 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col items-center text-center h-full border border-slate-100 group hover:-translate-y-1">
+              <div className={`${option.bgColor} bg-opacity-10 p-3.5 rounded-xl mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`text-primary-coral`}>
+                  {option.icon}
                 </div>
               </div>
+              <h3 className="font-medium text-sm text-accent-black mb-2">{option.title}</h3>
+              <p className="text-xs text-accent-gray line-clamp-2">
+                {option.description}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+      
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+        {supportOptions.slice(4, 8).map((option, index) => (
+          <Link key={index} href={option.link}>
+            <div className="bg-white rounded-2xl p-5 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col items-center text-center h-full border border-slate-100 group hover:-translate-y-1">
+              <div className={`${option.bgColor} bg-opacity-10 p-3.5 rounded-xl mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`text-primary-coral`}>
+                  {option.icon}
+                </div>
+              </div>
+              <h3 className="font-medium text-sm text-accent-black mb-2">{option.title}</h3>
+              <p className="text-xs text-accent-gray line-clamp-2">
+                {option.description}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+
+    {/* FAQ Section - Enhanced */}
+    <div className="mb-10">
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h2 className="text-lg font-semibold text-accent-black">Frequently Asked Questions</h2>
+          <p className="text-accent-gray text-sm">Quick answers to common questions</p>
+        </div>
+        <Link href="/faqs">
+          <span className="text-primary-coral text-sm font-medium flex items-center hover:underline">
+            View all FAQs
+            <ChevronRight className="w-4 h-4 ml-1" />
+          </span>
+        </Link>
+      </div>
+      
+      {filteredFAQs.map((category, index) => (
+        <div key={index} className="mb-6">
+          <h3 className="flex items-center text-md font-medium text-accent-black mb-3 bg-feature-lightPink/30 p-2 pl-3 rounded-lg">
+            <span className="mr-2 text-primary-coral">{category.icon}</span>
+            {category.title}
+          </h3>
+          <div className="space-y-2.5">
+            {category.questions.map((q) => (
+              <Link key={q.id} href={q.link}>
+                <div className="bg-white p-4 rounded-xl shadow-card hover:shadow-card-hover transition-all duration-300 border border-slate-100 hover:-translate-y-0.5">
+                  <div className="flex items-center">
+                    <div className="flex-1">
+                      <p className="text-sm text-accent-black font-medium">{q.question}</p>
+                    </div>
+                    <div className="bg-feature-lightPink/50 p-1.5 rounded-lg group-hover:bg-primary-coral/10 transition-colors">
+                      <ArrowRight className="w-4 h-4 text-primary-coral" />
+                    </div>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
-
-          {/* Other ways to reach us */}
-          <div className="flex justify-end mb-4">
-            <div className="text-xs text-gray-500">Other ways to find help:</div>
-            <div className="flex ml-2">
-              <button className="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center mr-1 transition-colors">
-                <MessagesSquare className="w-3 h-3 text-gray-600" />
-              </button>
-              <button className="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center mr-1 transition-colors">
-                <MessageSquare className="w-3 h-3 text-gray-600" />
-              </button>
-              <button className="w-6 h-6 rounded-full bg-primary flex items-center justify-center hover:bg-primary/90 transition-colors">
-                <Video className="w-3 h-3 text-white" />
-              </button>
-            </div>
-          </div>
         </div>
+      ))}
+    </div>
+
+    {/* Contact Methods - Enhanced */}
+    <div className="bg-white rounded-2xl p-5 shadow-card border border-slate-100 mb-6">
+      <h3 className="text-md font-medium text-accent-black mb-4">Other ways to find help</h3>
+      <div className="flex flex-wrap gap-3">
+        <button className="flex items-center px-4 py-2.5 rounded-xl bg-feature-lightPink hover:bg-primary-light/20 transition-colors text-sm text-primary-coral font-medium">
+          <MessagesSquare className="w-4 h-4 mr-2" />
+          Live Chat
+        </button>
+        <button className="flex items-center px-4 py-2.5 rounded-xl bg-feature-lightPink hover:bg-primary-light/20 transition-colors text-sm text-primary-coral font-medium">
+          <Mail className="w-4 h-4 mr-2" />
+          Email Support
+        </button>
+        <button className="flex items-center px-4 py-2.5 rounded-xl bg-coral-gradient hover:shadow-button-hover transition-all text-sm text-white font-medium button-shadow">
+          <Video className="w-4 h-4 mr-2" />
+          Video Support
+        </button>
       </div>
+    </div>
+    
+    {/* Footer */}
+    <div className="flex justify-between items-center py-4 text-xs text-accent-gray border-t border-slate-200">
+      <div>© 2025 Anima Unity Healthcare. All rights reserved.</div>
+      <div className="flex space-x-4">
+        <Link href="/privacy">Privacy Policy</Link>
+        <Link href="/terms">Terms of Service</Link>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
   );
 }
