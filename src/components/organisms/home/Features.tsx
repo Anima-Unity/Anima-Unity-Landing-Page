@@ -107,18 +107,18 @@ export default function Features() {
         { text: "Emergency Aid", color: "coral" }
       ]
     },
-    {
-      icon: <FaPaw className="text-2xl text-amber-500" />,
-      title: "Pet Shop",
-      description: "One-stop shop for premium pet food, toys, accessories, and health products with fast delivery and exclusive discounts.",
-      path: "/features/pet-shop",
-      delay: "650",
-      badges: [
-        { text: "Premium Products", color: "amber" },
-        { text: "Fast Delivery", color: "amber" },
-        { text: "Member Discounts", color: "amber" }
-      ]
-    },
+{
+  icon: <FaPaw className="text-2xl text-amber-500" />,
+  title: "Pet Needs",
+  description: "All-in-one solution for your pet's daily essentials—food, grooming, wellness, and accessories—delivered to your door.",
+  path: "/features/pet-needs",
+  delay: "650",
+  badges: [
+    { text: "Daily Essentials", color: "amber" },
+    { text: "Healthy & Fresh", color: "amber" },
+    { text: "Easy Access", color: "amber" }
+  ]
+},
   ];
 
   // Badge color classes mapping

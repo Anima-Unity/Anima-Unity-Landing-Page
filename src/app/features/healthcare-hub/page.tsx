@@ -1,4 +1,4 @@
-import HealthcareHubTemplate from '@/app/components/templates/features/HealthcareHubTemplate'
+import HealthcareHubTemplate from '@/components/templates/features/HealthcareHubTemplate'
 export default function HealthcareHubPage() {
   return (
       <HealthcareHubTemplate/>

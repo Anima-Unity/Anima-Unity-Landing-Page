@@ -1,4 +1,4 @@
-import ShelterAdoptionTemplate from '@/app/components/templates/ShelterAdoptionTemplate'
+import ShelterAdoptionTemplate from '@/components/templates/ShelterAdoptionTemplate'
 
 export default function ShelterAdoptionPage() {
 

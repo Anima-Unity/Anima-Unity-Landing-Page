@@ -1,4 +1,4 @@
-import Blog from '@/app/components/organisms/Blog'
+import Blog from '@/components/organisms/Blog'
 
 export default function BlogTemplate() {
   return(

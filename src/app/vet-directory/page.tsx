@@ -1,4 +1,4 @@
-import VetDirectoryTemplate from '@/app/components/templates/VetDirectoryTemplate'
+import VetDirectoryTemplate from '@/components/templates/VetDirectoryTemplate'
 
 
 // Main component

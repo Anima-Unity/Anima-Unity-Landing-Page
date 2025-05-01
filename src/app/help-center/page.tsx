@@ -1,4 +1,4 @@
-import HelpCenterTemplate from '@/app/components/templates/HelpCenterTemplate'
+import HelpCenterTemplate from '@/components/templates/HelpCenterTemplate'
 export default function HelpCenterPage() {
 
   return (

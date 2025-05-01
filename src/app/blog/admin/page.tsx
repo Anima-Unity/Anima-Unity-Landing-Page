@@ -1,4 +1,4 @@
-import AdminBlogTemplate from '@/app/components/templates/AdminBlogTemplate'
+import AdminBlogTemplate from '@/components/templates/AdminBlogTemplate'
 
 export default function BlogAdminDashboard() {
 

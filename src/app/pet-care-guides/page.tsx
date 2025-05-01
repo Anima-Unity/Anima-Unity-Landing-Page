@@ -1,4 +1,4 @@
-import PetCareGuideTemplate from '@/app/components/templates/PetCareGuideTemplate'
+import PetCareGuideTemplate from '@/components/templates/PetCareGuideTemplate'
 
 export default function PetCareGuidesPage() {
   

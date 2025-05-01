@@ -1,4 +1,4 @@
-import TermsOfServiceTemplate from '@/app/components/templates/TermsOfServiceTemplate'
+import TermsOfServiceTemplate from '@/components/templates/TermsOfServiceTemplate'
 
 export default function TermsOfServicePage() {
   return (

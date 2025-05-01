@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import './globals.css';
-import Navbar from '@/app/components/organisms/Navbar';
-import Footer from '@/app/components/organisms/Footer';
+import Navbar from '@/components/organisms/Navbar';
+import Footer from '@/components/organisms/Footer';
 import AOSInitializer from '@/lib/AOSInitializer';
 
 

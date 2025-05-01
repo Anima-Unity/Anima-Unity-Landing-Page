@@ -2,19 +2,19 @@
 
 import React, { useState, useEffect } from 'react';
 import { StatsData, LeadsSummary } from '@/types/dashboard';
-import { Sidebar } from '@/app/components/organisms/admin/Sidebar';
-import { Header } from '@/app/components/organisms/admin/Header';
-import { StatsSection } from '@/app/components/organisms/admin/main/dashboard/StatsSection';
-import { ReaderScoreCard } from '@/app/components/organisms/admin/main/dashboard/ReaderScoreCard';
-import { TrafficOverviewCard } from '@/app/components/organisms/admin/main/dashboard/TrafficOverviewCard';
-import { LeadsSection } from '@/app/components/organisms/admin/main/dashboard/LeadsSection';
+import { Sidebar } from '@/components/organisms/admin/Sidebar';
+import { Header } from '@/components/organisms/admin/Header';
+import { StatsSection } from '@/components/organisms/admin/main/dashboard/StatsSection';
+import { ReaderScoreCard } from '@/components/organisms/admin/main/dashboard/ReaderScoreCard';
+import { TrafficOverviewCard } from '@/components/organisms/admin/main/dashboard/TrafficOverviewCard';
+import { LeadsSection } from '@/components/organisms/admin/main/dashboard/LeadsSection';
 
 // Import komponen untuk halaman lain
-import { PostsContent } from '@/app/components/organisms/admin/main/posts/PostContent';
-import { ReadersContent } from '@/app/components/organisms/admin/main/readers/ReadersContent';
-import { CommentsContent } from '@/app/components/organisms/admin/main/comments/CommentContent';
-import { AnalyticsContent } from '@/app/components/organisms/admin/main/analytics/AnalyticsContent';
-import { SettingsContent } from '@/app/components/organisms/admin/main/settings/SettingsContent';
+import { PostsContent } from '@/components/organisms/admin/main/posts/PostContent';
+import { ReadersContent } from '@/components/organisms/admin/main/readers/ReadersContent';
+import { CommentsContent } from '@/components/organisms/admin/main/comments/CommentContent';
+import { AnalyticsContent } from '@/components/organisms/admin/main/analytics/AnalyticsContent';
+import { SettingsContent } from '@/components/organisms/admin/main/settings/SettingsContent';
 
 export default function AdminBlogTemplate(): React.ReactElement {
   // State untuk sidebar

@@ -573,7 +573,7 @@ export default function PawHelpDetail() {
         <Card className="text-center h-full border-none rounded-2xl bg-card-gradient shadow-card hover:shadow-card-hover overflow-hidden">
           <CardContent className="pt-8 pb-6 px-6">
             <div className="w-16 h-16 bg-primary-coral rounded-full flex items-center justify-center mx-auto mb-6 shadow-button">
-              <i className="fas fa-paw text-white text-2xl"></i>
+              <PawPrint size={28} className="text-white" />
             </div>
             <motion.div
               initial="hidden"
@@ -594,7 +594,7 @@ export default function PawHelpDetail() {
         <Card className="text-center h-full border-none rounded-2xl bg-card-gradient shadow-card hover:shadow-card-hover overflow-hidden">
           <CardContent className="pt-8 pb-6 px-6">
             <div className="w-16 h-16 bg-accent-blue rounded-full flex items-center justify-center mx-auto mb-6 shadow-button">
-              <i className="fas fa-home text-white text-2xl"></i>
+              <Home size={28} className="text-white" />
             </div>
             <motion.div
               initial="hidden"
@@ -615,7 +615,7 @@ export default function PawHelpDetail() {
         <Card className="text-center h-full border-none rounded-2xl bg-card-gradient shadow-card hover:shadow-card-hover overflow-hidden">
           <CardContent className="pt-8 pb-6 px-6">
             <div className="w-16 h-16 bg-accent-green rounded-full flex items-center justify-center mx-auto mb-6 shadow-button">
-              <i className="fas fa-heartbeat text-white text-2xl"></i>
+              <Heart size={28} className="text-white" />
             </div>
             <motion.div
               initial="hidden"
@@ -636,7 +636,7 @@ export default function PawHelpDetail() {
         <Card className="text-center h-full border-none rounded-2xl bg-card-gradient shadow-card hover:shadow-card-hover overflow-hidden">
           <CardContent className="pt-8 pb-6 px-6">
             <div className="w-16 h-16 bg-warning rounded-full flex items-center justify-center mx-auto mb-6 shadow-button">
-              <i className="fas fa-users text-white text-2xl"></i>
+              <Users size={28} className="text-white" />
             </div>
             <motion.div
               initial="hidden"
@@ -662,7 +662,7 @@ export default function PawHelpDetail() {
     >
       <Button className="btn-primary px-8 py-6 text-lg rounded-full">
         Join Our Mission
-        <i className="fas fa-arrow-right ml-2"></i>
+        <ArrowRight className="ml-2 w-5 h-5" />
       </Button>
     </motion.div>
   </div>
