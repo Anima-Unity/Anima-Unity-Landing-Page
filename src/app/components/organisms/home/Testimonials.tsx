@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
 
 interface TestimonialProps {
   avatar: string;
@@ -110,9 +111,12 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
           <div className="mb-6 md:mb-0">
-            <p className="text-sm uppercase font-semibold tracking-wider text-primary-coral mb-2">
-              WHAT PET LOVERS SAY
-            </p>
+            <Badge 
+        variant="outline" 
+        className="px-4 py-1 mb-4 text-sm font-medium bg-primary-coral/10 text-primary-coral border-primary-coral/20"
+      >
+        Pet lovers say
+      </Badge>
             <h2 className="text-4xl md:text-5xl font-bold">
               Our <span className="text-primary-gradient">Happy</span> Clients
             </h2>

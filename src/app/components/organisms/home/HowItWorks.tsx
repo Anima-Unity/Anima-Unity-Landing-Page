@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Badge } from "@/components/ui/badge";
 
 export default function HowItWorks() {
   const container = {
@@ -57,9 +58,8 @@ export default function HowItWorks() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-sm uppercase font-semibold tracking-wider text-primary-coral mb-2">
-            SIMPLE PROCESS
-          </p>
+          
+          <Badge variant="outline" className="px-4 py-1 mb-4 text-sm font-medium bg-primary-coral/10 text-primary-coral border-primary-coral/20" > Simple Process </Badge>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             How <span className="text-primary-gradient">Anima Unity</span> Works
           </h2>
