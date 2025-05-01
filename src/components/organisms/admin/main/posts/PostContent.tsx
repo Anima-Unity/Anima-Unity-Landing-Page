@@ -1,5 +1,5 @@
-import { PostListSection } from '@/app/components/organisms/admin/main/posts/PostListSection';
-import { FormSection } from '@/app/components/organisms/admin/main/posts/FormSection';
+import { PostListSection } from '@/components/organisms/admin/main/posts/PostListSection';
+import { FormSection } from '@/components/organisms/admin/main/posts/FormSection';
 
 export function PostsContent(): React.ReactElement {
 

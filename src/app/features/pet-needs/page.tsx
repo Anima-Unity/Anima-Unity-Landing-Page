@@ -1,7 +1,7 @@
 // src/app/pet-needs/page.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { 
   Heart, 
@@ -59,7 +59,7 @@ const PetNeedsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedAnimal, setSelectedAnimal] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState("");
-  const [cartItems, setCartItems] = useState<number>(0);
+  const [cartItems] = useState<number>(0);
 
   // Animation variants
   const containerVariants = {
@@ -184,12 +184,6 @@ const PetNeedsPage = () => {
     return matchesCategory && matchesAnimal && matchesSearch;
   });
 
-  // Add to cart function
-  const addToCart = (productId: number) => {
-    setCartItems(prevItems => prevItems + 1);
-    // Here you would normally update your cart state or call an API
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-feature-lightPink">
       {/* Hero Section */}
@@ -215,7 +209,7 @@ const PetNeedsPage = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              All-in-one solution for your pet's daily essentials—food, vitamins, toys, and cages—delivered to your door. Supporting responsible pet ownership.
+              All-in-one solution for your pet&apos;s daily essentials—food, vitamins, toys, and cages—delivered to your door. Supporting responsible pet ownership.
             </motion.p>
           </div>
           
@@ -362,7 +356,6 @@ const PetNeedsPage = () => {
                             </div>
                             <Button 
                               className="bg-primary-coral text-white hover:bg-primary-light shadow-button hover:shadow-button-hover"
-                              onClick={() => addToCart(product.id)}
                             >
                               Add to Cart
                             </Button>
