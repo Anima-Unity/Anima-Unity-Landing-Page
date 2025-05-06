@@ -568,29 +568,13 @@ export default function AboutPage() {
     >
       {[
         {
-          name: "Dr. Sarah Chen",
-          role: "CEO & Co-Founder",
-          bio: "Veterinarian with over 15 years of experience in animal welfare technology and shelter management.",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRPuGhd3-L-pArUfUWNiUN7vT-SN59tW0x-6OhZzUs-LwxwmdEg3OypsuC&s=10",
-          color: "primary-coral",
-          icon: "fa-stethoscope"
-        },
-        {
           name: "Akhmad Fauzi",
-          role: "CTO & Co-Founder",
-          bio: "Former tech lead at major AI companies, focused on applying machine learning to animal health and welfare solutions.",
+          role: "Founder & CEO",
+          bio: "Self-taught software engineer and animal welfare advocate, building tech-driven solutions to improve the lives of animals and their human companions. Currently leading the vision, design, and development of the Anima Unity ecosystem.",
           image: "https://pbs.twimg.com/profile_images/1802338165715501056/elc0TeBu_400x400.jpg",
           color: "accent-blue",
           icon: "fa-laptop-code"
         },
-        {
-          name: "Dr. Aisha Patel",
-          role: "Chief Veterinary Officer",
-          bio: "Specialist in shelter medicine with a passion for accessible veterinary care and preventative health technologies.",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJyxwndTgGTDzb49gT5G5w17SnBQW2iSgk0A&usqp=CAU",
-          color: "accent-green",
-          icon: "fa-heartbeat"
-        }
       ].map((member, index) => (
         <motion.div 
           key={index} 
